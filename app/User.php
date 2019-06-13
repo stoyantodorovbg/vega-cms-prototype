@@ -2,10 +2,16 @@
 
 namespace App;
 
+use App\Models\Group;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * Class User
+ * @package App
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -36,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The groups of the user
+     *
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }

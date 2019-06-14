@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Route extends Model
 {
     /**
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * The groups of the user
      *
      * @return BelongsToMany

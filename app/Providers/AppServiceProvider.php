@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\RouteService;
+use App\Repositories\RouteRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Interfaces\RouteServiceInterface;
+use App\Repositories\Interfaces\RouteRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(RouteServiceInterface::class, RouteService::class);
+
+        $this->app->bind(RouteRepositoryInterface::class, RouteRepository::class);
     }
 
     /**

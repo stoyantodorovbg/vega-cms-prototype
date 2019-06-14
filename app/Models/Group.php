@@ -17,4 +17,14 @@ class Group extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * The groups of the user
+     *
+     * @return BelongsToMany
+     */
+    public function routes(): BelongsToMany
+    {
+        return $this->belongsToMany(Route::class);
+    }
 }

@@ -26,7 +26,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function the_user_has_an_unique_email()
+    public function the_user_has_an_unique_email(): void
     {
         $user = factory(User::class)->create();
 
@@ -38,7 +38,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function the_user_requires_a_password()
+    public function the_user_requires_a_password(): void
     {
         $this->expectException('Illuminate\Database\QueryException');
 
@@ -48,7 +48,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function the_user_requires_a_email()
+    public function the_user_requires_a_email(): void
     {
         $this->expectException('Illuminate\Database\QueryException');
 
@@ -58,7 +58,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function the_user_requires_a_name()
+    public function the_user_requires_a_name(): void
     {
         $this->expectException('Illuminate\Database\QueryException');
 

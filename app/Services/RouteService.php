@@ -16,9 +16,9 @@ class RouteService implements RouteServiceInterface
     public function validateRouteProperties(array $data)
     {
         $validator = Validator::make($data, [
-            'url' => ['required', 'unique:routes,url'],
-            'method' => ['required', 'unique:routes,method'],
-            'name' => ['required', 'unique:routes,name'],
+            'url' => ['required', 'unique:routes,url', 'regex:/^\/[A-Za-z1-9-_\/{}]*$/'],
+            'method' => ['required', 'unique:routes,method', 'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/'],
+            'name' => ['required', 'unique:routes,name', 'regex:/^[A-Za-z.\-_1-9]*$/'],
         ]);
 
         if($validator->fails()) {

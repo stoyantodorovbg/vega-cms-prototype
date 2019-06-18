@@ -10,5 +10,5 @@ interface RouteServiceInterface
      * @param array $data
      * @return mixed
      */
-    public function validateRouteProperties(array $data);
+    public function create(array $data);
 }

@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Interfaces\RouteInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Route extends Model
+class Route extends Model implements RouteInterface
 {
     /**
      * @var array

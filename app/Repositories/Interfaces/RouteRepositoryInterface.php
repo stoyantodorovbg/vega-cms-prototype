@@ -7,8 +7,9 @@ interface RouteRepositoryInterface
     /**
      * Create a route if its properties are unique
      *
-     * @param array $data
+     * @param $routeData
+     * @param $validationData
      * @return mixed
      */
-    public function create(array $data);
+    public function create($routeData, $validationData);
 }

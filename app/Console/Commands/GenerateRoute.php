@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Route;
-use App\Repositories\Interfaces\RouteRepositoryInterface;
 use Illuminate\Console\Command;
+use App\Services\Interfaces\RouteServiceInterface;
 
 class GenerateRoute extends Command
 {
@@ -13,7 +12,7 @@ class GenerateRoute extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:route {url} {method} {name}';
+    protected $signature = 'generate:route {url} {method} {action} {name} {type=web}';
 
     /**
      * The console command description.
@@ -22,19 +21,19 @@ class GenerateRoute extends Command
      */
     protected $description = 'Generate a route';
     /**
-     * @var RouteRepositoryInterface
+     * @var RouteServiceInterface
      */
-    private $routeRepository;
+    private $routeService;
 
     /**
      * Create a new command instance.
      *
-     * @param RouteRepositoryInterface $routeRepository
+     * @param RouteServiceInterface $routeService
      */
-    public function __construct(RouteRepositoryInterface $routeRepository)
+    public function __construct(RouteServiceInterface $routeService)
     {
         parent::__construct();
-        $this->routeRepository = $routeRepository;
+        $this->routeService = $routeService;
     }
 
     /**
@@ -47,7 +46,7 @@ class GenerateRoute extends Command
         $data = $this->arguments();
         unset($data['command']);
 
-        $validationData = $this->routeRepository->create($data);
+        $validationData = $this->routeService->create($data);
 
         if($validationData === true) {
             $this->line('The route is generated successfully.');

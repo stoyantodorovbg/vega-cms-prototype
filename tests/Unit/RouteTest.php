@@ -38,14 +38,14 @@ class RouteTest extends TestCase
     }
 
     /** @test */
-    public function the_route_has_an_unique_method(): void
+    public function the_route_has_an_unique_action(): void
     {
         $route = factory(Route::class)->create();
 
         $this->expectException('Illuminate\Database\QueryException');
 
         factory(Route::class)->create([
-            'method' => $route->method,
+            'action' => $route->action,
         ]);
     }
 

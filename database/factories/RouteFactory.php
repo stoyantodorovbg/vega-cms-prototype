@@ -10,7 +10,8 @@ $factory->define(Route::class, function (Faker $faker) {
 
     return [
         'url' => '/' . $routePrefix . '/' . $routeSuffix = $faker->unique()->word,
-        'method' => ucfirst($faker->unique()->word) . 'Controller@' . $method = $faker->unique()->word,
+        'method' => 'get',
+        'action' => ucfirst($faker->unique()->word) . 'Controller@' . $method = $faker->unique()->word,
         'name' => $routePrefix . '-' . $routeSuffix . '.' . $method,
     ];
 });

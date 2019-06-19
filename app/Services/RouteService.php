@@ -2,26 +2,26 @@
 
 namespace App\Services;
 
+use App\Models\Route;
 use App\Models\Interfaces\RouteInterface;
-use App\Repositories\Interfaces\RouteRepositoryInterface;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
 use App\Services\Interfaces\RouteServiceInterface;
+use App\Services\Interfaces\ValidationServiceInterface;
 
 class RouteService implements RouteServiceInterface
 {
     /**
-     * @var RouteRepositoryInterface
+     * @var ValidationServiceInterface
      */
-    private $routeRepository;
+    protected $validationService;
 
     /**
      * RouteService constructor.
-     * @param RouteRepositoryInterface $routeRepository
+     * @param ValidationServiceInterface $validationService
      */
-    public function __construct(RouteRepositoryInterface $routeRepository)
-    {
-        $this->routeRepository = $routeRepository;
+    public function __construct(
+        ValidationServiceInterface $validationService
+    ) {
+        $this->validationService = $validationService;
     }
 
     /**
@@ -32,9 +32,12 @@ class RouteService implements RouteServiceInterface
      */
     public function create(array $data)
     {
-        $validatedData = $this->validateRouteProperties($data);
+        $validatedData = $this->validationService->validateRouteProperties($data);
 
-        if (($route = $this->routeRepository->create($data, $validatedData)) && $this->writeRoute($route)) {
+        if ($validatedData === true &&
+            ($route = Route::create($data)) &&
+            $this->writeRoute($route)
+        ) {
             return true;
         }
 
@@ -42,26 +45,22 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
-     * Check if the route properties are unique
+     * destroy route
      *
      * @param array $data
-     * @return mixed
+     * @return array|bool|mixed
      */
-    public function validateRouteProperties(array $data)
+    public function destroy(array $data)
     {
-        $validator = Validator::make($data, [
-            'url' => ['required', 'unique:routes,url', 'regex:/^\/[A-Za-z1-9-_\/{}]*$/'],
-            'method' => ['required', 'regex:/^(get|post|patch|put|delete)$/'],
-            'action' => ['required', 'unique:routes,action', 'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/'],
-            'name' => ['required', 'unique:routes,name', 'regex:/^[A-Za-z.\-_1-9]*$/'],
-            'type' => ['required', 'regex:/^(web|admin|page|api)$/'],
-        ]);
+        $validatedData = $this->validationService->validateRouteName($data);
 
-        if($validator->fails()) {
-            return $validator->errors()->all();
+        if ($validatedData === true) {
+            $route = Route::where('name', $data['name'])->first();
+            $this->eraseRoute($route);
+            $route->delete();
         }
 
-        return true;
+        return $validatedData;
     }
 
     /**
@@ -72,7 +71,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function writeRoute(RouteInterface $route): bool
     {
-        if (! $this->checkForExistingRoute($this->getRouteFile($route->type), $route)) {
+        if (! $this->checkForExistingRoute($this->getRoutes($route->type), $route)) {
             file_put_contents($this->getRoutePath($route->type), $this->createRouteString($route), FILE_APPEND);
 
             return true;
@@ -96,7 +95,6 @@ class RouteService implements RouteServiceInterface
 
                 foreach($rowArray as $item) {
                     if($item === $route->url || $item === $route->method || $item === $route->name) {
-                        dd([$item , $route->url, $route->method, $route->name, $rowArray]);
                         return true;
                     }
                 }
@@ -107,12 +105,39 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
-     * Get the required route file
+     * Erase a route from the route file if it exists
+     *
+     * @param RouteInterface $route
+     * @return void
+     */
+    protected function eraseRoute(RouteInterface $route): void
+    {
+        $routesArray = $this->getRoutes($route->type);
+
+        if($routesArray) {
+            foreach ($routesArray as $key => $routeLine) {
+                if(strpos($routeLine, $route->name) !== false) {
+                    break;
+                }
+            }
+
+            unset($routesArray[$key]);
+
+            file_put_contents($this->getRoutePath($route->type), '');
+
+            foreach ($routesArray as $line) {
+                file_put_contents($this->getRoutePath($route->type), "$line\n", FILE_APPEND);
+            }
+        }
+    }
+
+    /**
+     * Get the routes from the required route file
      *
      * @param string $routeType
      * @return array
      */
-    protected function getRouteFile(string $routeType): array
+    protected function getRoutes(string $routeType): array
     {
         return file($this->getRoutePath($routeType), FILE_IGNORE_NEW_LINES);
     }

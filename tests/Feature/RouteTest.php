@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Route;
 use Tests\TestCase;
+use App\Models\Route;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,6 +21,8 @@ class RouteTest extends TestCase
             'action' => 'TestController@test',
             'name' => 'test.test',
         ]);
+
+        $this->artisan('destroy:route test.test');
     }
 
     /** @test */
@@ -32,6 +34,8 @@ class RouteTest extends TestCase
         $this->assertCount(1, Route::where('url', '/test')->get());
         $this->assertCount(1, Route::where('action', 'TestController@test')->get());
         $this->assertCount(1, Route::where('name', 'test.test')->get());
+
+        $this->artisan('destroy:route test.test');
     }
 
     /** @test */
@@ -45,6 +49,8 @@ class RouteTest extends TestCase
             ->expectsOutput('The url has already been taken.')
             ->expectsOutput('The action has already been taken.')
             ->expectsOutput('The name has already been taken.');
+
+        $this->artisan('destroy:route test.test');
     }
 
     /** @test */
@@ -73,6 +79,8 @@ class RouteTest extends TestCase
             'action' => 'TestController@test3',
             'name' => 'test.test3',
         ]);
+
+        $this->artisan('destroy:route test.test3');
     }
 
     /** @test */
@@ -109,6 +117,8 @@ class RouteTest extends TestCase
             'action' => 'TestController@testMethod',
             'name' => 'test.test',
         ]);
+
+        $this->artisan('destroy:route test.test');
     }
 
     /** @test */
@@ -138,6 +148,8 @@ class RouteTest extends TestCase
             'name' => 'test.test-test',
         ]);
 
+        $this->artisan('destroy:route test.test-test');
+
         $this->artisan('generate:route /test/test/{test}3 get TestController@testTest3 test.test_test web');
 
         $this->assertDatabaseHas('routes', [
@@ -145,6 +157,8 @@ class RouteTest extends TestCase
             'action' => 'TestController@testTest3',
             'name' => 'test.test_test',
         ]);
+
+        $this->artisan('destroy:route test.test_test');
     }
 
     /** @test */
@@ -170,6 +184,8 @@ class RouteTest extends TestCase
             'name' => 'test.test',
         ]);
 
+        $this->artisan('destroy:route test.test');
+
         $this->artisan('generate:route /test2 post$ TestController@test2 test.test-test web')
             ->expectsOutput('The method format is invalid.');
 
@@ -189,6 +205,8 @@ class RouteTest extends TestCase
             'action' => 'TestController@test2',
             'name' => 'test.test-test',
         ]);
+
+        $this->artisan('destroy:route test.test-test');
 
         $this->artisan('generate:route /test3 patch$ TestController@test3 test.test-test-test web')
             ->expectsOutput('The method format is invalid.');
@@ -210,6 +228,8 @@ class RouteTest extends TestCase
             'name' => 'test.test-test-test',
         ]);
 
+        $this->artisan('destroy:route test.test-test-test');
+
         $this->artisan('generate:route /test4 put+ TestController@test4 test.test-_ web')
             ->expectsOutput('The method format is invalid.');
 
@@ -230,6 +250,8 @@ class RouteTest extends TestCase
             'name' => 'test.test-_',
         ]);
 
+        $this->artisan('destroy:route test.test-_');
+
         $this->artisan('generate:route /test5 deleteu TestController@test5 test.test5 web')
             ->expectsOutput('The method format is invalid.');
 
@@ -249,6 +271,8 @@ class RouteTest extends TestCase
             'action' => 'TestController@test5',
             'name' => 'test.test5',
         ]);
+
+        $this->artisan('destroy:route test.test5');
     }
 
     /** @test */
@@ -277,6 +301,8 @@ class RouteTest extends TestCase
             'type' => 'web',
         ]);
 
+        $this->artisan('destroy:route test.test');
+
         $this->artisan('generate:route /test2 get TestController@test2 test.test2 admin%')
             ->expectsOutput('The type format is invalid.');
 
@@ -299,6 +325,8 @@ class RouteTest extends TestCase
             'name' => 'test.test2',
             'type' => 'admin',
         ]);
+
+        $this->artisan('destroy:route test.test2');
 
         $this->artisan('generate:route /test3 get TestController@test3 test.test3 page?')
             ->expectsOutput('The type format is invalid.');
@@ -323,6 +351,8 @@ class RouteTest extends TestCase
             'type' => 'page',
         ]);
 
+        $this->artisan('destroy:route test.test3');
+
         $this->artisan('generate:route /test4 get TestController@test4 test.test4 api:')
             ->expectsOutput('The type format is invalid.');
 
@@ -345,5 +375,66 @@ class RouteTest extends TestCase
             'name' => 'test.test4',
             'type' => 'api',
         ]);
+
+        $this->artisan('destroy:route test.test4');
+    }
+
+    /** @test */
+    public function the_route_can_be_deleted(): void
+    {
+        $this->artisan('generate:route /test get TestController@test test.test web');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+        ]);
+
+        $this->artisan('destroy:route test.test');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+        ]);
+
+    }
+
+    /** @test */
+    public function the_destroy_route_command_returns_appropriate_message_when_the_route_is_deleted(): void
+    {
+        $this->artisan('generate:route /test get TestController@test test.test web');
+
+        $this->artisan('destroy:route test.test')
+            ->expectsOutput('The route is destroyed.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+        ]);
+    }
+
+    /** @test */
+    public function the_route_name_from_destroy_route_command_is_validated(): void
+    {
+        $this->artisan('generate:route /test get TestController@test test.test web');
+
+        $this->artisan('destroy:route test.test~')
+            ->expectsOutput('Validation failed:')
+            ->expectsOutput('The selected name is invalid.')
+            ->expectsOutput('The name format is invalid.');
+
+        $this->artisan('destroy:route test.test1')
+            ->expectsOutput('Validation failed:')
+            ->expectsOutput('The selected name is invalid.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+        ]);
+
+        $this->artisan('destroy:route test.test');
     }
 }

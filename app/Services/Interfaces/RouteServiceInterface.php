@@ -5,10 +5,18 @@ namespace App\Services\Interfaces;
 interface RouteServiceInterface
 {
     /**
-     * Check if the route properties are unique
+     * Create a route
      *
      * @param array $data
      * @return mixed
      */
     public function create(array $data);
+
+    /**
+     * Destroy a route
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function destroy(array $data);
 }

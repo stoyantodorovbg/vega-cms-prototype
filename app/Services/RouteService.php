@@ -51,10 +51,10 @@ class RouteService implements RouteServiceInterface
     {
         $validator = Validator::make($data, [
             'url' => ['required', 'unique:routes,url', 'regex:/^\/[A-Za-z1-9-_\/{}]*$/'],
-            'method' => ['required', 'string'],
+            'method' => ['required', 'regex:/^(get|post|patch|put|delete)$/'],
             'action' => ['required', 'unique:routes,action', 'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/'],
             'name' => ['required', 'unique:routes,name', 'regex:/^[A-Za-z.\-_1-9]*$/'],
-            'type' => ['required', 'string'],
+            'type' => ['required', 'regex:/^(web|admin|page|api)$/'],
         ]);
 
         if($validator->fails()) {

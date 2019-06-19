@@ -112,7 +112,7 @@ class RouteTest extends TestCase
     }
 
     /** @test */
-    public function the_route_name_is_validated_for_appropriate_format1(): void
+    public function the_route_name_is_validated_for_appropriate_format(): void
     {
         $this->artisan('generate:route /test1 get TestController@test1 test.test% web');
 
@@ -144,6 +144,206 @@ class RouteTest extends TestCase
             'url' => '/test/test/{test}3',
             'action' => 'TestController@testTest3',
             'name' => 'test.test_test',
+        ]);
+    }
+
+    /** @test */
+    public function the_route_can_has_only_certain_methods(): void
+    {
+        $this->artisan('generate:route /test1 get1 TestController@test1 test.test web')
+            ->expectsOutput('The method format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test1',
+            'method' => 'get1',
+            'action' => 'TestController@test1',
+            'name' => 'test.test',
+        ]);
+
+        $this->artisan('generate:route /test1 get TestController@test1 test.test web')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test1',
+            'method' => 'get',
+            'action' => 'TestController@test1',
+            'name' => 'test.test',
+        ]);
+
+        $this->artisan('generate:route /test2 post$ TestController@test2 test.test-test web')
+            ->expectsOutput('The method format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test2',
+            'method' => 'post$',
+            'action' => 'TestController@test2',
+            'name' => 'test.test-test',
+        ]);
+
+        $this->artisan('generate:route /test2 post TestController@test2 test.test-test web')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test2',
+            'method' => 'post',
+            'action' => 'TestController@test2',
+            'name' => 'test.test-test',
+        ]);
+
+        $this->artisan('generate:route /test3 patch$ TestController@test3 test.test-test-test web')
+            ->expectsOutput('The method format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test3',
+            'method' => 'patch$',
+            'action' => 'TestController@test3',
+            'name' => 'test.test-test-test',
+        ]);
+
+        $this->artisan('generate:route /test3 patch TestController@test3 test.test-test-test web')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test3',
+            'method' => 'patch',
+            'action' => 'TestController@test3',
+            'name' => 'test.test-test-test',
+        ]);
+
+        $this->artisan('generate:route /test4 put+ TestController@test4 test.test-_ web')
+            ->expectsOutput('The method format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test4',
+            'method' => 'put+',
+            'action' => 'TestController@test4',
+            'name' => 'test.test-_',
+        ]);
+
+        $this->artisan('generate:route /test4 put TestController@test4 test.test-_ web')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test4',
+            'method' => 'put',
+            'action' => 'TestController@test4',
+            'name' => 'test.test-_',
+        ]);
+
+        $this->artisan('generate:route /test5 deleteu TestController@test5 test.test5 web')
+            ->expectsOutput('The method format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test5',
+            'method' => 'deleteu',
+            'action' => 'TestController@test5',
+            'name' => 'test.test5',
+        ]);
+
+        $this->artisan('generate:route /test5 delete TestController@test5 test.test5 web')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test5',
+            'method' => 'delete',
+            'action' => 'TestController@test5',
+            'name' => 'test.test5',
+        ]);
+    }
+
+    /** @test */
+    public function the_route_can_be_added_only_to_certain_route_files(): void
+    {
+        $this->artisan('generate:route /test1 get TestController@test1 test.test weba')
+            ->expectsOutput('The type format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test1',
+            'method' => 'get',
+            'action' => 'TestController@test1',
+            'name' => 'test.test',
+            'type' => 'weba',
+
+        ]);
+
+        $this->artisan('generate:route /test1 get TestController@test1 test.test web')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test1',
+            'method' => 'get',
+            'action' => 'TestController@test1',
+            'name' => 'test.test',
+            'type' => 'web',
+        ]);
+
+        $this->artisan('generate:route /test2 get TestController@test2 test.test2 admin%')
+            ->expectsOutput('The type format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test2',
+            'method' => 'get',
+            'action' => 'TestController@test2',
+            'name' => 'test.test2',
+            'type' => 'admin%',
+
+        ]);
+
+        $this->artisan('generate:route /test2 get TestController@test2 test.test2 admin')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test2',
+            'method' => 'get',
+            'action' => 'TestController@test2',
+            'name' => 'test.test2',
+            'type' => 'admin',
+        ]);
+
+        $this->artisan('generate:route /test3 get TestController@test3 test.test3 page?')
+            ->expectsOutput('The type format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test3',
+            'method' => 'get',
+            'action' => 'TestController@test3',
+            'name' => 'test.test3',
+            'type' => 'page?',
+
+        ]);
+
+        $this->artisan('generate:route /test3 get TestController@test3 test.test3 page')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test3',
+            'method' => 'get',
+            'action' => 'TestController@test3',
+            'name' => 'test.test3',
+            'type' => 'page',
+        ]);
+
+        $this->artisan('generate:route /test4 get TestController@test4 test.test4 api:')
+            ->expectsOutput('The type format is invalid.');
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test4',
+            'method' => 'get',
+            'action' => 'TestController@test4',
+            'name' => 'test.test4',
+            'type' => 'api:',
+
+        ]);
+
+        $this->artisan('generate:route /test4 get TestController@test4 test.test4 api')
+            ->expectsOutput('The route is generated successfully.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test4',
+            'method' => 'get',
+            'action' => 'TestController@test4',
+            'name' => 'test.test4',
+            'type' => 'api',
         ]);
     }
 }

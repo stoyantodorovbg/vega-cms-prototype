@@ -2,24 +2,24 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Services\Interfaces\RouteServiceInterface;
+use Illuminate\Console\Command;
 
-class GenerateRoute extends Command
+class SyncRoutes extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'generate:route {url} {method} {action} {name} {type=web}';
+    protected $signature = 'sync:routes';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate a route';
+    protected $description = 'Synchronize routes between route files and database';
 
     /**
      * @var RouteServiceInterface
@@ -44,18 +44,8 @@ class GenerateRoute extends Command
      */
     public function handle(): void
     {
-        $data = $this->arguments();
-        unset($data['command']);
-
-        $validationData = $this->routeService->create($data);
-
-        if($validationData === true) {
-            $this->line('The route is generated successfully.');
-        } else {
-            $this->line('Validation failed:');
-            foreach($validationData as $message) {
-                $this->line($message);
-            }
+        foreach ($this->routeService->synchronize() as $message) {
+            $this->line($message);
         }
     }
 }

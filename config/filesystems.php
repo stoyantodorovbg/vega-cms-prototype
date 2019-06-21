@@ -66,4 +66,10 @@ return [
 
     ],
 
+    'route_types' => [
+        'web',
+        'admin',
+        'page',
+        'api',
+    ]
 ];

@@ -45,10 +45,10 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
-     * destroy route
+     * Destroy route
      *
      * @param array $data
-     * @return array|bool|mixed
+     * @return array|bool
      */
     public function destroy(array $data)
     {
@@ -61,6 +61,22 @@ class RouteService implements RouteServiceInterface
         }
 
         return $validatedData;
+    }
+
+    /**
+     * Synchronize routes
+     *
+     * @return array
+     */
+    public function synchronize(): array
+    {
+        $feedback = [];
+
+        foreach (config('filesystems.route_types') as $type) {
+            $feedback[] = $this->synchronizeFile($type);
+        }
+
+        return $feedback;
     }
 
     /**
@@ -162,5 +178,120 @@ class RouteService implements RouteServiceInterface
     protected function createRouteString(RouteInterface $route): string
     {
         return "Route::$route->method('$route->url', '$route->action')->name('$route->name');\n";
+    }
+
+    /**
+     * Synchronize routes for a route file
+     *
+     * @param string $type
+     * @return array
+     */
+    protected function synchronizeFile(string $type): array
+    {
+        $routes = $this->getRoutes($type);
+
+        $feedback = [];
+
+        foreach ($routes as $route) {
+            $routeName = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
+
+            if(! Route::where('name', $routeName)->first()) {
+                $route = Route::create([
+                    'method' => $this->getRouteSubstr($route,'/[a-z]*\(/', '('),
+                    'url' => $this->getRouteSubstr($route, "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'/", "'"),
+                    'action' => $this->getRouteSubstr($route, "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z@0-9]+'/", "'"),
+                    'name' => $routeName,
+                    'type' => $type,
+                ]);
+
+                $feedback[] = $this->dbStoredRouteFeedback($route);
+            }
+        }
+
+        return $feedback;
+    }
+
+    /**
+     * Get a key part of the route string
+     *
+     * @param string $route
+     * @param string $regex
+     * @param string $delimiter
+     * @return bool|mixed
+     */
+    protected function getRouteSubstr(string $route, string $regex, string $delimiter)
+    {
+       preg_match($regex, $route, $result);
+
+        if(isset($result[0])) {
+            $routeArr = explode($delimiter, $result[0]);
+            array_pop($routeArr);
+
+            return end($routeArr);
+        }
+
+        return false;
+    }
+
+    protected function getRouteUrl(string $route)
+    {
+        preg_match("/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'/", $route, $result);
+
+        if(isset($result[0])) {
+            $routeArr = explode("'", $result[0]);
+            array_pop($routeArr);
+
+            return end($routeArr);
+        }
+
+        return false;
+    }
+
+    protected function getRouteAction(string $route)
+    {
+        preg_match("/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z@0-9]+'/", $route, $result);
+
+        if(isset($result[0])) {
+            $routeArr = explode("'", $result[0]);
+            array_pop($routeArr);
+
+            return end($routeArr);
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the name from the route string
+     *
+     * @param string $route
+     * @return bool|mixed
+     */
+    protected function getRouteName(string $route)
+    {
+        preg_match("/->name\('.+'/", $route, $result);
+
+        if(isset($result[0])) {
+            $routeArr = explode("'", $result[0]);
+            array_pop($routeArr);
+
+            return end($routeArr);
+        }
+
+        return false;
+    }
+
+    /**
+     * Create a feedback from stored in DB route
+     *
+     * @param Route $route
+     * @return string
+     */
+    protected function dbStoredRouteFeedback(Route $route): string
+    {
+        return 'A route with name ' . $route->name .
+            ', url ' . $route->url .
+            ', action ' . $route->action .
+            ' is stored in DB.';
     }
 }

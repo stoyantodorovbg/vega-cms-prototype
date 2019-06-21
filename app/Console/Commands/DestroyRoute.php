@@ -19,11 +19,12 @@ class DestroyRoute extends Command
      *
      * @var string
      */
-    protected $description = 'Remove a route from the file system and data base.';
+    protected $description = 'Remove a route from the php file and database.';
+
     /**
      * @var RouteServiceInterface
      */
-    private $routeService;
+    protected $routeService;
 
     /**
      * Create a new command instance.
@@ -39,9 +40,9 @@ class DestroyRoute extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $data = $this->arguments();
         unset($data['command']);

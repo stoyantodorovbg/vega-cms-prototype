@@ -19,4 +19,11 @@ interface RouteServiceInterface
      * @return mixed
      */
     public function destroy(array $data);
+
+    /**
+     * Synchronize routes
+     *
+     * @return array
+     */
+    public function synchronize(): array;
 }

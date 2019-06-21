@@ -437,4 +437,40 @@ class RouteTest extends TestCase
 
         $this->artisan('destroy:route test.test');
     }
+
+    /** @test */
+    public function sync_route_command_add_the_missing_in_db_routes_from_the_files(): void
+    {
+        $this->artisan('generate:route /test get TestController@test test.test web');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test',
+            'method' => 'get',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+            'type' => 'web',
+        ]);
+
+        $route = Route::where('name', 'test.test')->first();
+        $route->delete();
+
+        $this->assertDatabaseMissing('routes', [
+            'url' => '/test',
+            'method' => 'get',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+            'type' => 'web',
+        ]);
+
+        $this->artisan('sync:routes')
+            ->expectsOutput('A route with name test.test, url /test, action TestController@test is stored in DB.');
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test',
+            'method' => 'get',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+            'type' => 'web',
+        ]);
+    }
 }

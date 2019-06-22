@@ -72,8 +72,9 @@ class RouteService implements RouteServiceInterface
     {
         $feedback = [];
 
-        foreach (config('filesystems.route_types') as $type) {
-            $feedback[] = $this->synchronizeFile($type);
+        foreach (config('filesystems.route_types') as $routeType) {
+            $feedback[] = $this->synchronizeDBRoutes($routeType);
+            $feedback[] = $this->synchronizeFile($routeType);
         }
 
         return $feedback;
@@ -183,28 +184,45 @@ class RouteService implements RouteServiceInterface
     /**
      * Synchronize routes for a route file
      *
-     * @param string $type
+     * @param string $routeType
      * @return array
      */
-    protected function synchronizeFile(string $type): array
+    protected function synchronizeFile(string $routeType): array
     {
-        $routes = $this->getRoutes($type);
+        $routes = $this->getRoutes($routeType);
 
         $feedback = [];
 
         foreach ($routes as $route) {
             $routeName = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
 
-            if(! Route::where('name', $routeName)->first()) {
+            if($routeName &&
+                ($method = $this->getRouteSubstr(
+                    $route,
+                    '/[a-z]*\(/',
+                    '('
+                )) &&
+                ($url = $this->getRouteSubstr(
+                    $route,
+                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'/",
+                    "'"
+                )) &&
+                ($action = $this->getRouteSubstr(
+                    $route,
+                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z@0-9]+'/",
+                    "'"
+                )) &&
+                ! Route::where('name', $routeName)->first()
+            ) {
                 $route = Route::create([
-                    'method' => $this->getRouteSubstr($route,'/[a-z]*\(/', '('),
-                    'url' => $this->getRouteSubstr($route, "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'/", "'"),
-                    'action' => $this->getRouteSubstr($route, "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z@0-9]+'/", "'"),
+                    'method' => $method,
+                    'url' => $url,
+                    'action' => $action,
                     'name' => $routeName,
-                    'type' => $type,
+                    'type' => $routeType,
                 ]);
 
-                $feedback[] = $this->dbStoredRouteFeedback($route);
+                $feedback[] = $this->synchronizedRouteFeedback($route, 'DB');
             }
         }
 
@@ -233,65 +251,60 @@ class RouteService implements RouteServiceInterface
         return false;
     }
 
-    protected function getRouteUrl(string $route)
-    {
-        preg_match("/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'/", $route, $result);
-
-        if(isset($result[0])) {
-            $routeArr = explode("'", $result[0]);
-            array_pop($routeArr);
-
-            return end($routeArr);
-        }
-
-        return false;
-    }
-
-    protected function getRouteAction(string $route)
-    {
-        preg_match("/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z@0-9]+'/", $route, $result);
-
-        if(isset($result[0])) {
-            $routeArr = explode("'", $result[0]);
-            array_pop($routeArr);
-
-            return end($routeArr);
-        }
-
-        return false;
-    }
-
     /**
-     * Get the name from the route string
+     * If a route is stored in DB but is missing in the route files,
+     * the method writes it in a route file
      *
-     * @param string $route
-     * @return bool|mixed
+     * @param string $routeType
+     * @return array
      */
-    protected function getRouteName(string $route)
+    protected function synchronizeDBRoutes(string $routeType): array
     {
-        preg_match("/->name\('.+'/", $route, $result);
+        $dbRoutes = Route::where('type', $routeType)->get();
+        $fileRoutes = $this->getRoutes($routeType);
 
-        if(isset($result[0])) {
-            $routeArr = explode("'", $result[0]);
-            array_pop($routeArr);
+        $fileRouteNames = $this->getFileRouteNames($fileRoutes);
 
-            return end($routeArr);
+        $feedback = [];
+
+        foreach ($dbRoutes as $dbRoute) {
+            if (! array_key_exists($dbRoute->name, $fileRouteNames)) {
+                $this->writeRoute($dbRoute);
+                $feedback[] = $this->synchronizedRouteFeedback($dbRoute, $dbRoute->type . '.php');
+            }
         }
 
-        return false;
+        return $feedback;
     }
 
     /**
-     * Create a feedback from stored in DB route
+     * Get the names of all routes in a route file
+     *
+     * @param array $routes
+     * @return array
+     */
+    protected function getFileRouteNames(array $routes): array
+    {
+        $fileRouteNames = [];
+
+        foreach ($routes as $route) {
+            $fileRouteNames[] = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
+        }
+
+        return $fileRouteNames;
+    }
+
+    /**
+     * Create a feedback for a synchronized route
      *
      * @param Route $route
      * @return string
      */
-    protected function dbStoredRouteFeedback(Route $route): string
+    protected function synchronizedRouteFeedback(Route $route, string $location): string
     {
         return 'A route with name ' . $route->name .
             ', url ' . $route->url .
             ', action ' . $route->action .
-            ' is stored in DB.';
+            ' is stored in ' . $location . '.';
     }
 }

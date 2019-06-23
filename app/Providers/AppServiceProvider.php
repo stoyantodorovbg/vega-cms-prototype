@@ -6,12 +6,14 @@ use App\Services\GroupService;
 use App\Services\RouteService;
 use App\Services\FileCreateService;
 use App\Services\ValidationService;
+use App\Services\FileDestroyService;
 use App\Repositories\GroupRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Interfaces\GroupServiceInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Services\Interfaces\FileCreateServiceInterface;
 use App\Services\Interfaces\ValidationServiceInterface;
+use App\Services\Interfaces\FileDestroyServiceInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ValidationServiceInterface::class, ValidationService::class);
         $this->app->bind(GroupServiceInterface::class, GroupService::class);
         $this->app->bind(FileCreateServiceInterface::class, FileCreateService::class);
+        $this->app->bind(FileDestroyServiceInterface::class, FileDestroyService::class);
 
         $this->app->bind(GroupRepositoryInterface::class, GroupRepository::class);
     }

@@ -27,4 +27,12 @@ interface ValidationServiceInterface
      * @return mixed
      */
     public function validateGroupProperties(array $data);
+
+    /**
+     * Validate route title
+     *
+     * @param array $data
+     * @return array|bool
+     */
+    public function validateGroupTitle(array $data);
 }

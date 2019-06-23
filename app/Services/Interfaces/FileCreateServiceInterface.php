@@ -17,4 +17,14 @@ interface FileCreateServiceInterface
      * @throws FileNotFoundException
      */
     public function createFile(string $folderPath, string $fileName, string $fileExtension, string $stubPath);
+
+    /**
+     * Determine if the file already exists.
+     *
+     * @param string $folderPath
+     * @param string $fileName
+     * @param string $fileExtension
+     * @return bool
+     */
+    public function fileExists(string $folderPath, string $fileName, string $fileExtension): bool;
 }

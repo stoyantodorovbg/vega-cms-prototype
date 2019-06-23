@@ -7,6 +7,7 @@ use App\Services\Interfaces\GroupServiceInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Services\Interfaces\FileCreateServiceInterface;
 use App\Services\Interfaces\ValidationServiceInterface;
+use App\Services\Interfaces\FileDestroyServiceInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
@@ -52,7 +53,7 @@ class GroupService implements GroupServiceInterface
         $fileExtension = '.php';
 
         if ($validatedData === true &&
-            ! $this->fileCreateService->alreadyExists($folderPath, $fileName, $fileExtension) &&
+            ! $this->fileCreateService->fileExists($folderPath, $fileName, $fileExtension) &&
             ! Group::where('title', $groupTitle)->first()
             ) {
             Group::create($data);
@@ -72,9 +73,20 @@ class GroupService implements GroupServiceInterface
      * Destroy a group
      *
      * @param array $data
+     * @return mixed
      */
     public function destroy(array $data)
     {
+        $validatedData = $this->validationService->validateGroupTitle($data);
+
+        if ($validatedData === true) {
+            $route = Group::where('title', $data['title'])->first();
+            $fileDestroyService = resolve(FileDestroyServiceInterface::class);
+            $fileDestroyService->destroyFile('/app/Http/Middleware/', ucfirst($route->title), '.php');
+            $route->delete();
+        }
+
+        return $validatedData;
 
     }
 

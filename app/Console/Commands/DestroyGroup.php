@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use App\Traits\CommandUtilities;
 use App\Services\Interfaces\GroupServiceInterface;
 
-class GenerateGroup extends Command
+class DestroyGroup extends Command
 {
     use CommandUtilities;
 
@@ -15,14 +15,14 @@ class GenerateGroup extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:group {title} {--description=}';
+    protected $signature = 'destroy:group {title}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate a group';
+    protected $description = 'Command description';
 
     /**
      * @var GroupServiceInterface
@@ -49,10 +49,9 @@ class GenerateGroup extends Command
     public function handle()
     {
         $data = $this->processArguments();
-        $data['description'] = $this->options()['description'];
 
-        $validationData = $this->groupService->create($data);
+        $validationData = $this->groupService->destroy($data);
 
-        $this->output($validationData, 'The group is generated successfully.');
+        $this->output($validationData, 'The group is destroyed.');
     }
 }

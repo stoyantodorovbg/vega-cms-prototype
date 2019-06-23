@@ -100,6 +100,27 @@ class ValidationService implements ValidationServiceInterface
     }
 
     /**
+     * Validate route title
+     *
+     * @param array $data
+     * @return array|bool
+     */
+    public function validateGroupTitle(array $data)
+    {
+        $validator = Validator::make($data, [
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                'exists:groups,title',
+                'regex:/^[a-z]*$/'
+            ],
+        ]);
+
+        return $this->checkValidation($validator);
+    }
+
+    /**
      * Check the validation result
      *
      * @param Validator $validator

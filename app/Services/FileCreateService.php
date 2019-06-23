@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Traits\FileUtilities;
 use Illuminate\Filesystem\Filesystem;
 use App\Services\Interfaces\FileCreateServiceInterface;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class FileCreateService implements FileCreateServiceInterface
 {
+    use FileUtilities;
+
     /**
      * @var Filesystem
      */
@@ -37,7 +40,7 @@ class FileCreateService implements FileCreateServiceInterface
     {
         $validationData = [];
 
-        if ($this->alreadyExists($folderPath, $fileName, $fileExtension)) {
+        if ($this->fileExists($folderPath, $fileName, $fileExtension)) {
             return false;
         }
 
@@ -47,19 +50,6 @@ class FileCreateService implements FileCreateServiceInterface
             );
 
         return $validationData;
-    }
-
-    /**
-     * Determine if the file already exists.
-     *
-     * @param string $folderPath
-     * @param string $fileName
-     * @param string $fileExtension
-     * @return bool
-     */
-    public function alreadyExists(string $folderPath, string $fileName, string $fileExtension): bool
-    {
-        return $this->fileSystem->exists($this->getFilePath($folderPath, $fileName, $fileExtension));
     }
 
     /**
@@ -76,19 +66,6 @@ class FileCreateService implements FileCreateServiceInterface
         $stub = $this->fileSystem->get($this->getStubPath($stubPath));
 
         return $this->replaceNamespace($stub, $folderPath, $fileName)->replaceClass($stub, $folderPath, $fileName);
-    }
-
-    /**
-     * Get file path.
-     *
-     * @param string $folderPath
-     * @param string $fileName
-     * @param $fileExtension
-     * @return string
-     */
-    protected function getFilePath(string $folderPath, string $fileName, $fileExtension): string
-    {
-        return base_path(). $folderPath . ucfirst($fileName) . $fileExtension;
     }
 
     /**

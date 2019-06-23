@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Group extends Model
 {
     /**
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * The users which have this role
      *
      * @return BelongsToMany

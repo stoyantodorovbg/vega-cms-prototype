@@ -19,4 +19,12 @@ interface ValidationServiceInterface
      * @return array|bool
      */
     public function validateRouteName(array $data);
+
+    /**
+     * Check if the group properties are valid
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function validateGroupProperties(array $data);
 }

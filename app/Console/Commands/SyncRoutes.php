@@ -34,6 +34,7 @@ class SyncRoutes extends Command
     public function __construct(RouteServiceInterface $routeService)
     {
         parent::__construct();
+
         $this->routeService = $routeService;
     }
 

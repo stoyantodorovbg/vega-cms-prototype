@@ -2,11 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Interfaces\RouteServiceInterface;
 use Illuminate\Console\Command;
+use App\Traits\CommandUtilities;
+use App\Services\Interfaces\RouteServiceInterface;
 
 class DestroyRoute extends Command
 {
+    use CommandUtilities;
+
     /**
      * The name and signature of the console command.
      *
@@ -34,6 +37,7 @@ class DestroyRoute extends Command
     public function __construct(RouteServiceInterface $routeService)
     {
         parent::__construct();
+
         $this->routeService = $routeService;
     }
 
@@ -44,18 +48,10 @@ class DestroyRoute extends Command
      */
     public function handle(): void
     {
-        $data = $this->arguments();
-        unset($data['command']);
+        $data = $this->processArguments();
 
         $validationData = $this->routeService->destroy($data);
 
-        if ($validationData === true) {
-            $this->line('The route is destroyed.');
-        } else {
-            $this->line('Validation failed:');
-            foreach($validationData as $message) {
-                $this->line($message);
-            }
-        }
+        $this->output($validationData, 'The route is destroyed.');
     }
 }

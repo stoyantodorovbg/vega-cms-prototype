@@ -11,7 +11,7 @@ class CreateRouteGroupTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('group_route', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -35,7 +35,7 @@ class CreateRouteGroupTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('group_route');
     }

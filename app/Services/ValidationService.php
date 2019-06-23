@@ -16,11 +16,39 @@ class ValidationService implements ValidationServiceInterface
     public function validateRouteProperties(array $data)
     {
         $validator = Validator::make($data, [
-            'url' => ['required', 'unique:routes,url', 'regex:/^\/[A-Za-z1-9-_\/{}]*$/'],
-            'method' => ['required', 'regex:/^(get|post|patch|put|delete)$/'],
-            'action' => ['required', 'unique:routes,action', 'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/'],
-            'name' => ['required', 'unique:routes,name', 'regex:/^[A-Za-z.\-_1-9]*$/'],
-            'type' => ['required', 'regex:/^(web|admin|page|api)$/'],
+            'url' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:routes,url',
+                'regex:/^\/[A-Za-z1-9-_\/{}]*$/'
+            ],
+            'method' => [
+                'required',
+                'string',
+                'max:255' ,
+                'regex:/^(get|post|patch|put|delete)$/'
+            ],
+            'action' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:routes,action',
+                'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/'
+            ],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:routes,name',
+                'regex:/^[A-Za-z.\-_1-9]*$/'
+            ],
+            'type' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^(web|admin|page|api)$/'
+            ],
         ]);
 
         return $this->checkValidation($validator);
@@ -35,7 +63,37 @@ class ValidationService implements ValidationServiceInterface
     public function validateRouteName(array $data)
     {
         $validator = Validator::make($data, [
-            'name' => ['required', 'exists:routes,name', 'regex:/^[A-Za-z.\-_1-9]*$/'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'exists:routes,name',
+                'regex:/^[A-Za-z.\-_1-9]*$/'
+            ],
+        ]);
+
+        return $this->checkValidation($validator);
+    }
+
+    /**
+     * Check if the group properties are valid
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function validateGroupProperties(array $data)
+    {
+        $validator = Validator::make($data, [
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:groups,title',
+                'regex:/^[a-z]*$/'
+            ],
+            'description' => [
+                'max:65535'
+            ],
         ]);
 
         return $this->checkValidation($validator);

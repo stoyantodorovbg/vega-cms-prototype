@@ -44,7 +44,7 @@ class FileCreateService implements FileCreateServiceInterface
             return false;
         }
 
-        $this->fileSystem->put(
+        $a = $this->fileSystem->put(
                 $this->getFilePath($folderPath, $fileName, $fileExtension),
                 $this->buildFile($folderPath, $fileName, $stubPath)
             );
@@ -84,14 +84,13 @@ class FileCreateService implements FileCreateServiceInterface
      *
      * @param $stub
      * @param string $folderPath
-     * @param string $fileName
      * @return FileCreateService
      */
-    protected function replaceNamespace(&$stub, string $folderPath, string $fileName): FileCreateService
+    protected function replaceNamespace(&$stub, string $folderPath): FileCreateService
     {
         $stub = str_replace(
             'DummyNamespace',
-            $this->getNamespace($folderPath, $fileName),
+            $this->getNamespace($folderPath),
             $stub
         );
 
@@ -108,7 +107,7 @@ class FileCreateService implements FileCreateServiceInterface
      */
     protected function replaceClass($stub, string $folderPath, string $fileName): string
     {
-        $class = str_replace($this->getNamespace($folderPath, $fileName).'\\', '', $fileName);
+        $class = str_replace($this->getNamespace($folderPath).'\\', '', $fileName);
 
         return str_replace('DummyClass', $class, $stub);
     }
@@ -117,10 +116,9 @@ class FileCreateService implements FileCreateServiceInterface
      * Get the full namespace for a given class, without the class name.
      *
      * @param $folderPath
-     * @param string $fileName
      * @return string
      */
-    protected function getNamespace($folderPath, $fileName): string
+    protected function getNamespace($folderPath): string
     {
         $folderPath = trim($folderPath, '/');
         $folderPath = explode('/', $folderPath);
@@ -130,6 +128,6 @@ class FileCreateService implements FileCreateServiceInterface
             $folderPath[$index] = ucfirst($folderPath[$index]);
         }
 
-        return implode('\\', $folderPath) . '\\' . ucfirst($fileName);
+        return implode('\\', $folderPath);
     }
 }

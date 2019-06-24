@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Services\Interfaces\FileDestroyServiceInterface;
 use Tests\TestCase;
 use App\Models\Group;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Services\Interfaces\FileDestroyServiceInterface;
 
 class GroupTest extends TestCase
 {
@@ -68,8 +68,7 @@ class GroupTest extends TestCase
 
         $this->artisan('destroy:group test');
     }
-
-    /** @test */
+        /** @test */
     public function the_group_can_be_destroyed_through_the_command_line(): void
     {
         $this->artisan('generate:group test');

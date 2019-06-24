@@ -24,6 +24,16 @@ class GroupService implements GroupServiceInterface
     protected $fileCreateService;
 
     /**
+     * @var array
+     */
+    protected $middlewareKeys = [];
+
+    /**
+     * @var string
+     */
+    protected $kernelLine = '';
+
+    /**
      * RouteService constructor.
      * @param ValidationServiceInterface $validationService
      * @param FileCreateServiceInterface $fileCreateService
@@ -57,7 +67,13 @@ class GroupService implements GroupServiceInterface
             ! Group::where('title', $groupTitle)->first()
             ) {
             Group::create($data);
-            $this->fileCreateService->createFile($folderPath, $fileName, $fileExtension, '/Stubs/middleware.stub');
+            $this->fileCreateService->createFile(
+                $folderPath,
+                $fileName,
+                $fileExtension,
+                '/Stubs/middleware.stub'
+            );
+            $this->assignMiddleware($groupTitle);
 
             return true;
         }
@@ -101,5 +117,66 @@ class GroupService implements GroupServiceInterface
     {
         return resolve(GroupRepositoryInterface::class)->getUserGroupsTitles($user, $groupTitle)
             ? true : false;
+    }
+
+    /**
+     * Assign a middleware in Http\Kernel.php
+     *
+     * @param string $groupTitle
+     */
+    protected function assignMiddleware(string $groupTitle): void
+    {
+        $kernelPath = base_path() . '/app/Http/Kernel.php';
+
+        $kernel = file($kernelPath, FILE_IGNORE_NEW_LINES);
+
+        $kernelContent = $this->prepareKernelContent($groupTitle, $kernel);
+
+        file_put_contents($kernelPath, $kernelContent);
+    }
+
+    /**
+     * Add a middleware registration to kernel content
+     *
+     * @param string $groupTitle
+     * @param $kernel
+     * @return string
+     */
+    protected function prepareKernelContent(string $groupTitle, $kernel): string
+    {
+        $protectedRouteMiddlewareIndex = array_search('    protected $routeMiddleware = [', $kernel, true);
+
+        $kernelCount = count($kernel);
+        $assigned = false;
+
+        for ($index = $protectedRouteMiddlewareIndex; $index < $kernelCount; $index++) {
+
+            if (!$assigned && $index > $protectedRouteMiddlewareIndex) {
+                $middlewareArr = explode("'", $kernel[$index]);
+                if (isset($middlewareArr[1])) {
+                    $this->middlewareKeys[] = $middlewareArr[1];
+                }
+            }
+
+            if (!$assigned && $kernel[$index] === '    ];' &&
+                !in_array($groupTitle, $this->middlewareKeys, true)
+            ) {
+                $assigned = true;
+                $this->kernelLine = $kernel[$index];
+                $className = ucfirst($groupTitle);
+                $kernel[$index] = "        '$groupTitle' => \App\Http\Middleware\\$className::class,";
+                $index++;
+            }
+
+            if ($assigned) {
+                $currentLine = $kernel[$index];
+                $kernel[$index] = $this->kernelLine;
+                $this->kernelLine = $currentLine;
+            }
+        }
+
+        $kernel[] = $this->kernelLine;
+
+        return implode("\n", $kernel);
     }
 }

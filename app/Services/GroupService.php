@@ -73,7 +73,7 @@ class GroupService implements GroupServiceInterface
                 $fileExtension,
                 '/Stubs/middleware.stub'
             );
-            $this->assignMiddleware($groupTitle);
+            $this->registerMiddleware($groupTitle);
 
             return true;
         }
@@ -96,10 +96,11 @@ class GroupService implements GroupServiceInterface
         $validatedData = $this->validationService->validateGroupTitle($data);
 
         if ($validatedData === true) {
-            $route = Group::where('title', $data['title'])->first();
+            $group = Group::where('title', $data['title'])->first();
             $fileDestroyService = resolve(FileDestroyServiceInterface::class);
-            $fileDestroyService->destroyFile('/app/Http/Middleware/', ucfirst($route->title), '.php');
-            $route->delete();
+            $fileDestroyService->destroyFile('/app/Http/Middleware/', ucfirst($group->title), '.php');
+            $this->removeMiddlewareRegistration($group->title);
+            $group->delete();
         }
 
         return $validatedData;
@@ -123,14 +124,13 @@ class GroupService implements GroupServiceInterface
      * Assign a middleware in Http\Kernel.php
      *
      * @param string $groupTitle
+     * @return void
      */
-    protected function assignMiddleware(string $groupTitle): void
+    protected function registerMiddleware(string $groupTitle): void
     {
-        $kernelPath = base_path() . '/app/Http/Kernel.php';
+        [$kernelPath, $kernelData] = $this->getKernelData();
 
-        $kernel = file($kernelPath, FILE_IGNORE_NEW_LINES);
-
-        $kernelContent = $this->prepareKernelContent($groupTitle, $kernel);
+        $kernelContent = $this->kernelContentCreateGroup($groupTitle, $kernelData);
 
         file_put_contents($kernelPath, $kernelContent);
     }
@@ -139,44 +139,108 @@ class GroupService implements GroupServiceInterface
      * Add a middleware registration to kernel content
      *
      * @param string $groupTitle
-     * @param $kernel
+     * @param $kernelData
      * @return string
      */
-    protected function prepareKernelContent(string $groupTitle, $kernel): string
+    protected function kernelContentCreateGroup(string $groupTitle, $kernelData): string
     {
-        $protectedRouteMiddlewareIndex = array_search('    protected $routeMiddleware = [', $kernel, true);
-
-        $kernelCount = count($kernel);
+        $middlewareIndex = $this->getMiddlewareRegistrationsStart($kernelData);
+        $kernelCount = count($kernelData);
         $assigned = false;
 
-        for ($index = $protectedRouteMiddlewareIndex; $index < $kernelCount; $index++) {
-
-            if (!$assigned && $index > $protectedRouteMiddlewareIndex) {
-                $middlewareArr = explode("'", $kernel[$index]);
-                if (isset($middlewareArr[1])) {
-                    $this->middlewareKeys[] = $middlewareArr[1];
-                }
-            }
-
-            if (!$assigned && $kernel[$index] === '    ];' &&
-                !in_array($groupTitle, $this->middlewareKeys, true)
-            ) {
+        for ($index = $middlewareIndex + 1; $index < $kernelCount; $index++) {
+            if (! $assigned && $kernelData[$index] === '    ];') {
                 $assigned = true;
-                $this->kernelLine = $kernel[$index];
+                $this->kernelLine = $kernelData[$index];
                 $className = ucfirst($groupTitle);
-                $kernel[$index] = "        '$groupTitle' => \App\Http\Middleware\\$className::class,";
+                $kernelData[$index] = "        '$groupTitle' => \App\Http\Middleware\\$className::class,";
                 $index++;
             }
 
             if ($assigned) {
-                $currentLine = $kernel[$index];
-                $kernel[$index] = $this->kernelLine;
+                $currentLine = $kernelData[$index];
+                $kernelData[$index] = $this->kernelLine;
                 $this->kernelLine = $currentLine;
             }
         }
 
-        $kernel[] = $this->kernelLine;
+        $kernelData[] = $this->kernelLine;
 
-        return implode("\n", $kernel);
+        return implode("\n", $kernelData);
+    }
+
+    /**
+     * Remove the middleware registration from the kernel
+     *
+     * @param string $groupTitle
+     * @return void
+     */
+    protected function removeMiddlewareRegistration(string $groupTitle): void
+    {
+        [$kernelPath, $kernelData] = $this->getKernelData();
+
+        $kernelContent = $this->kernelContentDestroyGroup($kernelData, $groupTitle);
+
+        file_put_contents($kernelPath, $kernelContent);
+    }
+
+    /**
+     * Prepare kernel content for group destroying
+     *
+     * @param array $kernelData
+     * @param string $groupTitle
+     * @return string
+     */
+    protected function kernelContentDestroyGroup(array $kernelData, string $groupTitle): string
+    {
+        $kernelCount = count($kernelData);
+        $middlewareIndex = $this->getMiddlewareRegistrationsStart($kernelData);
+
+        for ($index = $middlewareIndex + 1; $index < $kernelCount; $index++) {
+            if (preg_match("/\'$groupTitle\'/", $kernelData[$index])) {
+                unset($kernelData[$index]);
+                break;
+            }
+        }
+
+        return implode("\n", $kernelData);
+    }
+
+    /**
+     * Create an array that contains all kernel lines
+     *
+     * @return array
+     */
+    protected function getKernelData(): array
+    {
+        $kernelPath = base_path() . '/app/Http/Kernel.php';
+        $kernel = file($kernelPath, FILE_IGNORE_NEW_LINES);
+
+        return array($kernelPath, $kernel);
+    }
+
+    /**
+     * Get the beginning index of the middleware registrations
+     *
+     * @param array $kernel
+     * @return false|int|string
+     */
+    protected function getMiddlewareRegistrationsStart(array $kernel)
+    {
+        $middlewareIndex = array_search('    protected $routeMiddleware = [', $kernel, true);
+
+        return $middlewareIndex;
+    }
+
+    /**
+     * Check if the middleware have been already registered
+     *
+     * @param string $groupTitle
+     * @param array $middlewareKeys
+     * @return bool
+     */
+    protected function isMiddlewareRegistered(string $groupTitle, array $middlewareKeys): bool
+    {
+        return ! in_array($groupTitle, $middlewareKeys, true);
     }
 }

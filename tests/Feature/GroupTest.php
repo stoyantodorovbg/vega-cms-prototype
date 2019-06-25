@@ -106,8 +106,11 @@ class GroupTest extends TestCase
 
         $this->assertFileExists(base_path() . '/app/Http/Middleware/Test.php');
 
-        resolve(FileDestroyServiceInterface::class)
-            ->destroyFile('/app/Http/Middleware/', 'Test', '.php');
+        factory(Group::class)->create([
+            'title' => 'test',
+        ]);
+
+        $this->artisan('destroy:group test');
     }
 
     /** @test */

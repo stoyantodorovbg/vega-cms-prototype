@@ -7,6 +7,7 @@ use App\Services\Interfaces\GroupServiceInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Services\Interfaces\FileCreateServiceInterface;
 use App\Services\Interfaces\ValidationServiceInterface;
+use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Services\Interfaces\FileDestroyServiceInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -34,16 +35,24 @@ class GroupService implements GroupServiceInterface
     protected $kernelLine = '';
 
     /**
+     * @var BaseRepositoryInterface
+     */
+    protected $baseRepository;
+
+    /**
      * RouteService constructor.
      * @param ValidationServiceInterface $validationService
      * @param FileCreateServiceInterface $fileCreateService
+     * @param BaseRepositoryInterface $baseRepository
      */
     public function __construct(
         ValidationServiceInterface $validationService,
-        FileCreateServiceInterface $fileCreateService
+        FileCreateServiceInterface $fileCreateService,
+        BaseRepositoryInterface $baseRepository
     ) {
         $this->validationService = $validationService;
         $this->fileCreateService = $fileCreateService;
+        $this->baseRepository = $baseRepository;
     }
 
     /**
@@ -64,7 +73,7 @@ class GroupService implements GroupServiceInterface
 
         if ($validatedData === true &&
             ! $this->fileCreateService->fileExists($folderPath, $fileName, $fileExtension) &&
-            ! Group::where('title', $groupTitle)->first()
+            ! $this->baseRepository->rowExists('groups', ['title' => $groupTitle])
             ) {
             Group::create($data);
             $this->fileCreateService->createFile(
@@ -95,7 +104,9 @@ class GroupService implements GroupServiceInterface
     {
         $validatedData = $this->validationService->validateGroupTitle($data);
 
-        if ($validatedData === true) {
+        if ($validatedData === true &&
+            $this->baseRepository->rowExists('groups', ['title' => $data['title']])
+        ) {
             $group = Group::where('title', $data['title'])->first();
             $fileDestroyService = resolve(FileDestroyServiceInterface::class);
             $fileDestroyService->destroyFile('/app/Http/Middleware/', ucfirst($group->title), '.php');

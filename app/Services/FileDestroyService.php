@@ -19,9 +19,8 @@ class FileDestroyService implements FileDestroyServiceInterface
      * RouteService constructor.
      * @param Filesystem $fileSystem
      */
-    public function __construct(
-        Filesystem $fileSystem
-    ) {
+    public function __construct(Filesystem $fileSystem)
+    {
         $this->fileSystem = $fileSystem;
     }
 

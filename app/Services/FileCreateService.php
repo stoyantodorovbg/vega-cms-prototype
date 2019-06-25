@@ -20,9 +20,8 @@ class FileCreateService implements FileCreateServiceInterface
      * RouteService constructor.
      * @param Filesystem $fileSystem
      */
-    public function __construct(
-        Filesystem $fileSystem
-    ) {
+    public function __construct(Filesystem $fileSystem)
+    {
         $this->fileSystem = $fileSystem;
     }
 
@@ -44,7 +43,7 @@ class FileCreateService implements FileCreateServiceInterface
             return false;
         }
 
-        $a = $this->fileSystem->put(
+        $this->fileSystem->put(
                 $this->getFilePath($folderPath, $fileName, $fileExtension),
                 $this->buildFile($folderPath, $fileName, $stubPath)
             );

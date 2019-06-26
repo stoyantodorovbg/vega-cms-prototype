@@ -26,4 +26,12 @@ interface RouteServiceInterface
      * @return array
      */
     public function synchronize(): array;
+
+    /**
+     * Make the route accessible for the group members
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function addRouteToGroup(array $data);
 }

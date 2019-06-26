@@ -8,116 +8,38 @@ use Illuminate\Support\Facades\Validator;
 class ValidationService implements ValidationServiceInterface
 {
     /**
-     * Check if the route properties are valid
-     *
      * @param array $data
+     * @param array $validationTypes
+     * @param string $entity
      * @return mixed
      */
-    public function validateRouteProperties(array $data)
+    public function validate(array $data, array $validationTypes, string $entity, string $action)
     {
-        $validator = Validator::make($data, [
-            'url' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:routes,url',
-                'regex:/^\/[A-Za-z1-9-_\/{}]*$/'
-            ],
-            'method' => [
-                'required',
-                'string',
-                'max:255' ,
-                'regex:/^(get|post|patch|put|delete)$/'
-            ],
-            'action' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:routes,action',
-                'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/'
-            ],
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:routes,name',
-                'regex:/^[A-Za-z.\-_1-9]*$/'
-            ],
-            'type' => [
-                'required',
-                'string',
-                'max:255',
-                'regex:/^(web|admin|page|api)$/'
-            ],
-        ]);
+        $validationRules = $this->getValidationRules($validationTypes, $entity, $action);
+
+        $validator = Validator::make($data, $validationRules);
 
         return $this->checkValidation($validator);
     }
 
     /**
-     * Check if the route name is valid
+     * Prepare the validation rules
      *
-     * @param array $data
-     * @return array|bool
+     * @param array $validationTypes
+     * @param string $entity
+     * @param string $action
+     * @return array
      */
-    public function validateRouteName(array $data)
+    protected function getValidationRules(array $validationTypes, string $entity, string $action): array
     {
-        $validator = Validator::make($data, [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                'exists:routes,name',
-                'regex:/^[A-Za-z.\-_1-9]*$/'
-            ],
-        ]);
+        $validationRules = [];
 
-        return $this->checkValidation($validator);
-    }
+        foreach ($validationTypes as $type) {
+            $method = $entity . ucfirst($type) . ucfirst($action);
+            $validationRules = array_merge($validationRules, $this->$method());
+        }
 
-    /**
-     * Check if the group properties are valid
-     *
-     * @param array $data
-     * @return mixed
-     */
-    public function validateGroupProperties(array $data)
-    {
-        $validator = Validator::make($data, [
-            'title' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:groups,title',
-                'regex:/^[a-z]*$/'
-            ],
-            'description' => [
-                'max:65535'
-            ],
-        ]);
-
-        return $this->checkValidation($validator);
-    }
-
-    /**
-     * Validate route title
-     *
-     * @param array $data
-     * @return array|bool
-     */
-    public function validateGroupTitle(array $data)
-    {
-        $validator = Validator::make($data, [
-            'title' => [
-                'required',
-                'string',
-                'max:255',
-                'exists:groups,title',
-                'regex:/^[a-z]*$/'
-            ],
-        ]);
-
-        return $this->checkValidation($validator);
+        return $validationRules;
     }
 
     /**
@@ -133,5 +55,161 @@ class ValidationService implements ValidationServiceInterface
         }
 
         return true;
+    }
+
+    /**
+     * Route url validation rules
+     *
+     * @return array
+     */
+    protected function routeUrlCreate(): array
+    {
+        return [
+            'url' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:routes,url',
+                'regex:/^\/[A-Za-z1-9-_\/{}]*$/',
+            ],
+        ];
+    }
+
+    /**
+     * Route name validation rules
+     *
+     * @return array
+     */
+    protected function routeMethodCreate(): array
+    {
+        return [
+            'method' => [
+                'required',
+                'string',
+                'max:255' ,
+                'regex:/^(get|post|patch|put|delete)$/',
+            ],
+        ];
+    }
+
+    /**
+     * Route properties validation rules
+     *
+     * @return array
+     */
+    protected function routeActionCreate(): array
+    {
+        return [
+            'action' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:routes,action',
+                'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/',
+            ],
+        ];
+    }
+
+    /**
+     * Route name validation rule
+     *
+     * @return array
+     */
+    protected function routeNameCreate(): array
+    {
+        return [
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:routes,name',
+                'regex:/^[A-Za-z.\-_1-9]*$/',
+            ],
+        ];
+    }
+
+    /**
+     * Route name validation rule
+     *
+     * @return array
+     */
+    protected function routeNameDestroy(): array
+    {
+        return [
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'exists:routes,name',
+                'regex:/^[A-Za-z.\-_1-9]*$/',
+            ],
+        ];
+    }
+
+    /**
+     * Route type validation rules
+     *
+     * @return array
+     */
+    protected function routeTypeCreate(): array
+    {
+        return [
+            'type' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^(web|admin|page|api)$/',
+            ]
+        ];
+    }
+
+    /**
+     * Group title validation rule
+     *
+     * @return array
+     */
+    protected function groupTitleCreate(): array
+    {
+        return [
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:groups,title',
+                'regex:/^[a-z]*$/',
+            ],
+        ];
+    }
+
+    /**
+     * Group properties validation rules
+     *
+     * @return array
+     */
+    protected function groupDescriptionCreate(): array
+    {
+        return [
+            'description' => [
+                'max:65535',
+            ],
+        ];
+    }
+
+    /**
+     * Group title validation rule
+     *
+     * @return array
+     */
+    protected function groupTitleDestroy(): array
+    {
+        return [
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                'exists:groups,title',
+                'regex:/^[a-z]*$/',
+            ],
+        ];
     }
 }

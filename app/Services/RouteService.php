@@ -32,7 +32,12 @@ class RouteService implements RouteServiceInterface
      */
     public function create(array $data)
     {
-        $validatedData = $this->validationService->validateRouteProperties($data);
+        $validatedData = $this->validationService->validate(
+            $data,
+            ['url', 'method', 'action', 'name', 'type'],
+            'route',
+            'create'
+        );
 
         if ($validatedData === true &&
             ($route = Route::create($data)) &&
@@ -52,7 +57,12 @@ class RouteService implements RouteServiceInterface
      */
     public function destroy(array $data)
     {
-        $validatedData = $this->validationService->validateRouteName($data);
+        $validatedData = $this->validationService->validate(
+            $data,
+            ['name'],
+            'route',
+            'destroy'
+        );
 
         if ($validatedData === true) {
             $route = Route::where('name', $data['name'])->first();
@@ -78,6 +88,35 @@ class RouteService implements RouteServiceInterface
         }
 
         return $feedback;
+    }
+
+    /**
+     * Make the route accessible for the group members
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function addRouteToGroup(array $data)
+    {
+        $validatedDataRoute = $this->validationService->validate($data, ['name'], 'route');
+        $validatedDataGroup = $this->validationService->validate($data, ['title'], 'group');
+
+        if ($validatedDataRoute === true && $validatedDataGroup === true) {
+
+            return true;
+        }
+
+        $result = [];
+
+        if (is_array($validatedDataRoute)) {
+            array_merge($result, $validatedDataRoute);
+        }
+
+        if (is_array($validatedDataGroup)) {
+            array_merge($result, $validatedDataGroup);
+        }
+
+        return $result;
     }
 
     /**

@@ -64,7 +64,12 @@ class GroupService implements GroupServiceInterface
      */
     public function create(array $data)
     {
-        $validatedData = $this->validationService->validateGroupProperties($data);
+        $validatedData = $this->validationService->validate(
+            $data,
+            ['title', 'description'],
+            'group',
+            'create'
+        );
 
         $groupTitle = $data['title'];
         $folderPath = '/app/Http/Middleware/';
@@ -102,7 +107,12 @@ class GroupService implements GroupServiceInterface
      */
     public function destroy(array $data)
     {
-        $validatedData = $this->validationService->validateGroupTitle($data);
+        $validatedData = $this->validationService->validate(
+            $data,
+            ['title'],
+            'group',
+            'destroy'
+        );
 
         if ($validatedData === true &&
             $this->baseRepository->rowExists('groups', ['title' => $data['title']])

@@ -133,7 +133,7 @@ class ValidationService implements ValidationServiceInterface
      *
      * @return array
      */
-    protected function routeNameDestroy(): array
+    protected function routeNameExists(): array
     {
         return [
             'name' => [
@@ -200,7 +200,7 @@ class ValidationService implements ValidationServiceInterface
      *
      * @return array
      */
-    protected function groupTitleDestroy(): array
+    protected function groupTitleExists(): array
     {
         return [
             'title' => [

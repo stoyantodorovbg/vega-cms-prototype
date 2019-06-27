@@ -61,7 +61,7 @@ class RouteService implements RouteServiceInterface
             $data,
             ['name'],
             'route',
-            'destroy'
+            'exists'
         );
 
         if ($validatedData === true) {
@@ -98,10 +98,23 @@ class RouteService implements RouteServiceInterface
      */
     public function addRouteToGroup(array $data)
     {
-        $validatedDataRoute = $this->validationService->validate($data, ['name'], 'route');
-        $validatedDataGroup = $this->validationService->validate($data, ['title'], 'group');
+        $validatedDataRoute = $this->validationService->validate(
+            $data,
+            ['name'],
+            'route',
+            'exists'
+        );
+        $validatedDataGroup = $this->validationService->validate(
+            $data,
+            ['title'],
+            'group',
+            'exists'
+        );
 
         if ($validatedDataRoute === true && $validatedDataGroup === true) {
+            $route = Route::where('name', $data['name'])->first();
+
+            $this->assignMiddleware($route, $data['title']);
 
             return true;
         }
@@ -120,6 +133,48 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
+     * Write middleware syntax in a route file
+     *
+     * @param RouteInterface $route
+     * @param string $groupName
+     * @return bool
+     */
+    protected function assignMiddleware(RouteInterface $route, string $groupName): bool
+    {
+        $routesFileContent = $this->getRoutes($route->type);
+
+        $routeName = $route->name;
+        $countRows = count($routesFileContent);
+
+        for ($index = 0; $index < $countRows; $index++) {
+            $line = $routesFileContent[$index];
+            $posMiddleware = strpos($line, '->middleware');
+
+            $currentRouteName = $this->extractRouteName($posMiddleware, $line);
+
+            if ($currentRouteName === $routeName && $posMiddleware !== false) {
+                $routesFileContent[$index] = substr_replace(
+                    $routesFileContent[$index],
+                    ", '$groupName');",
+                    strlen($routesFileContent[$index]) - 2
+                );
+            } elseif ($currentRouteName === $routeName) {
+                $routesFileContent[$index] = substr_replace(
+                    $routesFileContent[$index],
+                    "->middleware('$groupName');",
+                    strlen($routesFileContent[$index]) - 1
+                );
+            }
+        }
+
+        $routesFileContent = implode("\n", $routesFileContent);
+
+        file_put_contents($this->getRoutePath($route->type), $routesFileContent);
+
+        return true;
+    }
+
+    /**
      * Write a route in a route file
      *
      * @param RouteInterface $route
@@ -128,7 +183,11 @@ class RouteService implements RouteServiceInterface
     protected function writeRoute(RouteInterface $route): bool
     {
         if (! $this->checkForExistingRoute($this->getRoutes($route->type), $route)) {
-            file_put_contents($this->getRoutePath($route->type), $this->createRouteString($route), FILE_APPEND);
+            file_put_contents($this->getRoutePath(
+                $route->type),
+                $this->createRouteString($route),
+                FILE_APPEND
+            );
 
             return true;
         }
@@ -217,7 +276,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function createRouteString(RouteInterface $route): string
     {
-        return "Route::$route->method('$route->url', '$route->action')->name('$route->name');\n";
+        return "\nRoute::$route->method('$route->url', '$route->action')->name('$route->name');";
     }
 
     /**
@@ -233,7 +292,9 @@ class RouteService implements RouteServiceInterface
         $feedback = [];
 
         foreach ($routes as $route) {
-            $routeName = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
+//            $routeName = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
+            $posMiddleware = strpos($route, '->middleware');
+            $routeName = $this->extractRouteName($posMiddleware, $route);
 
             if($routeName &&
                 ($method = $this->getRouteSubstr(
@@ -327,7 +388,8 @@ class RouteService implements RouteServiceInterface
         $fileRouteNames = [];
 
         foreach ($routes as $route) {
-            $fileRouteNames[] = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
+            $posMiddleware = strpos($route, '->middleware');
+            $fileRouteNames[] = $this->extractRouteName($posMiddleware, $route);
         }
 
         return $fileRouteNames;
@@ -345,5 +407,27 @@ class RouteService implements RouteServiceInterface
             ', url ' . $route->url .
             ', action ' . $route->action .
             ' is stored in ' . $location . '.';
+    }
+
+    /**
+     * Get the route name from string
+     *
+     * @param $posMiddleware
+     * @param $line
+     * @return bool|mixed
+     */
+    protected function extractRouteName($posMiddleware, string $line)
+    {
+        if ($posMiddleware !== false) {
+            $lineArr = explode('->', $line);
+
+            return explode("'", $lineArr[count($lineArr) - 2])[1];
+        }
+
+        return $this->getRouteSubstr(
+            $line,
+            "/->name\('.+'/",
+            "'"
+        );
     }
 }

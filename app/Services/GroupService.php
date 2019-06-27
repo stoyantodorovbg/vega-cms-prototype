@@ -111,7 +111,7 @@ class GroupService implements GroupServiceInterface
             $data,
             ['title'],
             'group',
-            'destroy'
+            'exists'
         );
 
         if ($validatedData === true &&

@@ -480,17 +480,34 @@ class RouteTest extends TestCase
     public function a_route_can_be_attached_to_group_through_the_console(): void
     {
         $this->artisan('generate:group group');
-
         $this->artisan('generate:route /test get TestController@test test.test web');
 
         $this->artisan('attach:route-to-group test.test group');
 
         $route = Route::where('name', 'test.test')->first();
-
         $group = Group::where('title', 'group')->first();
 
         $this->assertEquals($route->name, $group->routes[0]->name);
         $this->assertEquals($group->title, $route->groups[0]->title);
+
+        $this->artisan('destroy:group group');
+        $this->artisan('destroy:route test.test');
+    }
+
+    /** @test */
+    public function a_route_can_be_detached_from_group_through_console_command(): void
+    {
+        $this->artisan('generate:group group');
+        $this->artisan('generate:route /test get TestController@test test.test web');
+        $this->artisan('attach:route-to-group test.test group');
+        $this->artisan('detach:route-from-group test.test group');
+
+        $route = Route::where('name', 'test.test')->first();
+        $group = Group::where('title', 'group')->first();
+
+        $this->assertEquals(0, $route->groups()->count());
+        $this->assertEquals(0, $group->routes()->count());
+
 
         $this->artisan('destroy:group group');
         $this->artisan('destroy:route test.test');

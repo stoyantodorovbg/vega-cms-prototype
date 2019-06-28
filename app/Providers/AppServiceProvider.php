@@ -8,6 +8,7 @@ use App\Services\FileCreateService;
 use App\Services\ValidationService;
 use App\Repositories\BaseRepository;
 use App\Services\FileDestroyService;
+use App\Repositories\RouteRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Interfaces\GroupServiceInterface;
@@ -17,6 +18,7 @@ use App\Services\Interfaces\ValidationServiceInterface;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Services\Interfaces\FileDestroyServiceInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
+use App\Repositories\Interfaces\RouteRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(GroupRepositoryInterface::class, GroupRepository::class);
         $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);
+        $this->app->bind(RouteRepositoryInterface::class, RouteRepository::class);
     }
 
     /**

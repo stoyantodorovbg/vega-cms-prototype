@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Group;
 use App\Models\Route;
 use App\Models\Interfaces\RouteInterface;
+use App\Repositories\Interfaces\RouteRepositoryInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Services\Interfaces\ValidationServiceInterface;
 
@@ -97,84 +98,117 @@ class RouteService implements RouteServiceInterface
      * @param array $data
      * @return mixed
      */
-    public function addRouteToGroup(array $data)
+    public function attachRouteToGroup(array $data)
     {
-        $validatedDataRoute = $this->validationService->validate(
-            $data,
-            ['name'],
-            'route',
-            'exists'
-        );
-        $validatedDataGroup = $this->validationService->validate(
-            $data,
-            ['title'],
-            'group',
-            'exists'
-        );
+        list($validatedDataRoute, $validatedDataGroup) = $this->validateRouteGroup($data);
 
         if ($validatedDataRoute === true && $validatedDataGroup === true) {
-            $route = Route::where('name', $data['name'])->first();
-            $group = Group::where('title', $data['title'])->first();
+            list($route, $group) = $this->fetchRouteAndGroup($data);
             $group->routes()->attach($route->id);
 
-            $this->assignMiddleware($route, $data['title']);
+            $this->attachMiddlewareToRoute($route, $data['title']);
 
             return true;
         }
 
-        $result = [];
-
-        if (is_array($validatedDataRoute)) {
-            array_merge($result, $validatedDataRoute);
-        }
-
-        if (is_array($validatedDataGroup)) {
-            array_merge($result, $validatedDataGroup);
-        }
-
-        return $result;
+        return $this->processRouteGroupValidation($validatedDataRoute, $validatedDataGroup);
     }
 
     /**
-     * Write middleware syntax in a route file
+     * Remove the provided route accessibility for the group members
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function detachRouteFromGroup(array $data)
+    {
+        list($validatedDataRoute, $validatedDataGroup) = $this->validateRouteGroup($data);
+
+        if ($validatedDataRoute === true && $validatedDataGroup === true) {
+            list($route, $group) = $this->fetchRouteAndGroup($data);
+            $group->routes()->detach($route->id);
+
+            $this->detachMiddlewareToRoute($route, $data['title']);
+
+            return true;
+        }
+
+        return $this->processRouteGroupValidation($validatedDataRoute, $validatedDataGroup);
+    }
+
+    /**
+     * Attach a middleware to route in the route file
      *
      * @param RouteInterface $route
-     * @param string $groupName
-     * @return bool
+     * @param string $groupTitle
+     * @return void
      */
-    protected function assignMiddleware(RouteInterface $route, string $groupName): bool
+    protected function attachMiddlewareToRoute(RouteInterface $route, string $groupTitle): void
     {
         $routesFileContent = $this->getRoutes($route->type);
-
         $routeName = $route->name;
         $countRows = count($routesFileContent);
 
         for ($index = 0; $index < $countRows; $index++) {
             $line = $routesFileContent[$index];
             $posMiddleware = strpos($line, '->middleware');
-
             $currentRouteName = $this->extractRouteName($posMiddleware, $line);
 
             if ($currentRouteName === $routeName && $posMiddleware !== false) {
                 $routesFileContent[$index] = substr_replace(
                     $routesFileContent[$index],
-                    ", '$groupName');",
+                    ", '$groupTitle');",
                     strlen($routesFileContent[$index]) - 2
                 );
             } elseif ($currentRouteName === $routeName) {
                 $routesFileContent[$index] = substr_replace(
                     $routesFileContent[$index],
-                    "->middleware('$groupName');",
+                    "->middleware('$groupTitle');",
                     strlen($routesFileContent[$index]) - 1
                 );
             }
         }
 
         $routesFileContent = implode("\n", $routesFileContent);
-
         file_put_contents($this->getRoutePath($route->type), $routesFileContent);
+    }
 
-        return true;
+    /**
+     * Detach a middleware from route in the route file
+     *
+     * @param RouteInterface $route
+     * @return void
+     */
+    protected function detachMiddlewareToRoute(RouteInterface $route): void
+    {
+        $routesFileContent = $this->getRoutes($route->type);
+        $routeName = $route->name;
+        $countRows = count($routesFileContent);
+
+        $replacement = '';
+        $routeRepository = resolve(RouteRepositoryInterface::class);
+        $groupsTitles = $routeRepository->getTheRouteGroupsCount($route);
+
+        if($routeRepository->getTheRouteGroupsCount($route)) {
+            $groupString = explode(', ', $groupsTitles);
+            $replacement = "->middleware($groupString)";
+        }
+
+
+        for ($index = 0; $index < $countRows; $index++) {
+            $line = $routesFileContent[$index];
+            $posMiddleware = strpos($line, '->middleware');
+            $currentRouteName = $this->extractRouteName($posMiddleware, $line);
+
+            if ($currentRouteName === $routeName) {
+                preg_match('/->middleware\(.+\)/', $routesFileContent[$index], $replaced);
+
+                $routesFileContent[$index] = str_replace($replaced, $replacement, $routesFileContent[$index]);
+            }
+        }
+
+        $routesFileContent = implode("\n", $routesFileContent);
+        file_put_contents($this->getRoutePath($route->type), $routesFileContent);
     }
 
     /**
@@ -303,7 +337,6 @@ class RouteService implements RouteServiceInterface
         $feedback = [];
 
         foreach ($routes as $route) {
-//            $routeName = $this->getRouteSubstr($route, "/->name\('.+'/", "'");
             $posMiddleware = strpos($route, '->middleware');
             $routeName = $this->extractRouteName($posMiddleware, $route);
 
@@ -440,5 +473,61 @@ class RouteService implements RouteServiceInterface
             "/->name\('.+'/",
             "'"
         );
+    }
+
+    /**
+     * Validate the route name and the group title
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function validateRouteGroup(array $data): array
+    {
+        $validatedDataRoute = $this->validationService->validate(
+            $data,
+            ['name'],
+            'route',
+            'exists'
+        );
+        $validatedDataGroup = $this->validationService->validate(
+            $data,
+            ['title'],
+            'group',
+            'exists'
+        );
+        return array($validatedDataRoute, $validatedDataGroup);
+    }
+
+    /**
+     * Process the result of route name and group title validation
+     *
+     * @param $validatedDataRoute
+     * @param $validatedDataGroup
+     * @return array
+     */
+    protected function processRouteGroupValidation($validatedDataRoute, $validatedDataGroup): array
+    {
+        $result = [];
+
+        if (is_array($validatedDataRoute)) {
+            array_merge($result, $validatedDataRoute);
+        }
+
+        if (is_array($validatedDataGroup)) {
+            array_merge($result, $validatedDataGroup);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function fetchRouteAndGroup(array $data): array
+    {
+        $route = Route::where('name', $data['name'])->first();
+        $group = Group::where('title', $data['title'])->first();
+        return array($route, $group);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Traits\CommandUtilities;
 use App\Services\Interfaces\RouteServiceInterface;
+use App\Traits\CommandUtilities;
+use Illuminate\Console\Command;
 
-class AttachRouteToGroup extends Command
+class DetachRouteFromGroup extends Command
 {
     use CommandUtilities;
 
@@ -15,14 +15,14 @@ class AttachRouteToGroup extends Command
      *
      * @var string
      */
-    protected $signature = 'attach:route-to-group {name} {title}';
+    protected $signature = 'detach:route-from-group {name} {title}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make the route accessible for the group members';
+    protected $description = 'Remove the provided route accessibility for the group members';
 
     /**
      * @var RouteServiceInterface
@@ -50,8 +50,8 @@ class AttachRouteToGroup extends Command
     {
         $data = $this->processArguments();
 
-        $validationData = $this->routeService->attachRouteToGroup($data);
+        $validationData = $this->routeService->detachRouteFromGroup($data);
 
-        $this->output($validationData, 'The route is attached to the group successfully.');
+        $this->output($validationData, 'The route is detached from the group successfully.');
     }
 }

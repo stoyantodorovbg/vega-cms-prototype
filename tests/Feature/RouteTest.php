@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\Group;
 use App\Models\Route;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -473,5 +474,25 @@ class RouteTest extends TestCase
             'type' => 'web',
         ]);
         $this->artisan('destroy:route test.test1');
+    }
+
+    /** @test */
+    public function a_route_can_be_attached_to_group_through_the_console(): void
+    {
+        $this->artisan('generate:group group');
+
+        $this->artisan('generate:route /test get TestController@test test.test web');
+
+        $this->artisan('attach:route-to-group test.test group');
+
+        $route = Route::where('name', 'test.test')->first();
+
+        $group = Group::where('title', 'group')->first();
+
+        $this->assertEquals($route->name, $group->routes[0]->name);
+        $this->assertEquals($group->title, $route->groups[0]->title);
+
+        $this->artisan('destroy:group group');
+        $this->artisan('destroy:route test.test');
     }
 }

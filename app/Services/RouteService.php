@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Group;
 use App\Models\Route;
 use App\Models\Interfaces\RouteInterface;
 use App\Services\Interfaces\RouteServiceInterface;
@@ -113,6 +114,8 @@ class RouteService implements RouteServiceInterface
 
         if ($validatedDataRoute === true && $validatedDataGroup === true) {
             $route = Route::where('name', $data['name'])->first();
+            $group = Group::where('title', $data['title'])->first();
+            $group->routes()->attach($route->id);
 
             $this->assignMiddleware($route, $data['title']);
 
@@ -240,8 +243,16 @@ class RouteService implements RouteServiceInterface
 
             file_put_contents($this->getRoutePath($route->type), '');
 
+            $counter = 0;
+            $routesArrayCount = count($routesArray);
+
             foreach ($routesArray as $line) {
-                file_put_contents($this->getRoutePath($route->type), "$line\n", FILE_APPEND);
+                $counter++;
+                if($counter < $routesArrayCount) {
+                    $line = "$line\n";
+                }
+
+                file_put_contents($this->getRoutePath($route->type), $line, FILE_APPEND);
             }
         }
     }

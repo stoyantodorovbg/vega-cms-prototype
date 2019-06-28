@@ -6,7 +6,6 @@ use Tests\TestCase;
 use App\Models\Group;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Services\Interfaces\FileDestroyServiceInterface;
 
 class GroupTest extends TestCase
 {

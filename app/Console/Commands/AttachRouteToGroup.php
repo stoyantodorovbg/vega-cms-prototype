@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use App\Traits\CommandUtilities;
 use App\Services\Interfaces\RouteServiceInterface;
 
-class AddRouteToGroup extends Command
+class AttachRouteToGroup extends Command
 {
     use CommandUtilities;
 
@@ -15,7 +15,7 @@ class AddRouteToGroup extends Command
      *
      * @var string
      */
-    protected $signature = 'add:route-to-group {name} {title}';
+    protected $signature = 'attach:route-to-group {name} {title}';
 
     /**
      * The console command description.

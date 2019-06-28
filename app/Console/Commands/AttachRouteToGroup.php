@@ -44,14 +44,14 @@ class AttachRouteToGroup extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $data = $this->processArguments();
 
-        $validationData = $this->routeService->addRouteToGroup($data);
+        $validationData = $this->routeService->attachRouteToGroup($data);
 
-        $this->output($validationData, 'The route is added successfully.');
+        $this->output($validationData, 'The route is attached to the group successfully.');
     }
 }

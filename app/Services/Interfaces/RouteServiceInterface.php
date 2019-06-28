@@ -33,5 +33,13 @@ interface RouteServiceInterface
      * @param array $data
      * @return mixed
      */
-    public function addRouteToGroup(array $data);
+    public function attachRouteToGroup(array $data);
+
+    /**
+     * Remove the provided route accessibility for the group members
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function detachRouteFromGroup(array $data);
 }

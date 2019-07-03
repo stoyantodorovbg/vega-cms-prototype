@@ -1,10 +1,10 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
-
 use App\Models\Route;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 
+/* @var $factory Factory */
 $factory->define(Route::class, function (Faker $faker) {
     $routePrefix = $faker->unique()->word;
 

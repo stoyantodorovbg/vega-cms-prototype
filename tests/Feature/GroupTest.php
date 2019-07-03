@@ -90,26 +90,26 @@ class GroupTest extends TestCase
     /** @test */
     public function the_group_destroy_command_requires_an_existing_in_database_group_title(): void
     {
-        $this->artisan('generate:group test');
+        $this->artisan('generate:group testTest');
 
         $this->assertDatabaseHas('groups', [
-            'title' => 'test',
+            'title' => 'testTest',
         ]);
 
-        $route = Group::where('title', 'test')->first();
+        $route = Group::where('title', 'testTest')->first();
         $route->delete();
 
-        $this->artisan('destroy:group test')
+        $this->artisan('destroy:group test_test')
             ->expectsOutput('Validation failed:')
             ->expectsOutput('The selected title is invalid.');
 
-        $this->assertFileExists(base_path() . '/app/Http/Middleware/Test.php');
+        $this->assertFileExists(base_path() . '/app/Http/Middleware/TestTest.php');
 
         factory(Group::class)->create([
-            'title' => 'test',
+            'title' => 'testTest',
         ]);
 
-        $this->artisan('destroy:group test');
+        $this->artisan('destroy:group testTest');
     }
 
     /** @test */

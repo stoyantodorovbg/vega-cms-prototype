@@ -176,7 +176,7 @@ class ValidationService implements ValidationServiceInterface
                 'string',
                 'max:255',
                 'unique:groups,title',
-                'regex:/^[a-z]*$/',
+                'regex:/^[a-zA-Z]*$/',
             ],
         ];
     }
@@ -208,7 +208,7 @@ class ValidationService implements ValidationServiceInterface
                 'string',
                 'max:255',
                 'exists:groups,title',
-                'regex:/^[a-z]*$/',
+                'regex:/^[a-zA-Z]*$/',
             ],
         ];
     }

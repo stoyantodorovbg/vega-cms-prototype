@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
         ]);
         $admin->groups()->attach([1]);
-        $groups->pull(0);
+        //$groups->pull(0);
 
         //Moderator id 2
         $moderator = factory(User::class)->create([
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
         ]);
         $moderator->groups()->attach([2]);
-        $groups->pull(1);
+        //$groups->pull(1);
 
         //User id 3
         $user = factory(User::class)->create([

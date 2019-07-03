@@ -42,8 +42,8 @@ class RouteService implements RouteServiceInterface
         );
 
         if ($validatedData === true &&
-            ($route = Route::create($data)) &&
-            $this->writeRoute($route)
+            $this->writeRoute($data) &&
+            (Route::create($data))
         ) {
             return true;
         }
@@ -137,6 +137,59 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
+     * Check for route collision in the appropriate route file
+     *
+     * @param array $fileContent
+     * @param string $routeName
+     * @return bool
+     */
+    public function checkForExistingRoute(array $fileContent, string $routeName): bool
+    {
+        foreach ($fileContent as $row) {
+            if ($row) {
+                $posMiddleware = strpos($row, '->middleware');
+                $currentRouteName = $this->extractRouteName($posMiddleware, $row);
+
+                if ($routeName === $currentRouteName) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the routes from the required route file
+     *
+     * @param string $routeType
+     * @return array
+     */
+    public function getRoutes(string $routeType = ''): array
+    {
+        if($routeType !== '') {
+            return file($this->getRoutePath($routeType), FILE_IGNORE_NEW_LINES);
+        }
+
+        $routeTypes = [
+            'web',
+            'page',
+            'api',
+            'admin',
+        ];
+        $rotesData = [];
+
+        foreach ($routeTypes as $routeType) {
+            $rotesData = array_merge(
+                file($this->getRoutePath($routeType), FILE_IGNORE_NEW_LINES),
+                $rotesData
+            );
+        }
+
+        return $rotesData;
+    }
+
+    /**
      * Attach a middleware to route in the route file
      *
      * @param RouteInterface $route
@@ -214,43 +267,19 @@ class RouteService implements RouteServiceInterface
     /**
      * Write a route in a route file
      *
-     * @param RouteInterface $route
+     * @param array $routeData
      * @return bool
      */
-    protected function writeRoute(RouteInterface $route): bool
+    protected function writeRoute(array $routeData): bool
     {
-        if (! $this->checkForExistingRoute($this->getRoutes($route->type), $route)) {
+        if (! $this->checkForExistingRoute($this->getRoutes($routeData['type']), $routeData['name'])) {
             file_put_contents($this->getRoutePath(
-                $route->type),
-                $this->createRouteString($route),
+                    $routeData['type']),
+                $this->createRouteString($routeData),
                 FILE_APPEND
             );
 
             return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Check for route collision in the appropriate route file
-     *
-     * @param array $fileContent
-     * @param RouteInterface $route
-     * @return bool
-     */
-    protected function checkForExistingRoute(array $fileContent, RouteInterface $route): bool
-    {
-        foreach ($fileContent as $row) {
-            if ($row) {
-                $rowArray = explode($row, "'");
-
-                foreach($rowArray as $item) {
-                    if($item === $route->url || $item === $route->method || $item === $route->name) {
-                        return true;
-                    }
-                }
-            }
         }
 
         return false;
@@ -292,17 +321,6 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
-     * Get the routes from the required route file
-     *
-     * @param string $routeType
-     * @return array
-     */
-    protected function getRoutes(string $routeType): array
-    {
-        return file($this->getRoutePath($routeType), FILE_IGNORE_NEW_LINES);
-    }
-
-    /**
      * Get the path to the route file
      *
      * @param string $routeType
@@ -316,12 +334,20 @@ class RouteService implements RouteServiceInterface
     /**
      * Create a route string from the stored route data
      *
-     * @param RouteInterface $route
+     * @param array $routeData
      * @return string
      */
-    protected function createRouteString(RouteInterface $route): string
+    protected function createRouteString(array $routeData): string
     {
-        return "\nRoute::$route->method('$route->url', '$route->action')->name('$route->name');";
+        return "\nRoute::" .
+            $routeData['method'] .
+            "('" .
+            $routeData['url'] .
+            "', '" .
+            $routeData['action'] .
+            "')->name('" .
+            $routeData['name'] .
+            "');";
     }
 
     /**

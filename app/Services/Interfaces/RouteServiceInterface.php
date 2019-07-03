@@ -42,4 +42,21 @@ interface RouteServiceInterface
      * @return mixed
      */
     public function detachRouteFromGroup(array $data);
+
+    /**
+     * Check for route collision in the appropriate route file
+     *
+     * @param array $fileContent
+     * @param string $routeName
+     * @return bool
+     */
+    public function checkForExistingRoute(array $fileContent, string $routeName): bool;
+
+    /**
+     * Get the routes from the required route file
+     *
+     * @param string $routeType
+     * @return array
+     */
+    public function getRoutes(string $routeType = ''): array;
 }

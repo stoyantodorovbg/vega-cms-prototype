@@ -15,4 +15,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/set-locale', 'LocaleController@setLocale')->name('locales.set-locale');
+Route::post('/set-locale', 'Front/LocaleController@setLocale')->name('locales.set-locale');

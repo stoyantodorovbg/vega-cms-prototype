@@ -34,12 +34,16 @@ class RouteService implements RouteServiceInterface
      */
     public function create(array $data)
     {
+        $data['action'] = $this->processAction($data['action'], $data['action_type']);
+
         $validatedData = $this->validationService->validate(
             $data,
-            ['url', 'method', 'action', 'name', 'type'],
+            ['url', 'method', 'action', 'name', 'routeType', 'actionType'],
             'route',
             'create'
         );
+
+        unset($data['action_type']);
 
         if ($validatedData === true &&
             $this->writeRoute($data) &&
@@ -198,7 +202,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function attachMiddlewareToRoute(RouteInterface $route, string $groupTitle): void
     {
-        $routesFileContent = $this->getRoutes($route->type);
+        $routesFileContent = $this->getRoutes($route->route_type);
         $routeName = $route->name;
         $countRows = count($routesFileContent);
 
@@ -223,7 +227,7 @@ class RouteService implements RouteServiceInterface
         }
 
         $routesFileContent = implode("\n", $routesFileContent);
-        file_put_contents($this->getRoutePath($route->type), $routesFileContent);
+        file_put_contents($this->getRoutePath($route->route_type), $routesFileContent);
     }
 
     /**
@@ -234,7 +238,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function detachMiddlewareToRoute(RouteInterface $route): void
     {
-        $routesFileContent = $this->getRoutes($route->type);
+        $routesFileContent = $this->getRoutes($route->route_type);
         $routeName = $route->name;
         $countRows = count($routesFileContent);
 
@@ -261,7 +265,7 @@ class RouteService implements RouteServiceInterface
         }
 
         $routesFileContent = implode("\n", $routesFileContent);
-        file_put_contents($this->getRoutePath($route->type), $routesFileContent);
+        file_put_contents($this->getRoutePath($route->route_type), $routesFileContent);
     }
 
     /**
@@ -272,9 +276,9 @@ class RouteService implements RouteServiceInterface
      */
     protected function writeRoute(array $routeData): bool
     {
-        if (! $this->checkForExistingRoute($this->getRoutes($routeData['type']), $routeData['name'])) {
+        if (! $this->checkForExistingRoute($this->getRoutes($routeData['route_type']), $routeData['name'])) {
             file_put_contents($this->getRoutePath(
-                    $routeData['type']),
+                    $routeData['route_type']),
                 $this->createRouteString($routeData),
                 FILE_APPEND
             );
@@ -293,7 +297,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function eraseRoute(RouteInterface $route): void
     {
-        $routesArray = $this->getRoutes($route->type);
+        $routesArray = $this->getRoutes($route->route_type);
 
         if($routesArray) {
             foreach ($routesArray as $key => $routeLine) {
@@ -304,7 +308,7 @@ class RouteService implements RouteServiceInterface
 
             unset($routesArray[$key]);
 
-            file_put_contents($this->getRoutePath($route->type), '');
+            file_put_contents($this->getRoutePath($route->route_type), '');
 
             $counter = 0;
             $routesArrayCount = count($routesArray);
@@ -315,7 +319,7 @@ class RouteService implements RouteServiceInterface
                     $line = "$line\n";
                 }
 
-                file_put_contents($this->getRoutePath($route->type), $line, FILE_APPEND);
+                file_put_contents($this->getRoutePath($route->route_type), $line, FILE_APPEND);
             }
         }
     }
@@ -379,7 +383,7 @@ class RouteService implements RouteServiceInterface
                 )) &&
                 ($action = $this->getRouteSubstr(
                     $route,
-                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z@0-9]+'/",
+                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z\/@0-9]+'/",
                     "'"
                 )) &&
                 ! Route::where('name', $routeName)->first()
@@ -389,7 +393,7 @@ class RouteService implements RouteServiceInterface
                     'url' => $url,
                     'action' => $action,
                     'name' => $routeName,
-                    'type' => $routeType,
+                    'route_type' => $routeType,
                 ]);
 
                 $feedback[] = $this->synchronizedRouteFeedback($route, 'DB');
@@ -430,7 +434,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function synchronizeDBRoutes(string $routeType): array
     {
-        $dbRoutes = Route::where('type', $routeType)->get();
+        $dbRoutes = Route::where('route_type', $routeType)->get();
         $fileRoutes = $this->getRoutes($routeType);
 
         $fileRouteNames = $this->getFileRouteNames($fileRoutes);
@@ -440,7 +444,7 @@ class RouteService implements RouteServiceInterface
         foreach ($dbRoutes as $dbRoute) {
             if (! array_key_exists($dbRoute->name, $fileRouteNames)) {
                 $this->writeRoute($dbRoute);
-                $feedback[] = $this->synchronizedRouteFeedback($dbRoute, $dbRoute->type . '.php');
+                $feedback[] = $this->synchronizedRouteFeedback($dbRoute, $dbRoute->route_type . '.php');
             }
         }
 
@@ -547,6 +551,8 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
+     * Fetch route and group
+     *
      * @param array $data
      * @return array
      */
@@ -554,6 +560,23 @@ class RouteService implements RouteServiceInterface
     {
         $route = Route::where('name', $data['name'])->first();
         $group = Group::where('title', $data['title'])->first();
-        return array($route, $group);
+
+        return [$route, $group];
+    }
+
+    /**
+     * Add prefix to the route action which is related to controller folder
+     *
+     * @param string $action
+     * @param string $actionType
+     * @return string
+     */
+    protected function processAction(string $action, string $actionType): string
+    {
+        if(! $actionType) {
+            $actionType = 'front';
+        }
+
+        return ucfirst($actionType) . '/' . $action;
     }
 }

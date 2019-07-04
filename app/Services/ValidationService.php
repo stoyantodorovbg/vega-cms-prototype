@@ -105,7 +105,7 @@ class ValidationService implements ValidationServiceInterface
                 'string',
                 'max:255',
                 'unique:routes,action',
-                'regex:/^[A-Za-z]*@[A-Z-a-z1-9]*$/',
+                'regex:/^[A-Za-z\/]*@[A-Z-a-z1-9]*$/',
             ],
         ];
     }
@@ -151,14 +151,29 @@ class ValidationService implements ValidationServiceInterface
      *
      * @return array
      */
-    protected function routeTypeCreate(): array
+    protected function routeRouteTypeCreate(): array
     {
         return [
-            'type' => [
-                'required',
+            'route_type' => [
                 'string',
                 'max:255',
                 'regex:/^(web|admin|page|api)$/',
+            ]
+        ];
+    }
+
+    /**
+     * Route type validation rules
+     *
+     * @return array
+     */
+    protected function routeActionTypeCreate(): array
+    {
+        return [
+            'action_type' => [
+                'string',
+                'max:255',
+                'regex:/^(front|admin|api)$/',
             ]
         ];
     }

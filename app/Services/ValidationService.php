@@ -105,7 +105,7 @@ class ValidationService implements ValidationServiceInterface
                 'string',
                 'max:255',
                 'unique:routes,action',
-                'regex:/^[A-Za-z\/]*@[A-Z-a-z1-9]*$/',
+                'regex:/^[A-Za-z\\\]*@[A-Z-a-z1-9]*$/',
             ],
         ];
     }

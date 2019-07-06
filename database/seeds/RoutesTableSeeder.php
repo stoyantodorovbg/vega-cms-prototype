@@ -31,7 +31,7 @@ class RoutesTableSeeder extends Seeder
         // Set locale
         $routes = $this->routeService->getRoutes();
         if (! $this->routeService->checkForExistingRoute($routes, 'locales.set-locale')) {
-            Artisan::call('generate:route /set-locale post LocaleController@setLocale locales.set-locale web front');
+            Artisan::call('generate:route /set-locale post LocalesController@setLocale locales.set-locale web front');
         } else {
             factory(Route::class)->create([
                 'url' => '/set-locale',

@@ -383,7 +383,7 @@ class RouteService implements RouteServiceInterface
                 )) &&
                 ($action = $this->getRouteSubstr(
                     $route,
-                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z\/@0-9]+'/",
+                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z\\\@0-9]+'/",
                     "'"
                 )) &&
                 ! Route::where('name', $routeName)->first()
@@ -577,6 +577,6 @@ class RouteService implements RouteServiceInterface
             $actionType = 'front';
         }
 
-        return ucfirst($actionType) . '/' . $action;
+        return ucfirst($actionType) . '\\' . $action;
     }
 }

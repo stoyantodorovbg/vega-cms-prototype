@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\RouteService;
 use App\Services\GroupService;
 use App\Services\LocaleService;
 use App\Services\MessageService;
-use App\Services\RouteService;
 use App\Services\FileCreateService;
 use App\Services\ValidationService;
 use App\Repositories\BaseRepository;

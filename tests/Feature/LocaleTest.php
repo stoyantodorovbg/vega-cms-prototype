@@ -38,10 +38,31 @@ class LocaleTest extends TestCase
             ->assertSessionHas('locale', 'bg');
     }
 
-//    /** @test */
-//    public function the_selected_locale_have_exists_in_database(): void
-//    {
-//        $this->post(route('locales.set-locale'), ['code' => 'bg'])
-//            ->assertStatus(422);
-//    }
+    /** @test */
+    public function the_selected_locale_have_to_exists_in_database(): void
+    {
+        $response = $this->post(route('locales.set-locale'), ['code' => 'bg'])
+            ->assertStatus(302);
+
+        $this->assertNotSame(strpos($response->getContent(), 'The selected code is invalid.'), false);
+    }
+
+    /** @test */
+    public function the_selected_locale_have_to_consists_of_exactly_two_characters(): void
+    {
+        $response = $this->post(route('locales.set-locale'), ['code' => 'bga'])
+            ->assertStatus(302);
+
+        $this->assertNotSame(strpos($response->getContent(), 'The code must be 2 characters.'), false);
+
+        $response = $this->post(route('locales.set-locale'), ['code' => 'b'])
+            ->assertStatus(302);
+
+        $this->assertNotSame(strpos($response->getContent(), 'The code must be 2 characters.'), false);
+
+        $response = $this->post(route('locales.set-locale'), ['code' => ''])
+            ->assertStatus(302);
+
+        $this->assertNotSame(strpos($response->getContent(), 'The code must be 2 characters.'), false);
+    }
 }

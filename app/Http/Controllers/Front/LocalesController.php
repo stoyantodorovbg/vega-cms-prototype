@@ -3,45 +3,35 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\LocaleRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Response;
 use App\Services\Interfaces\LocaleServiceInterface;
-use App\Services\Interfaces\MessageServiceInterface;
+use App\Services\Interfaces\ValidationServiceInterface;
 
 class LocalesController extends Controller
 {
     /**
      * Set a site locale
      *
-     * @param LocaleRequest $localeRequest
+     * @param ValidationServiceInterface $validationService
      * @param LocaleServiceInterface $localeService
-     * @param MessageServiceInterface $messageService
      * @return JsonResponse
      */
     public function setLocale(
-        LocaleRequest $localeRequest,
-        LocaleServiceInterface $localeService,
-        MessageServiceInterface $messageService
+        ValidationServiceInterface $validationService,
+        LocaleServiceInterface $localeService
     ): JsonResponse {
+        $validationData = $validationService->validate(request()->all(), ['code'], 'locale', 'set');
 
-        // This data will be fetched from DB
-        $success = [
-            'message' => 'The site locale is changed successfully.',
-            'status' => 200
-        ];
+        if ($validationData === true) {
+            $localeService->setSelectedLocale(request()->code);
 
-        $failure = [
-            'message' => 'This site locale has been already selected!',
-            'status' => 302
-        ];
+            return response()->json(
+                'The site locale is changed successfully.'
+            );
+        }
 
-        $result = $messageService->checkResult(
-            $localeService->setSelectedLocale($localeRequest->code),
-            $success,
-            $failure
-        );
-
-        return Response::json($result['message'], $result['status']);
+        return response()->json([
+            'error' => $validationData
+        ], 302);
     }
 }

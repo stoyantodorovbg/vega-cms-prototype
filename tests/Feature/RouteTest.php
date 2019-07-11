@@ -27,7 +27,7 @@ class RouteTest extends TestCase
     }
 
     /** @test */
-    public function the_properties_of_the_created_trough_the_console_route_are_validated_as_unique(): void
+    public function the_properties_of_the_created_through_the_console_route_are_validated_as_unique(): void
     {
         $this->artisan('generate:route /test get TestsController@test test.test');
         $this->artisan('generate:route /test get TestsController@test test.test');

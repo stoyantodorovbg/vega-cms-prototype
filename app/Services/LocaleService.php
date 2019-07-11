@@ -33,7 +33,7 @@ class LocaleService implements LocaleServiceInterface
     {
         $sessionLocale = session('locale');
 
-        if ($sessionLocale !== app()->getLocale()) {
+        if ($sessionLocale && $sessionLocale !== app()->getLocale()) {
             app()->setLocale($sessionLocale);
 
             return true;

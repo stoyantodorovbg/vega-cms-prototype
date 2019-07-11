@@ -8,3 +8,7 @@
 | Use command line to crate routes.
 |
 */
+
+Route::middleware(['locale'])->group(function () {
+
+});

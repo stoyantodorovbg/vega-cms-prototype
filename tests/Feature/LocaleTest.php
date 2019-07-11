@@ -65,4 +65,17 @@ class LocaleTest extends TestCase
 
         $this->assertNotSame(strpos($response->getContent(), 'The code must be 2 characters.'), false);
     }
+
+    /** @test */
+    public function the_app_locale_is_synchronized_with_session_locale_on_every_request(): void
+    {
+        $this->withoutExceptionHandling();
+
+        session(['locale' => 'en']);
+        app()->setLocale('bg');
+
+        $this->get(route('test.route'));
+
+        $this->assertEquals('en', app()->getLocale());
+    }
 }

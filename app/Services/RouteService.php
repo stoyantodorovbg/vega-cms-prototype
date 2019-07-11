@@ -276,12 +276,10 @@ class RouteService implements RouteServiceInterface
      */
     protected function writeRoute(array $routeData): bool
     {
-        if (! $this->checkForExistingRoute($this->getRoutes($routeData['route_type']), $routeData['name'])) {
-            file_put_contents($this->getRoutePath(
-                    $routeData['route_type']),
-                $this->createRouteString($routeData),
-                FILE_APPEND
-            );
+        $routeFileData = $this->getRoutes($routeData['route_type']);
+
+        if (! $this->checkForExistingRoute($routeFileData, $routeData['name'])) {
+            $this->addRouteToFile($routeData);
 
             return true;
         }
@@ -343,7 +341,7 @@ class RouteService implements RouteServiceInterface
      */
     protected function createRouteString(array $routeData): string
     {
-        return "\nRoute::" .
+        return "\n    Route::" .
             $routeData['method'] .
             "('" .
             $routeData['url'] .
@@ -351,7 +349,8 @@ class RouteService implements RouteServiceInterface
             $routeData['action'] .
             "')->name('" .
             $routeData['name'] .
-            "');";
+            "');\n" .
+            '});';
     }
 
     /**
@@ -578,5 +577,42 @@ class RouteService implements RouteServiceInterface
         }
 
         return ucfirst($actionType) . '\\' . $action;
+    }
+
+    /**
+     * Add a route to file
+     *
+     * @param array $routeData
+     */
+    protected function addRouteToFile(array $routeData): void
+    {
+        $routesArray = $this->getRoutes($routeData['route_type']);
+        $routesCount = count($routesArray) - 1;
+
+        for ($i = $routesCount; $i > 0; $i--) {
+            if($routesArray[$i] === '});') {
+                unset($routesArray[$i]);
+                break;
+            }
+        }
+
+        file_put_contents($this->getRoutePath($routeData['route_type']), '');
+
+        $counter = 1;
+
+
+        foreach ($routesArray as $line) {
+            if($counter !== $routesCount) {
+                $line .= "\n";
+            }
+            file_put_contents($this->getRoutePath($routeData['route_type']), $line, FILE_APPEND);
+            $counter ++;
+        }
+
+        file_put_contents($this->getRoutePath(
+            $routeData['route_type']),
+            $this->createRouteString($routeData),
+            FILE_APPEND
+        );
     }
 }

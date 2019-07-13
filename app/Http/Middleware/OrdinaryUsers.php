@@ -4,28 +4,15 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Filesystem\Filesystem;
 use App\Services\Interfaces\GroupServiceInterface;
+use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
-class OrdinaryUsers
+class OrdinaryUsers extends Middleware
 {
     /**
     * @var GroupServiceInterface
     */
     protected $groupService;
-
-    /**
-    * Create a new controller creator command instance.
-    *
-    * @param Filesystem $files
-    * @param GroupServiceInterface $groupService
-    */
-     public function __construct(Filesystem $files, GroupServiceInterface $groupService)
-     {
-        parent::__construct($files);
-
-         $this->groupService = $groupService;
-         }
 
     /**
     * Handle an incoming request.
@@ -38,7 +25,9 @@ class OrdinaryUsers
     {
         $groupName = strtolower(get_class ($this));
 
-        if(! auth()->check() || ! $this->groupService->userHasGroup(auth()->user(), $groupName)) {
+        if(! auth()->check() ||
+            ! resolve(GroupServiceInterface::class)->userHasGroup(auth()->user(), $groupName)
+        ) {
             return redirect('home');
         }
 

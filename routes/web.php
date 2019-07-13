@@ -16,6 +16,7 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
 
     Auth::routes();
 
-    Route::post('/set-locale', 'Front\LocalesController@setLocale')->name('locales.set-locale');
     Route::get('/test-test', 'Front\TestsController@testTest')->name('test.route');
+    Route::post('/set-locale', 'Front\LocalesController@setLocale')->name('locales.set-locale');
+    Route::get('/home', 'Front\HomeController@index')->name('home');
 });

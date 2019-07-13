@@ -17,7 +17,7 @@ class GroupRepository implements GroupRepositoryInterface
      */
     public function getUserGroupsTitles(User $user, string $groupTitle): array
     {
-        return DB::table('groups')
+        return (array) DB::table('groups')
             ->select('groups.title')
             ->join('group_user', 'groups.id', '=', 'group_user.group_id')
             ->where('group_user.user_id', $user->id)

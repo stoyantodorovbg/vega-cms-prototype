@@ -55,7 +55,7 @@ class GroupsTableSeeder extends Seeder
             Artisan::call("generate:group ordinaryUsers --description='Only front end rights'");
         } else {
             factory(Group::class)->create([
-                'title' => 'Ordinary users',
+                'title' => 'ordinaryUsers',
                 'description' => 'Only front end rights',
             ]);
         }

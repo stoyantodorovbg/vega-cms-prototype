@@ -2,25 +2,17 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\Interfaces\LocaleServiceInterface;
 use Closure;
 use Illuminate\Http\Request;
+use App\Services\Interfaces\LocaleServiceInterface;
+use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
-class Locale
+class Locale extends Middleware
 {
     /**
      * @var LocaleServiceInterface
      */
     protected $localeService;
-
-    /**
-     * Locale constructor.
-     * @param LocaleServiceInterface $localeService
-     */
-    public function __construct(LocaleServiceInterface $localeService)
-    {
-        $this->localeService = $localeService;
-    }
 
     /**
      * Handle an incoming request.
@@ -31,7 +23,7 @@ class Locale
      */
     public function handle($request, Closure $next)
     {
-        $this->localeService->setSessionLocale();
+        resolve(LocaleServiceInterface::class)->setSessionLocale();
 
         return $next($request);
     }

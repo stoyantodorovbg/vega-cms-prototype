@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\PhraseService;
 use App\Services\RouteService;
 use App\Services\GroupService;
 use App\Services\LocaleService;
@@ -15,6 +16,7 @@ use App\Repositories\GroupRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Interfaces\GroupServiceInterface;
 use App\Services\Interfaces\RouteServiceInterface;
+use App\Services\Interfaces\PhraseServiceInterface;
 use App\Services\Interfaces\LocaleServiceInterface;
 use App\Services\Interfaces\MessageServiceInterface;
 use App\Services\Interfaces\FileCreateServiceInterface;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FileDestroyServiceInterface::class, FileDestroyService::class);
         $this->app->bind(LocaleServiceInterface::class, LocaleService::class);
         $this->app->bind(MessageServiceInterface::class, MessageService::class);
+        $this->app->bind(PhraseServiceInterface::class, PhraseService::class);
 
         $this->app->bind(GroupRepositoryInterface::class, GroupRepository::class);
         $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);

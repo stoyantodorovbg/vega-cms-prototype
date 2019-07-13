@@ -9,7 +9,7 @@
 |
 */
 
-Route::middleware(['locale'])->group(function () {
+Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });

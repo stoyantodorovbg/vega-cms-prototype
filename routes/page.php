@@ -8,6 +8,6 @@
 | Use command line to crate routes.
 |
 */
-Route::middleware(['locale'])->group(function () {
+Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
 
 });

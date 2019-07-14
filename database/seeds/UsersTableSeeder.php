@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $groups = Group::all();
+        //$groups = Group::all();
 
         //Admin id 1
         $admin = factory(User::class)->create([
@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => bcrypt('secret'),
         ]);
-        $admin->groups()->attach([1]);
+        $admin->groups()->attach([1, 2, 3]);
         //$groups->pull(0);
 
         //Moderator id 2
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'moderator@example.com',
             'password' => bcrypt('secret'),
         ]);
-        $moderator->groups()->attach([2]);
+        $moderator->groups()->attach([2, 3]);
         //$groups->pull(1);
 
         //User id 3
@@ -41,10 +41,10 @@ class UsersTableSeeder extends Seeder
         ]);
         $user->groups()->attach([3]);
 
-        $users = factory(User::class, 20)->create();
-
-        $users->each(function ($user) use ($groups) {
-            $user->groups()->saveMany($groups);
-        });
+//        $users = factory(User::class, 20)->create();
+//
+//        $users->each(function ($user) use ($groups) {
+//            $user->groups()->saveMany($groups);
+//        });
     }
 }

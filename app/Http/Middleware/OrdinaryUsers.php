@@ -23,12 +23,12 @@ class OrdinaryUsers extends Middleware
     */
     public function handle($request, Closure $next)
     {
-        $groupName = strtolower(get_class ($this));
+        if (! auth()->check()) {
+            return redirect(route('login', [], false));
+        }
 
-        if(! auth()->check() ||
-            ! resolve(GroupServiceInterface::class)->userHasGroup(auth()->user(), $groupName)
-        ) {
-            return redirect('home');
+        if(! resolve(GroupServiceInterface::class)->userHasGroup(auth()->user(), 'ordinaryUsers')) {
+            return redirect(route('welcome', [], false));
         }
 
         return $next($request);

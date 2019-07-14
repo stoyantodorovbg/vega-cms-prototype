@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 
-class HomeController extends Controller
+class WelcomeController extends Controller
 {
     /**
      * Show the application dashboards.
@@ -15,6 +15,6 @@ class HomeController extends Controller
      */
     public function index(): Renderable
     {
-        return view('home');
+        return view('front.welcome');
     }
 }

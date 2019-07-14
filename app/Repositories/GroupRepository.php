@@ -22,6 +22,6 @@ class GroupRepository implements GroupRepositoryInterface
             ->join('group_user', 'groups.id', '=', 'group_user.group_id')
             ->where('group_user.user_id', $user->id)
             ->where('groups.title', $groupTitle)
-            ->get();
+            ->get()->toArray();
     }
 }

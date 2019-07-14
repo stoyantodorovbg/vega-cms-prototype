@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'custom_name' => env('APP_NAME_CUSTOM', 'Vega CMS'),
 
     /*
     |--------------------------------------------------------------------------

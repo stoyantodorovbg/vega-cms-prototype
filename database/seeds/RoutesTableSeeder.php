@@ -2,9 +2,9 @@
 
 use App\Models\Group;
 use App\Models\Route;
-use App\Services\Interfaces\RouteServiceInterface;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
+use App\Services\Interfaces\RouteServiceInterface;
 
 class RoutesTableSeeder extends Seeder
 {
@@ -29,17 +29,33 @@ class RoutesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        // Set locale
+        // Guest welcome page
+        $routes = $this->routeService->getRoutes();
+        if (! $this->routeService->checkForExistingRoute($routes, 'welcome')) {
+            Artisan::call('generate:route /welcome get WelcomeController@index welcome web front');
+        } else {
+            factory(Route::class)->create([
+                'url' => '/welcome',
+                'method' => 'get',
+                'action' => 'WelcomeController@index',
+                'name' => 'welcome',
+            ]);
+        }
+
+        // Ordinary user home page
         $routes = $this->routeService->getRoutes();
         if (! $this->routeService->checkForExistingRoute($routes, 'home')) {
             Artisan::call('generate:route /home get HomeController@index home web front');
+            Artisan::call('attach:route-to-group home ordinaryUsers');
         } else {
-            factory(Route::class)->create([
+            $route = factory(Route::class)->create([
                 'url' => '/home',
                 'method' => 'get',
                 'action' => 'HomeController@index',
                 'name' => 'home',
             ]);
+
+            Group::where('title', 'ordinaryUsers')->first()->routes()->attach($route->id);
         }
 
         // Set locale
@@ -55,17 +71,17 @@ class RoutesTableSeeder extends Seeder
             ]);
         }
 
-        // Admin dashboard index
+        // Admin dashboards index
         $routes = $this->routeService->getRoutes();
-        if (! $this->routeService->checkForExistingRoute($routes, 'admin-dashboard.index')) {
-            Artisan::call('generate:route /dashboard get DashboardsController@index admin-dashboard.index admin admin');
-            Artisan::call('attach:route-to-group admin-dashboard.index admins');
+        if (! $this->routeService->checkForExistingRoute($routes, 'admin-dashboards.index')) {
+            Artisan::call('generate:route /dashboard get DashboardsController@index admin-dashboards.index admin admin');
+            Artisan::call('attach:route-to-group admin-dashboards.index admins');
         } else {
             $route = factory(Route::class)->create([
                 'url' => '/dashboard',
                 'method' => 'get',
                 'action' => 'DashboardsController@index',
-                'name' => 'admin-dashboard.index',
+                'name' => 'admin-dashboards.index',
             ]);
 
             Group::where('title', 'admins')->first()->routes()->attach($route->id);

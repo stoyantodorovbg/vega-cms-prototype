@@ -382,7 +382,7 @@ class RouteService implements RouteServiceInterface
                 )) &&
                 ($action = $this->getRouteSubstr(
                     $route,
-                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z\\\@0-9]+'/",
+                    "/Route::[a-z]+\('[\/a-zA-Z0-9{}]+'.+'[a-zA-Z\\\@0-9')]+->name/",
                     "'"
                 )) &&
                 ! Route::where('name', $routeName)->first()
@@ -434,6 +434,7 @@ class RouteService implements RouteServiceInterface
     protected function synchronizeDBRoutes(string $routeType): array
     {
         $dbRoutes = Route::where('route_type', $routeType)->get();
+
         $fileRoutes = $this->getRoutes($routeType);
 
         $fileRouteNames = $this->getFileRouteNames($fileRoutes);

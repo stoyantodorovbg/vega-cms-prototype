@@ -21,11 +21,12 @@
 </head>
 <body>
 <div id="app">
-
-    @include('front.layouts.nav')
-
-    <main class="py-4">
-        @yield('content')
+    @include('front.partials.nav')
+    <main class="row">
+        @include('admin.partials.side_nav')
+        <div class="col-10">
+            @yield('content')
+        </div>
     </main>
 </div>
 </body>

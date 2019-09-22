@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Group;
 use App\Models\Route;
-use App\Models\Interfaces\RouteInterface;
 use App\Repositories\Interfaces\RouteRepositoryInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Services\Interfaces\ValidationServiceInterface;
@@ -196,11 +195,11 @@ class RouteService implements RouteServiceInterface
     /**
      * Attach a middleware to route in the route file
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @param string $groupTitle
      * @return void
      */
-    protected function attachMiddlewareToRoute(RouteInterface $route, string $groupTitle): void
+    protected function attachMiddlewareToRoute(Route $route, string $groupTitle): void
     {
         $routesFileContent = $this->getRoutes($route->route_type);
         $routeName = $route->name;
@@ -233,10 +232,10 @@ class RouteService implements RouteServiceInterface
     /**
      * Detach a middleware from route in the route file
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @return void
      */
-    protected function detachMiddlewareToRoute(RouteInterface $route): void
+    protected function detachMiddlewareToRoute(Route $route): void
     {
         $routesFileContent = $this->getRoutes($route->route_type);
         $routeName = $route->name;
@@ -290,10 +289,10 @@ class RouteService implements RouteServiceInterface
     /**
      * Erase a route from the route file if it exists
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @return void
      */
-    protected function eraseRoute(RouteInterface $route): void
+    protected function eraseRoute(Route $route): void
     {
         $routesArray = $this->getRoutes($route->route_type);
 

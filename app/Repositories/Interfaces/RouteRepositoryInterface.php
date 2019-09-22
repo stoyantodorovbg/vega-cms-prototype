@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Models\Interfaces\RouteInterface;
+use App\Models\Route;
 use Illuminate\Database\Eloquent\Collection;
 
 interface RouteRepositoryInterface
@@ -10,16 +10,16 @@ interface RouteRepositoryInterface
     /**
      * Fetch the names of the route groups
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @return Collection
      */
-    public function getRouteGroupsNames(RouteInterface $route): Collection;
+    public function getRouteGroupsNames(Route $route): Collection;
 
     /**
      * Fetch the count of the route groups
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @return int
      */
-    public function getTheRouteGroupsCount(RouteInterface $route): int;
+    public function getTheRouteGroupsCount(Route $route): int;
 }

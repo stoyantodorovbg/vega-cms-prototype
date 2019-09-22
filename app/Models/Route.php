@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Interfaces\RouteInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Route extends Model

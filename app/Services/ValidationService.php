@@ -46,7 +46,7 @@ class ValidationService implements ValidationServiceInterface
     /**
      * Check the validation result
      *
-     * @param Validator $validator
+     * @param $validator
      * @return array|bool
      */
     protected function checkValidation($validator)

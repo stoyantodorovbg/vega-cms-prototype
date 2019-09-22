@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Route;
 use Illuminate\Support\Facades\DB;
-use App\Models\Interfaces\RouteInterface;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Interfaces\RouteRepositoryInterface;
 
@@ -12,10 +12,10 @@ class RouteRepository implements RouteRepositoryInterface
     /**
      * Fetch the names of the route groups
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @return Collection
      */
-    public function getRouteGroupsNames(RouteInterface $route): Collection
+    public function getRouteGroupsNames(Route $route): Collection
     {
         return DB::table('routes')
             ->join('group_route', 'routes.id', '=', 'group_route.route_id')
@@ -27,10 +27,10 @@ class RouteRepository implements RouteRepositoryInterface
     /**
      * Fetch the count of the route groups
      *
-     * @param RouteInterface $route
+     * @param Route $route
      * @return int
      */
-    public function getTheRouteGroupsCount(RouteInterface $route): int
+    public function getTheRouteGroupsCount(Route $route): int
     {
         return DB::table('routes')
             ->join('group_route', 'routes.id', '=', 'group_route.route_id')

@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<div id="app">
+<div id="app" data-locale="{{ app()->getLocale() }}">
     @include('front.partials.nav')
     <main class="row">
         @include('admin.partials.side_nav')

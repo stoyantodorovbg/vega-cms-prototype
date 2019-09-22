@@ -14,11 +14,11 @@
             }
         },
         mounted() {
-            this.load()
+            this.load();
         },
         methods: {
             load() {
-                axios.get('/api/en/api/admin/index', {
+                axios.get('/api/' + this.$store.state.locale + '/api/admin/index', {
                         params: {
                             model: 'Group',
                         }

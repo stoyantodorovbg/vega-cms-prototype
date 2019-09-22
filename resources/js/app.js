@@ -6,7 +6,22 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+//window.Vue = require('vue');
+import Vue from 'vue';
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
+
+let store = new Vuex.Store({
+    state: {
+        locale: document.getElementById('app').getAttribute('data-locale')
+    },
+    mutations: {
+        increment (state) {
+            state.count++
+        }
+    }
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,4 +46,5 @@ Vue.component('model-index', require('./admin/components/ModelIndex.vue').defaul
 
 const app = new Vue({
     el: '#app',
+    store: store
 });

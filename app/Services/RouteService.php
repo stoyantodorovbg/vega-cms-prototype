@@ -442,7 +442,7 @@ class RouteService implements RouteServiceInterface
 
         foreach ($dbRoutes as $dbRoute) {
             if (! array_key_exists($dbRoute->name, $fileRouteNames)) {
-                $this->writeRoute($dbRoute);
+                $this->writeRoute($dbRoute->toArray());
                 $feedback[] = $this->synchronizedRouteFeedback($dbRoute, $dbRoute->route_type . '.php');
             }
         }

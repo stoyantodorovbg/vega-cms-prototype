@@ -76,6 +76,16 @@ class RoutesTableSeeder extends Seeder
             'admin',
             'admins'
         );
+
+        // API Models index
+        $this->createRoute('/admin/index',
+            'get',
+            'Admin\\\IndexController@data',
+            'api-admin.index',
+            'api',
+            'api',
+            'admins'
+        );
     }
 
     /**

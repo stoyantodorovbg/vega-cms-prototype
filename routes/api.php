@@ -17,4 +17,5 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/admin/index', 'Api\Admin\IndexController@data')->name('api-admin.index')->middleware('admins');
 });

@@ -14,11 +14,21 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
-        locale: document.getElementById('app').getAttribute('data-locale')
+        locale: document.getElementById('app').getAttribute('data-locale'),
+        adminIndexDisplaySettings: []
     },
     mutations: {
-        increment (state) {
-            state.count++
+        addModelDisplaySettings(params) {
+            if(!this.state.adminModelsDisplaySettings[params.modelName]) {
+                this.state.adminModelsDisplaySettings[params.modelName] = {};
+            }
+            for(let setting in params.settings) {
+                if(this.state.adminIndexDisplaySettings[params.modelName] &&
+                    this.state.adminIndexDisplaySettings[params.modelName][setting.fieldName]
+                ) {
+                    this.state.adminIndexDisplaySettings[modelName][setting.fieldName] = setting.visibility;
+                }
+            }
         }
     }
 });

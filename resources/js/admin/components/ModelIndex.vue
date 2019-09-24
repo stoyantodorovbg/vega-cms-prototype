@@ -4,12 +4,12 @@
         <table class="table">
             <thead>
             <tr>
-                <cell-td v-for="field in displayedFields" :key="field" :content="field"></cell-td>
+                <cell-td v-for="field in displayedFields" :key="field.name" :content="field.name"></cell-td>
             </tr>
             </thead>
             <tbody>
             <tr v-for="model in models" :key="model.id">
-                <cell-td v-for="field in displayedFields" :key="field" :content="model[field]"></cell-td>
+                <cell-td v-for="field in displayedFields" :key="field.name" :content="model[field.name]"></cell-td>
             </tr>
             </tbody>
         </table>
@@ -29,7 +29,7 @@
         data() {
             return {
                 models: {},
-                displayedFields: {},
+                displayedFields: [],
                 modelFields: {},
                 defaultFieldsCount: 10,
             }
@@ -39,11 +39,14 @@
             fieldsSettings: {
                 get: function() {
                     let fieldSettings = [];
+                    let counter = 0;
                     for(let field in this.modelFields) {
                         fieldSettings.push({
                             name: this.modelFields[field],
-                            visibility: true
+                            visibility: true,
+                            position: counter,
                         });
+                        counter++;
                     }
 
                     return fieldSettings;
@@ -69,11 +72,20 @@
             },
 
             setFields(models, defaultFieldsCount = 10) {
-                this.modelFields = Object.keys(this.models[0]);
+                let displayedFields = this.modelFields = Object.keys(this.models[0]);
 
                 if(defaultFieldsCount > this.modelFields.length) {
                     defaultFieldsCount = this.modelFields.length;
-                    this.displayedFields = this.modelFields.slice(0, defaultFieldsCount);
+                    displayedFields = this.modelFields.slice(0, defaultFieldsCount);
+                }
+
+                let counter = 0;
+                for(let field of displayedFields) {
+                    this.displayedFields.push({
+                        name: field,
+                        position: counter,
+                    });
+                    counter++;
                 }
             },
 
@@ -88,17 +100,22 @@
 
                 return fields;
             },
-            changeFieldVisibility(fieldName, fieldVisibility) {
+            changeFieldVisibility(fieldName, fieldVisibility, position) {
 
                 let self = this;
                 this.fieldsSettings.map(function(field) {
                     if(fieldName === field.name) {
                         field.visibility = fieldVisibility;
                         if(fieldVisibility) {
-                            self.displayedFields.push(field.name);
+                            self.displayedFields.push({
+                                name: fieldName,
+                                position: position
+                            });
                         } else {
-                            self.displayedFields = self.displayedFields.filter(e => e !== field.name);
+                            self.displayedFields = self.displayedFields.filter(e => e.name !== field.name);
                         }
+
+                        self.displayedFields.sort(function(a, b){return a.position - b.position});
 
                         return field;
                     }

@@ -7,7 +7,7 @@
             <input type="checkbox"
                    class="form-check-input"
                    :checked="field.visibility"
-                   @change="checkVisibility(field.name, field.visibility)"
+                   @change="checkVisibility(field.name, field.visibility, field.position)"
             >
             <label class="form-check-label ml-1">{{ field.name }}</label>
         </div>
@@ -19,9 +19,9 @@
         name: 'customize-model-index',
         props: ['fields'],
         methods: {
-            checkVisibility(fieldName, fieldVisibility) {
+            checkVisibility(fieldName, fieldVisibility, position) {
                 fieldVisibility = !fieldVisibility;
-                this.$parent.changeFieldVisibility(fieldName, fieldVisibility);
+                this.$parent.changeFieldVisibility(fieldName, fieldVisibility, position);
             }
         }
     }

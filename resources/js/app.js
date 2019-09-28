@@ -18,16 +18,19 @@ let store = new Vuex.Store({
         adminIndexDisplaySettings: []
     },
     mutations: {
-        addModelDisplaySettings(params) {
-            if(!this.state.adminModelsDisplaySettings[params.modelName]) {
-                this.state.adminModelsDisplaySettings[params.modelName] = {};
+        addModelDisplaySettings(state, params) {
+            let modelName = params.modelName;
+            if(!state.adminIndexDisplaySettings[params.modelName]) {
+                state.adminIndexDisplaySettings[params.modelName] = {
+                    modelName: modelName
+                };
             }
-            for(let setting in params.settings) {
-                if(this.state.adminIndexDisplaySettings[params.modelName] &&
-                    this.state.adminIndexDisplaySettings[params.modelName][setting.fieldName]
-                ) {
-                    this.state.adminIndexDisplaySettings[modelName][setting.fieldName] = setting.visibility;
-                }
+            for (let setting of params.settings) {
+                state.adminIndexDisplaySettings[modelName].setting = {
+                    name: setting.name,
+                    position: setting.position,
+                    visibility: setting.visibility,
+                };
             }
         }
     }

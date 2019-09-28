@@ -84,12 +84,13 @@
                     this.displayedFields.push({
                         name: field,
                         position: counter,
+                        visibility: true
                     });
                     counter++;
                 }
             },
 
-            prepareFieldsSettingsData(fields) {
+            storeFieldsSettings(fields) {
                 let params = {
                     settings: fields,
                     modelName: this.model_name
@@ -100,8 +101,8 @@
 
                 return fields;
             },
-            changeFieldVisibility(fieldName, fieldVisibility, position) {
 
+            changeFieldVisibility(fieldName, fieldVisibility, position) {
                 let self = this;
                 this.fieldsSettings.map(function(field) {
                     if(fieldName === field.name) {
@@ -109,17 +110,18 @@
                         if(fieldVisibility) {
                             self.displayedFields.push({
                                 name: fieldName,
-                                position: position
+                                position: position,
+                                visibility: fieldVisibility
                             });
                         } else {
                             self.displayedFields = self.displayedFields.filter(e => e.name !== field.name);
                         }
 
-                        self.displayedFields.sort(function(a, b){return a.position - b.position});
-
                         return field;
                     }
                 });
+                self.displayedFields.sort(function(a, b){return a.position - b.position});
+                this.storeFieldsSettings(self.displayedFields)
             }
         }
     }

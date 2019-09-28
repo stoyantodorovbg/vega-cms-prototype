@@ -24,10 +24,18 @@ class OrdinaryUsers extends Middleware
     public function handle($request, Closure $next)
     {
         if (! auth()->check()) {
+            if($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthenticated.'], 401);
+            }
+
             return redirect(route('login', [], false));
         }
 
         if(! resolve(GroupServiceInterface::class)->userHasGroup(auth()->user(), 'ordinaryUsers')) {
+            if($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthenticated.'], 401);
+            }
+
             return redirect(route('welcome', [], false));
         }
 

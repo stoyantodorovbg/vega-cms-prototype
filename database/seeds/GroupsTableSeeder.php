@@ -37,7 +37,6 @@ class GroupsTableSeeder extends Seeder
                 'title' => 'admins',
                 'description' => 'All rights.',
             ]);
-
         }
 
         // Moderators id 2

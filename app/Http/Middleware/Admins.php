@@ -27,6 +27,9 @@ class Admins extends Middleware
     public function handle($request, Closure $next)
     {
         if (! auth()->check()) {
+            if($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthenticated.'], 401);
+            }
             return redirect(route('login', [], false));
         }
 
@@ -34,6 +37,9 @@ class Admins extends Middleware
         $groupName = strtolower($reflect->getShortName());
 
         if(! resolve(GroupServiceInterface::class)->userHasGroup(auth()->user(), $groupName)) {
+            if($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthenticated.'], 401);
+            }
             return redirect(route('welcome', [], false));
         }
 

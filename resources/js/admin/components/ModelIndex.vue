@@ -63,6 +63,16 @@
                 axios.get('/api/' + this.$store.state.locale + '/admin/index', {
                         params: {
                             model: this.model_name,
+                            filters: {
+                                title: {
+                                    value: 'admins',
+                                    type: 'text'
+                                },
+                                status: {
+                                    value: 1,
+                                    type: 'bool'
+                                }
+                            }
                         }
                     }
                 ).then((response) => {

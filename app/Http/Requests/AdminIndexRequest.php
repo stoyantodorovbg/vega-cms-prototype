@@ -24,7 +24,8 @@ class AdminIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'model' => 'string'
+            'model' => 'string',
+            'filters' => 'json'
         ];
     }
 }

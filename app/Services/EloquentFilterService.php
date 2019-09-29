@@ -21,8 +21,9 @@ class EloquentFilterService implements EloquentFilterServiceInterface
             $filters = json_decode($request->validated()['filters'], true);
 
             foreach ($filters as $fieldName => $filter) {
-                $methodName = $filter['type'];
-                $builder = $this->$methodName($builder, $fieldName, $filter['value']);
+                foreach ($filter['types'] as $methodName => $value) {
+                    $builder = $this->$methodName($builder, $fieldName, $value['value']);
+                }
             }
 
         }

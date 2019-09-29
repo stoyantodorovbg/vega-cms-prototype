@@ -1,6 +1,7 @@
 <template>
     <div>
-        <customize-model-index :fields="fieldsSettings"></customize-model-index>
+        <menage-filters :fields="fieldsFiltersSettings"></menage-filters>
+        <customize-model-index :fields="fieldsGridSettings"></customize-model-index>
         <table class="table">
             <thead>
             <tr>
@@ -20,9 +21,10 @@
     import CellTd from './table/CellTd'
     import CellTh from './table/CellTh'
     import CustomizeModelIndex from "./table/CustomizeModelIndex";
+    import MenageFilters from "./filters/MenageFilters";
 
     export default {
-        components: { CellTd, CellTh, CustomizeModelIndex },
+        components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters },
 
         props: ['model_name'],
 
@@ -32,11 +34,12 @@
                 displayedFields: [],
                 modelFields: {},
                 defaultFieldsCount: 10,
+                filters: {}
             }
         },
 
         computed: {
-            fieldsSettings: {
+            fieldsGridSettings: {
                 get: function() {
                     let fieldSettings = [];
                     let counter = 0;
@@ -52,6 +55,19 @@
                     return fieldSettings;
                 },
             },
+            fieldsFiltersSettings: {
+                get: function() {
+                    let fieldSettings = [];
+                    for(let field in this.modelFields) {
+                        fieldSettings.push({
+                            name: this.modelFields[field],
+                            visibility: true,
+                        });
+                    }
+
+                    return fieldSettings;
+                },
+            },
         },
 
         mounted() {
@@ -59,25 +75,18 @@
         },
 
         methods: {
-            load() {
+            load(initial = true) {
                 axios.get('/api/' + this.$store.state.locale + '/admin/index', {
                         params: {
                             model: this.model_name,
-                            filters: {
-                                title: {
-                                    value: 'admins',
-                                    type: 'text'
-                                },
-                                status: {
-                                    value: 1,
-                                    type: 'bool'
-                                }
-                            }
+                            filters: this.filters
                         }
                     }
                 ).then((response) => {
                     this.models = response.data;
-                    this.setFields(this.models, this.defaultFieldsCount);
+                    if(initial) {
+                        this.setFields(this.models, this.defaultFieldsCount);
+                    }
                 });
             },
 
@@ -114,7 +123,7 @@
 
             changeFieldVisibility(fieldName, fieldVisibility, position) {
                 let self = this;
-                this.fieldsSettings.map(function(field) {
+                this.fieldsGridSettings.map(function(field) {
                     if(fieldName === field.name) {
                         field.visibility = fieldVisibility;
                         if(fieldVisibility) {
@@ -132,6 +141,26 @@
                 });
                 self.displayedFields.sort(function(a, b){return a.position - b.position});
                 this.storeFieldsSettings(self.displayedFields)
+            },
+            updateFilters(fieldName, value, type)
+            {
+                if(typeof this.filters[fieldName] === 'undefined') {
+                    this.filters[fieldName] = {
+                        types: {
+                            [type]: {
+                                value: value,
+                            }
+                        }
+                    }
+                } else if(typeof this.filters[fieldName] !== 'undefined' &&
+                    typeof this.filters[fieldName].types[type] === 'undefined'
+                ) {
+                    this.filters[fieldName].types[type] = {
+                        value: value
+                    }
+                } else {
+                    this.filters[fieldName].types[type].value = value;
+                }
             }
         }
     }

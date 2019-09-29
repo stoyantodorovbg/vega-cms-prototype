@@ -57,8 +57,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'status' => [
-                    'value' => 1,
-                    'type' => 'exact'
+                    'types' => [
+                        'exact' => [
+                            'value' => 1,
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);
@@ -69,8 +72,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'status' => [
-                    'value' => 0,
-                    'type' => 'exact'
+                    'types' => [
+                        'exact' => [
+                            'value' => 0,
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);
@@ -81,8 +87,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'title' => [
-                    'value' => 'admins',
-                    'type' => 'exact'
+                    'types' => [
+                        'exact' => [
+                            'value' => 'admins',
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);
@@ -94,8 +103,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'title' => [
-                    'value' => 'admin',
-                    'type' => 'exact'
+                    'types' => [
+                        'exact' => [
+                            'value' => 'admin',
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);
@@ -115,8 +127,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'title' => [
-                    'value' => 'adm',
-                    'type' => 'like'
+                    'types' => [
+                        'like' => [
+                            'value' => 'adm',
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);
@@ -139,8 +154,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'created_at' => [
-                    'value' => Carbon::now()->subDay(),
-                    'type' => 'greaterThen'
+                    'types' => [
+                        'greaterThen' => [
+                            'value' => Carbon::now()->subDay(),
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);
@@ -162,8 +180,11 @@ class AdminIndexTest extends TestCase
             'model' => 'Group',
             'filters' => json_encode([
                 'created_at' => [
-                    'value' => Carbon::now()->subDay(),
-                    'type' => 'lessThen'
+                    'types' => [
+                        'lessThen' => [
+                            'value' => Carbon::now()->subDay(),
+                        ]
+                    ]
                 ]
             ])
         ])->assertStatus(200);

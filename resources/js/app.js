@@ -15,25 +15,8 @@ Vue.use(Vuex);
 let store = new Vuex.Store({
     state: {
         locale: document.getElementById('app').getAttribute('data-locale'),
-        adminIndexDisplaySettings: []
     },
-    mutations: {
-        addModelDisplaySettings(state, params) {
-            let modelName = params.modelName;
-            if(!state.adminIndexDisplaySettings[params.modelName]) {
-                state.adminIndexDisplaySettings[params.modelName] = {
-                    modelName: modelName
-                };
-            }
-            for (let setting of params.settings) {
-                state.adminIndexDisplaySettings[modelName].setting = {
-                    name: setting.name,
-                    position: setting.position,
-                    visibility: setting.visibility,
-                };
-            }
-        }
-    }
+    mutations: {}
 });
 
 /**

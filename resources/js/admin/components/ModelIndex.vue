@@ -5,7 +5,7 @@
         <table class="table">
             <thead>
             <tr>
-                <cell-td v-for="field in displayedFields" :key="field.name" :content="field.name"></cell-td>
+                <cell-th v-for="field in displayedFields" :key="field.name" :content="field.name"></cell-th>
             </tr>
             </thead>
             <tbody>
@@ -43,15 +43,26 @@
                 get: function() {
                     let fieldSettings = [];
                     let counter = 0;
-                    for(let field in this.modelFields) {
-                        fieldSettings.push({
-                            name: this.modelFields[field],
-                            visibility: true,
-                            position: counter,
-                        });
-                        counter++;
+                    let localStorageSettings = JSON.parse(localStorage.adminIndexDisplaySettings)[this.model_name];
+                    if(localStorageSettings) {
+                        for(let field in this.modelFields) {
+                            fieldSettings.push({
+                                name: localStorageSettings[this.modelFields[field]].name,
+                                visibility: localStorageSettings[this.modelFields[field]].visibility,
+                                position: localStorageSettings[this.modelFields[field]].position,
+                            });
+                            counter++;
+                        }
+                    } else {
+                        for(let field in this.modelFields) {
+                            fieldSettings.push({
+                                name: this.modelFields[field],
+                                visibility: true,
+                                position: counter,
+                            });
+                            counter++;
+                        }
                     }
-
                     return fieldSettings;
                 },
             },
@@ -72,6 +83,8 @@
 
         mounted() {
             this.load();
+            this.setLocalStorageSettings();
+
         },
 
         methods: {
@@ -91,12 +104,22 @@
             },
 
             setFields(models, defaultFieldsCount = 10) {
-                let displayedFields = this.modelFields = Object.keys(this.models[0]);
-
-                if(defaultFieldsCount > this.modelFields.length) {
-                    defaultFieldsCount = this.modelFields.length;
-                    displayedFields = this.modelFields.slice(0, defaultFieldsCount);
+                let localStorageFields = JSON.parse(localStorage.getItem('adminIndexDisplaySettings'))[this.model_name]
+                let displayedFields = [];
+                if(localStorageFields) {
+                    Object.keys(localStorageFields).forEach(function(key) {
+                        if(localStorageFields[key].visibility == true) {
+                            displayedFields.push(localStorageFields[key].name)
+                        }
+                    });
+                } else {
+                    displayedFields =  Object.keys(this.models[0]);
+                    if(defaultFieldsCount > this.modelFields.length) {
+                        defaultFieldsCount = this.modelFields.length;
+                        displayedFields = this.modelFields.slice(0, defaultFieldsCount);
+                    }
                 }
+                this.modelFields = Object.keys(this.models[0]);
 
                 let counter = 0;
                 for(let field of displayedFields) {
@@ -109,21 +132,9 @@
                 }
             },
 
-            storeFieldsSettings(fields) {
-                let params = {
-                    settings: fields,
-                    modelName: this.model_name
-                };
-                this.$store.commit('addModelDisplaySettings', params);
-
-                let stateDisplaySettings = this.$store.state.adminIndexDisplaySettings;
-
-                return fields;
-            },
-
             changeFieldVisibility(fieldName, fieldVisibility, position) {
                 let self = this;
-                this.fieldsGridSettings.map(function(field) {
+                this.fieldsGridSettings.forEach(function(field) {
                     if(fieldName === field.name) {
                         field.visibility = fieldVisibility;
                         if(fieldVisibility) {
@@ -139,11 +150,10 @@
                         return field;
                     }
                 });
-                self.displayedFields.sort(function(a, b){return a.position - b.position});
-                this.storeFieldsSettings(self.displayedFields)
+                this.displayedFields.sort(function(a, b){return a.position - b.position});
+                this.storeBrowserSettings(this.fieldsGridSettings)
             },
-            updateFilters(fieldName, value, type)
-            {
+            updateFilters(fieldName, value, type) {
                 if(typeof this.filters[fieldName] === 'undefined') {
                     this.filters[fieldName] = {
                         types: {
@@ -161,7 +171,32 @@
                 } else {
                     this.filters[fieldName].types[type].value = value;
                 }
-            }
+            },
+            storeBrowserSettings(fields) {
+                let params = {
+                    settings: fields,
+                    modelName: this.model_name
+                };
+                let localStorageSettings = JSON.parse(localStorage.adminIndexDisplaySettings);
+                if(!localStorageSettings[params.modelName]) {
+                    localStorageSettings[params.modelName] = {};
+                }
+                for (let setting of params.settings) {
+                    localStorageSettings[params.modelName][setting.name] = {
+                        name: setting.name,
+                        visibility: setting.visibility,
+                        position: setting.position,
+                    };
+                }
+
+                localStorage.removeItem('adminIndexDisplaySettings');
+                localStorage.setItem('adminIndexDisplaySettings', JSON.stringify(localStorageSettings));
+            },
+            setLocalStorageSettings() {
+                if(!localStorage.adminIndexDisplaySettings) {
+                    localStorage.setItem('adminIndexDisplaySettings', JSON.stringify({}));
+                }
+            },
         }
     }
 </script>

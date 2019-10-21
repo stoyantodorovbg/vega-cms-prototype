@@ -4,7 +4,7 @@
             <a class="text-dark" href="#">Dashboard</a>
         </li>
         <li class="mb-2 mt-2 text-uppercase">
-            <a class="text-dark" href="#">Users</a>
+            <a class="text-dark" href="{{ route('admin-users.index') }}">Users</a>
         </li>
         <li class="mb-2 mt-2 text-uppercase">
             <a class="text-dark" href="{{ route('admin-groups.index') }}">User Groups</a>

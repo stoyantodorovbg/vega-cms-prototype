@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\User;
+use App\Models\User;
 
 interface GroupRepositoryInterface
 {

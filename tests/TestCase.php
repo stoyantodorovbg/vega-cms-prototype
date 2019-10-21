@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\User;
+use App\Models\User;
 use App\Models\Group;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Group;
-use App\User;
+use App\Models\User;
 use Faker\Factory;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;

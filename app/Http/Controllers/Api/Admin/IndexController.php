@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminIndexRequest;
+use App\Http\Requests\Admin\AdminIndexRequest;
 use App\Services\Interfaces\EloquentFilterServiceInterface;
 
 class IndexController extends Controller

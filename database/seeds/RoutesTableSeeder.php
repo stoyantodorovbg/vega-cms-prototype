@@ -77,11 +77,91 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin groups create
+        $this->createRoute('/groups/create',
+            'get',
+            'GroupsController@create',
+            'admin-groups.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin groups store
+        $this->createRoute('/groups/store',
+            'post',
+            'GroupsController@store',
+            'admin-groups.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin groups edit
+        $this->createRoute('/groups/{group}/edit',
+            'get',
+            'GroupsController@edit',
+            'admin-groups.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin groups update
+        $this->createRoute('/groups/{group}/update',
+            'patch',
+            'GroupsController@update',
+            'admin-groups.update',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // Admin users index
         $this->createRoute('/users',
             'get',
             'UsersController@index',
             'admin-users.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin users create
+        $this->createRoute('/users/create',
+            'get',
+            'UsersController@create',
+            'admin-users.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin users store
+        $this->createRoute('/users/store',
+            'post',
+            'UsersController@store',
+            'admin-users.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin users edit
+        $this->createRoute('/users/{user}/edit',
+            'get',
+            'UsersController@edit',
+            'admin-users.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin users update
+        $this->createRoute('/users/{user}/update',
+            'patch',
+            'UsersController@update',
+            'admin-users.update',
             'admin',
             'admin',
             'admins'
@@ -97,6 +177,46 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin phrases create
+        $this->createRoute('/phrases/create',
+            'get',
+            'PhrasesController@create',
+            'admin-phrases.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin phrases store
+        $this->createRoute('/phrases/store',
+            'post',
+            'PhrasesController@store',
+            'admin-phrases.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin phrases edit
+        $this->createRoute('/phrases/{phrase}/edit',
+            'get',
+            'PhrasesController@edit',
+            'admin-phrases.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin phrases update
+        $this->createRoute('/phrases/{phrase}/update',
+            'patch',
+            'PhrasesController@update',
+            'admin-phrases.update',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // Admin locales index
         $this->createRoute('/locales',
             'get',
@@ -107,11 +227,91 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin locales create
+        $this->createRoute('/locales/create',
+            'get',
+            'LocalesController@create',
+            'admin-locales.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin locales store
+        $this->createRoute('/locales/store',
+            'post',
+            'LocalesController@store',
+            'admin-locales.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin locales edit
+        $this->createRoute('/locales/{locale}/edit',
+            'get',
+            'LocalesController@edit',
+            'admin-locales.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin locales update
+        $this->createRoute('/locales/{locale}/update',
+            'patch',
+            'LocalesController@update',
+            'admin-locales.update',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // Admin routes index
         $this->createRoute('/routes',
             'get',
             'RoutesController@index',
             'admin-routes.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin routes create
+        $this->createRoute('/routes/create',
+            'get',
+            'RoutesController@create',
+            'admin-routes.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin routes store
+        $this->createRoute('/routes/store',
+            'post',
+            'RoutesController@store',
+            'admin-routes.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin routes edit
+        $this->createRoute('/routes/{route}/edit',
+            'get',
+            'RoutesController@edit',
+            'admin-routes.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin routes update
+        $this->createRoute('/routes/{route}/update',
+            'patch',
+            'RoutesController@update',
+            'admin-routes.update',
             'admin',
             'admin',
             'admins'

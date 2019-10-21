@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Locale;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\Admin\AdminLocaleRequest;
 
 class LocalesController extends Controller
 {
@@ -14,5 +16,51 @@ class LocalesController extends Controller
     public function index()
     {
         return view('admin.locales.index');
+    }
+
+    /**
+     * Admin locales create page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admin.locales.create');
+    }
+
+    /**
+     * Admin locales store action
+     *
+     * @param AdminLocaleRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function store(AdminLocaleRequest $request)
+    {
+        $locale = Locale::create($request->validated());
+
+        return redirect()->route('admin-locales.edit', compact('locale'));
+    }
+
+    /**
+     * Admin locales edit page
+     *
+     * @param Locale $locale
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Locale $locale)
+    {
+        return view('admin.locales.edit');
+    }
+
+    /**
+     * Admin locales update action
+     *
+     * @param Locale $locale
+     * @param AdminLocaleRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function update(Locale $locale, AdminLocaleRequest $request)
+    {
+        return redirect()->back();
     }
 }

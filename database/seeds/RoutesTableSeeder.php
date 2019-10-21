@@ -87,6 +87,36 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin phrases index
+        $this->createRoute('/phrases',
+            'get',
+            'PhrasesController@index',
+            'admin-phrases.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin locales index
+        $this->createRoute('/locales',
+            'get',
+            'LocalesController@index',
+            'admin-locales.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin routes index
+        $this->createRoute('/routes',
+            'get',
+            'RoutesController@index',
+            'admin-routes.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // API Models index
         $this->createRoute('/admin/index',
             'get',

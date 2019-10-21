@@ -10,13 +10,13 @@
             <a class="text-dark" href="{{ route('admin-groups.index') }}">User Groups</a>
         </li>
         <li class="mb-2 mt-2 text-uppercase">
-            <a class="text-dark"href="#">Phrases</a>
+            <a class="text-dark"href="{{ route('admin-phrases.index') }}">Phrases</a>
         </li>
         <li class="mb-2 mt-2 text-uppercase">
-            <a class="text-dark" href="#">Locales</a>
+            <a class="text-dark" href="{{ route('admin-locales.index') }}">Locales</a>
         </li>
         <li class="mb-2 mt-2 text-uppercase">
-            <a class="text-dark" href="#">Routes</a>
+            <a class="text-dark" href="{{ route('admin-routes.index') }}">Routes</a>
         </li>
     </ul>
 </div>

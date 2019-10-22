@@ -9,6 +9,8 @@ require('./bootstrap');
 //window.Vue = require('vue');
 import Vue from 'vue';
 import Vuex from 'vuex'
+import VuePluralize from 'vue-pluralize'
+
 
 Vue.use(Vuex);
 
@@ -18,6 +20,8 @@ let store = new Vuex.Store({
     },
     mutations: {}
 });
+
+Vue.use(VuePluralize);
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,7 +35,7 @@ let store = new Vuex.Store({
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('model-index', require('./admin/components/ModelIndex.vue').default);
+Vue.component('model-index', require('./admin/templates/ModelIndex.vue').default);
 
 
 /**

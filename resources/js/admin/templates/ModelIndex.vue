@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button-link :prop_data="getButtonCreatePropData()"></button-link>
         <menage-filters :fields="fieldsFiltersSettings"></menage-filters>
         <customize-model-index :fields="fieldsGridSettings"></customize-model-index>
         <table class="table">
@@ -18,13 +19,14 @@
 </template>
 
 <script>
-    import CellTd from './table/CellTd'
-    import CellTh from './table/CellTh'
-    import CustomizeModelIndex from "./table/CustomizeModelIndex";
-    import MenageFilters from "./filters/MenageFilters";
+    import CellTd from '../components/table/CellTd'
+    import CellTh from '../components/table/CellTh'
+    import CustomizeModelIndex from "../components/table/CustomizeModelIndex";
+    import MenageFilters from "../components/filters/MenageFilters";
+    import ButtonLink from "../components/links/ButtonLink";
 
     export default {
-        components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters },
+        components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters, ButtonLink },
 
         props: ['model_name'],
 
@@ -197,6 +199,12 @@
                     localStorage.setItem('adminIndexDisplaySettings', JSON.stringify({}));
                 }
             },
+            getButtonCreatePropData() {
+                return {
+                    url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/create',
+                    text: 'Create ' + this.model_name
+                }
+            }
         }
     }
 </script>

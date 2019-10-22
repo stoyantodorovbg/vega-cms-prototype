@@ -37,4 +37,9 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::post('/routes/store', 'Admin\RoutesController@store')->name('admin-routes.store')->middleware('admins');
     Route::get('/routes/{route}/edit', 'Admin\RoutesController@edit')->name('admin-routes.edit')->middleware('admins');
     Route::patch('/routes/{route}/update', 'Admin\RoutesController@update')->name('admin-routes.update')->middleware('admins');
+    Route::get('/groups/{group}', 'Admin\GroupsController@show')->name('admin-groups.show')->middleware('admins');
+    Route::get('/users/{user}', 'Admin\UsersController@show')->name('admin-users.show')->middleware('admins');
+    Route::get('/phrases/{phrase}', 'Admin\PhrasesController@show')->name('admin-phrases.show')->middleware('admins');
+    Route::get('/locales/{locale}', 'Admin\LocalesController@show')->name('admin-locales.show')->middleware('admins');
+    Route::get('/routes/{route}', 'Admin\RoutesController@show')->name('admin-routes.show')->middleware('admins');
 });

@@ -19,6 +19,17 @@ class UsersController extends Controller
     }
 
     /**
+     * Admin users show page
+     *
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(User $user)
+    {
+        return view('admin.users.show');
+    }
+
+    /**
      * Admin users create page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

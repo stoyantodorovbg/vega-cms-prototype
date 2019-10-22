@@ -77,6 +77,16 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin groups show
+        $this->createRoute('/groups/{group}',
+            'get',
+            'GroupsController@show',
+            'admin-groups.show',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // Admin groups create
         $this->createRoute('/groups/create',
             'get',
@@ -122,6 +132,16 @@ class RoutesTableSeeder extends Seeder
             'get',
             'UsersController@index',
             'admin-users.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin users show
+        $this->createRoute('/users/{user}',
+            'get',
+            'UsersController@show',
+            'admin-users.show',
             'admin',
             'admin',
             'admins'
@@ -177,6 +197,16 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin phrases show
+        $this->createRoute('/phrases/{phrase}',
+            'get',
+            'PhrasesController@show',
+            'admin-phrases.show',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // Admin phrases create
         $this->createRoute('/phrases/create',
             'get',
@@ -227,6 +257,16 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin locales show
+        $this->createRoute('/locales/{locale}',
+            'get',
+            'LocalesController@show',
+            'admin-locales.show',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // Admin locales create
         $this->createRoute('/locales/create',
             'get',
@@ -272,6 +312,16 @@ class RoutesTableSeeder extends Seeder
             'get',
             'RoutesController@index',
             'admin-routes.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin routes show
+        $this->createRoute('/routes/{route}',
+            'get',
+            'RoutesController@show',
+            'admin-routes.show',
             'admin',
             'admin',
             'admins'

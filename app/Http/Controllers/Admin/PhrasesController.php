@@ -19,6 +19,17 @@ class PhrasesController extends Controller
     }
 
     /**
+     * Admin phrases show page
+     *
+     * @param Phrase $phrase
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Phrase $phrase)
+    {
+        return view('admin.phrases.show');
+    }
+
+    /**
      * Admin phrases create page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

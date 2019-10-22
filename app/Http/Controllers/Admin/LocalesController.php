@@ -19,6 +19,17 @@ class LocalesController extends Controller
     }
 
     /**
+     * Admin locales show page
+     *
+     * @param Locale $locale
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Locale $locale)
+    {
+        return view('admin.locales.show');
+    }
+
+    /**
      * Admin locales create page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

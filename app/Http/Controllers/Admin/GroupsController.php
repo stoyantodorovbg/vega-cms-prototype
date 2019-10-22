@@ -19,6 +19,17 @@ class GroupsController extends Controller
     }
 
     /**
+     * Admin groups show page
+     *
+     * @param Group $group
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Group $group)
+    {
+        return view('admin.groups.show');
+    }
+
+    /**
      * Admin groups create page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

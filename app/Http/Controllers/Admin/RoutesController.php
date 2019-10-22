@@ -19,6 +19,17 @@ class RoutesController extends Controller
     }
 
     /**
+     * Admin routes show page
+     *
+     * @param Route $route
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Route $route)
+    {
+        return view('admin.routes.show');
+    }
+
+    /**
      * Admin routes create page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

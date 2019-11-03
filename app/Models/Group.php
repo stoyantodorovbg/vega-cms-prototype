@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Group extends Model
+class Group extends Model implements BasicModelInterface
 {
     /**
      * @var array
@@ -30,5 +30,15 @@ class Group extends Model
     public function routes(): BelongsToMany
     {
         return $this->belongsToMany(Route::class);
+    }
+
+    /**
+     * Get the slug for a model instance
+     *
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->id;
     }
 }

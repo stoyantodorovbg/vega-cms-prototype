@@ -6,11 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * Class User
- * @package App
- */
-class User extends Authenticatable
+class User extends Authenticatable implements BasicModelInterface
 {
     use Notifiable;
 
@@ -49,5 +45,15 @@ class User extends Authenticatable
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class);
+    }
+
+    /**
+     * Get the slug for a model instance
+     *
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->id;
     }
 }

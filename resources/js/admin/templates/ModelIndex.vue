@@ -7,11 +7,16 @@
             <thead>
             <tr>
                 <cell-th v-for="field in displayedFields" :key="field.name" :content="field.name"></cell-th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="model in models" :key="model.id">
                 <cell-td v-for="field in displayedFields" :key="field.name" :content="model[field.name]"></cell-td>
+                <td>
+                    <icon-link :prop_data="getIconShowData(model.id)"></icon-link>
+                    <icon-link :prop_data="getIconEditData(model.id)"></icon-link>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -24,9 +29,10 @@
     import CustomizeModelIndex from "../components/table/CustomizeModelIndex";
     import MenageFilters from "../components/filters/MenageFilters";
     import ButtonLink from "../components/links/ButtonLink";
+    import IconLink from "../components/links/IconLink";
 
     export default {
-        components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters, ButtonLink },
+        components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters, ButtonLink, IconLink },
 
         props: ['model_name'],
 
@@ -204,7 +210,19 @@
                     url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/create',
                     text: 'Create ' + this.model_name
                 }
-            }
+            },
+            getIconShowData(itemId) {
+                return {
+                    url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/' + itemId,
+                    icon_class: 'fas fa-eye'
+                }
+            },
+            getIconEditData(itemId) {
+                return {
+                    url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/' + itemId + '/edit',
+                    icon_class: 'fas fa-pencil-alt'
+                }
+            },
         }
     }
 </script>

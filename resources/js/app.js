@@ -11,7 +11,6 @@ import Vue from 'vue';
 import Vuex from 'vuex'
 import VuePluralize from 'vue-pluralize'
 
-
 Vue.use(Vuex);
 
 let store = new Vuex.Store({

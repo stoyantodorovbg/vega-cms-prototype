@@ -1,10 +1,10 @@
 <template>
-    <th>{{ content }}</th>
+    <th :class="classes">{{ content }}</th>
 </template>
 
 <script>
     export default {
         name: 'cell-th',
-        props: ['content'],
+        props: ['content', 'classes'],
     }
 </script>

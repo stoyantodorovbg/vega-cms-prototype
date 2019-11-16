@@ -26,6 +26,20 @@ class AdminEditPagesTest extends TestCase
     }
 
     /** @test */
+    public function user_data_can_be_viewed_on_user_edit_page()
+    {
+        $this->authenticate(null, 'admins');
+
+        $user = factory(User::class)->create([
+                'name' => 'Test User'
+            ]
+        );
+
+        $this->get(route('admin-users.edit', $user->id))
+            ->assertSee('Test User');
+    }
+
+    /** @test */
     public function group_edit_page_can_be_visited_from_admins()
     {
         $group = factory(Group::class)->create();
@@ -36,6 +50,20 @@ class AdminEditPagesTest extends TestCase
     }
 
     /** @test */
+    public function group_data_can_be_viewed_on_group_edit_page()
+    {
+        $this->authenticate(null, 'admins');
+
+        $group = factory(Group::class)->create([
+                'title' => 'Test Group'
+            ]
+        );
+
+        $this->get(route('admin-groups.edit', $group->id))
+            ->assertSee('Test Group');
+    }
+
+    /** @test */
     public function phrase_edit_page_can_be_visited_from_admins()
     {
         $phrase = factory(Phrase::class)->create();
@@ -43,6 +71,20 @@ class AdminEditPagesTest extends TestCase
 
         $this->get(route('admin-phrases.edit', $phrase->getSlug()))
             ->assertStatus(200);
+    }
+
+    /** @test */
+    public function phrase_data_can_be_viewed_on_phrase_edit_page()
+    {
+        $this->authenticate(null, 'admins');
+
+        $phrase = factory(Phrase::class)->create([
+                'system_name' => 'test_system_name'
+            ]
+        );
+
+        $this->get(route('admin-phrases.edit', $phrase->id))
+            ->assertSee('test_system_name');
     }
 
     /** @test */
@@ -63,5 +105,19 @@ class AdminEditPagesTest extends TestCase
 
         $this->get(route('admin-locales.edit', $locale->getSlug()))
             ->assertStatus(200);
+    }
+
+    /** @test */
+    public function locale_data_can_be_viewed_on_user_locale_page()
+    {
+        $this->authenticate(null, 'admins');
+
+        $locale = factory(Locale::class)->create([
+                'code' => 'fr'
+            ]
+        );
+
+        $this->get(route('admin-locales.edit', $locale->id))
+            ->assertSee('/test');
     }
 }

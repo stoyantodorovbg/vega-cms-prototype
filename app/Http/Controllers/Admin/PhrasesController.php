@@ -26,7 +26,7 @@ class PhrasesController extends Controller
      */
     public function show(Phrase $phrase)
     {
-        return view('admin.phrases.show');
+        return view('admin.phrases.show', compact('phrase'));
     }
 
     /**

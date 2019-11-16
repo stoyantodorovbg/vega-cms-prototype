@@ -26,7 +26,7 @@ class LocalesController extends Controller
      */
     public function show(Locale $locale)
     {
-        return view('admin.locales.show');
+        return view('admin.locales.show', compact('locale'));
     }
 
     /**

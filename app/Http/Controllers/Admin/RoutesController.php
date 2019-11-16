@@ -26,7 +26,7 @@ class RoutesController extends Controller
      */
     public function show(Route $route)
     {
-        return view('admin.routes.show');
+        return view('admin.routes.show', compact('route'));
     }
 
     /**

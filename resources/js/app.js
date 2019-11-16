@@ -35,6 +35,8 @@ Vue.use(VuePluralize);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('model-index', require('./admin/templates/ModelIndex.vue').default);
+Vue.component('button-link', require('./admin/components/links/ButtonLink.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

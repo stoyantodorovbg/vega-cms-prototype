@@ -153,6 +153,74 @@ class PhrasesTableSeeder extends Seeder
             ]
         ]);
 
+        Phrase::create([
+            'system_name' => 'labels.all-routes',
+            'text' => [
+                'en' => 'all routes'
+            ]
+        ]);
 
+        Phrase::create([
+            'system_name' => 'labels.edit-route',
+            'text' => [
+                'en' => 'edit route'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.all-user-groups',
+            'text' => [
+                'en' => 'all user groups'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.edit-user-group',
+            'text' => [
+                'en' => 'edit user group'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.all-locales',
+            'text' => [
+                'en' => 'all locales'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.edit-locale',
+            'text' => [
+                'en' => 'edit locale'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.all-phrases',
+            'text' => [
+                'en' => 'all phrases'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.edit-phrase',
+            'text' => [
+                'en' => 'edit phrase'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.all-users',
+            'text' => [
+                'en' => 'all users'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.edit-user',
+            'text' => [
+                'en' => 'edit user'
+            ]
+        ]);
     }
 }

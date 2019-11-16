@@ -208,7 +208,8 @@
             getButtonCreatePropData() {
                 return {
                     url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/create',
-                    text: 'Create ' + this.model_name
+                    text: 'Create ' + this.model_name,
+                    htmlClass: 'btn btn-success float-right m-1'
                 }
             },
             getIconShowData(itemId) {

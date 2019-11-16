@@ -3,6 +3,18 @@
 @section('content')
     <div class="row text-center">
         <div class="col-10">
+            <button-link :prop_data="{
+                'url': '{{ route('admin-users.index') }}',
+                'text': '{{ phrase('labels.all-users') }}',
+                'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
+            }"
+            ></button-link>
+            <button-link :prop_data="{
+                'url': '{{ route('admin-users.edit', $user->getSlug()) }}',
+                'text': '{{ phrase('labels.edit-user') }}',
+                'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'
+            }"
+            ></button-link>
             <table class="table table-bordered">
                 <thead>
                     <tr>

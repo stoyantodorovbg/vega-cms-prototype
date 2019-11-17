@@ -264,5 +264,40 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'submit'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'labels.choose_status',
+            'text' => [
+                'en' => 'choose status'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.active',
+            'text' => [
+                'en' => 'active'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.inactive',
+            'text' => [
+                'en' => 'inactive'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.confirm_password',
+            'text' => [
+                'en' => 'confirm password'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.password',
+            'text' => [
+                'en' => 'password'
+            ]
+        ]);
     }
 }

@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($locale) ? route('admin-locales.create') : route('admin-locales.update', $locale->getSlug()) }}"
+      action="{{ isset($locale) ? route('admin-locales.update', $locale->getSlug()) : route('admin-locales.create') }}"
 >
     @csrf
     @if(isset($locale))
@@ -28,7 +28,7 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-capitalize">{{ phrase('labels.status') }}</label>
-            <select class="form-control" name="status" id="admin-form-locale-status">
+            <select class="form-control text-capitalize" name="status" id="admin-form-locale-status">
                 <option>{{ phrase('labels.choose_status') }}</option>
                 <option {{ isset($locale) && $locale->status === 1 ? 'selected' : '' }} value="1">
                     {{ phrase('labels.active') }}

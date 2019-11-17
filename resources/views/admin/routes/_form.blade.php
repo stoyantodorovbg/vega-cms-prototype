@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($route) ? route('admin-routes.create') : route('admin-routes.update', $route->getSlug()) }}"
+      action="{{ isset($route) ? route('admin-routes.update', $route->getSlug()) : route('admin-routes.create') }}"
 >
     @csrf
     @if(isset($route))

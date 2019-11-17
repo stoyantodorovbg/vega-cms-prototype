@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($group) ? route('admin-groups.create') : route('admin-groups.update', $group->getSlug()) }}"
+      action="{{ isset($group) ? route('admin-groups.update', $group->getSlug()) : route('admin-groups.create') }}"
 >
     @csrf
     @if(isset($group))
@@ -16,19 +16,8 @@
             >
         </div>
         <div class="form-group col-6">
-            <label class="text-capitalize">{{ phrase('labels.description') }}</label>
-            <input type="text"
-                   name="description"
-                   value="{{ isset($group) ? old('title', $group->description) : '' }}"
-                   id="admin-form-group-description"
-                   class="form-control"
-            >
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-6">
             <label class="text-capitalize">{{ phrase('labels.status') }}</label>
-            <select class="form-control" name="status" id="admin-form-group-status">
+            <select class="form-control text-capitalize" name="status" id="admin-form-group-status">
                 <option>{{ phrase('labels.choose_status') }}</option>
                 <option {{ isset($group) && $group->status === 1 ? 'selected' : '' }} value="1">
                     {{ phrase('labels.active') }}
@@ -38,14 +27,13 @@
                 </option>
             </select>
         </div>
+    </div>
+    <div class="row">
         <div class="form-group col-6">
-            <label class="text-capitalize">{{ phrase('labels.status') }}</label>
-            <input type="text"
-                   name="status"
-                   value="{{ isset($group) ? old('language', $group->status) : '' }}"
-                   id="admin-form-group-status"
-                   class="form-control"
-            >
+            <label class="text-capitalize">{{ phrase('labels.description') }}</label>
+            <textarea name="description" id="admin-form-group-description" class="form-control">
+                {{ isset($group) ? old('title', $group->description) : '' }}
+            </textarea>
         </div>
     </div>
     <div class="row">

@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($phrase) ? route('admin-phrases.create') : route('admin-phrases.update', $phrase->getSlug()) }}"
+      action="{{ isset($phrase) ? route('admin-phrases.update', $phrase->getSlug()) :  route('admin-phrases.create') }}"
 >
     @csrf
     @if(isset($phrase))
@@ -27,7 +27,6 @@
     </div>
     <div class="row">
         <div class="form-group col-12">
-
             <button type="submit" class="btn btn-primary float-right text-uppercase pl-5 pr-5">
                 {{ phrase('buttons.submit') }}
             </button>

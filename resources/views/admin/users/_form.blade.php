@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($user) ? route('admin-users.create') : route('admin-users.update', $user->getSlug()) }}"
+      action="{{ isset($user) ? route('admin-users.update', $user->getSlug()) : route('admin-users.create') }}"
 >
     @csrf
     @if(isset($user))
@@ -39,17 +39,6 @@
             <input type="password"
                    name="confirm_password"
                    id="admin-form-user-confirm_password"
-                   class="form-control"
-            >
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-6">
-            <label class="text-capitalize">{{ phrase('labels.user_type') }}</label>
-            <input type="text"
-                   name="url"
-                   value="{{ isset($user) ? old('user_type', $user->user_type) : '' }}"
-                   id="admin-form-user-user_type"
                    class="form-control"
             >
         </div>

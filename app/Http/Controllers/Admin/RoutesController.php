@@ -47,9 +47,9 @@ class RoutesController extends Controller
      */
     public function store(AdminRouteRequest $request)
     {
-        $route = Route::create($request->validated());
+        $route = Route::create($request->all());
 
-        return redirect()->route('admin-routes.edit', compact('route'));
+        return redirect()->route('admin-routes.edit', $route->getSlug())->with(compact('route'));
     }
 
     /**

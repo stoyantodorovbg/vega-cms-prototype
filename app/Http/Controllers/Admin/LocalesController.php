@@ -47,9 +47,9 @@ class LocalesController extends Controller
      */
     public function store(AdminLocaleRequest $request)
     {
-        $locale = Locale::create($request->validated());
+        $locale = Locale::create($request->all());
 
-        return redirect()->route('admin-locales.edit', compact('locale'));
+        return redirect()->route('admin-locales.show', $locale->getSlug())->with(compact('locale'));
     }
 
     /**

@@ -47,9 +47,9 @@ class GroupsController extends Controller
      */
     public function store(AdminGroupRequest $request)
     {
-        $group = Group::create($request->validated());
+        $group = Group::create($request->all());
 
-        return redirect()->route('admin-groups.edit', compact('group'));
+        return redirect()->route('admin-groups.show', $group->getSlug())->with(compact('group'));
     }
 
     /**

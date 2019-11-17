@@ -299,5 +299,26 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'password'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'labels.choose_one',
+            'text' => [
+                'en' => 'choose one'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.yes',
+            'text' => [
+                'en' => 'yes'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.no',
+            'text' => [
+                'en' => 'no'
+            ]
+        ]);
     }
 }

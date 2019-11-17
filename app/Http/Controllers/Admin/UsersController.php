@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AdminUserRequest;
 use App\Models\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\AdminUserRequest;
 
 class UsersController extends Controller
 {
@@ -47,7 +48,11 @@ class UsersController extends Controller
      */
     public function store(AdminUserRequest $request)
     {
-        $user = User::create($request->validated());
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
 
         return redirect()->route('admin-users.edit', compact('user'));
     }

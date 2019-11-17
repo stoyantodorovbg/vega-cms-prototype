@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminStoreFunctionalityTest extends TestCase
+class AdminStoreModelsFunctionalityTest extends TestCase
 {
     use RefreshDatabase;
 

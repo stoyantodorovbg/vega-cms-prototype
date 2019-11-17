@@ -77,6 +77,12 @@ class UsersController extends Controller
      */
     public function update(User $user, AdminUserRequest $request)
     {
-        return redirect()->back();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return redirect()->back()->with(compact('user'));
     }
 }

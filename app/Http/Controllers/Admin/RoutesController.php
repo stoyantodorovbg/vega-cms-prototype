@@ -72,6 +72,8 @@ class RoutesController extends Controller
      */
     public function update(Route $route, AdminRouteRequest $request)
     {
-        return redirect()->back();
+        $route->update($request->all());
+
+        return redirect()->back()->with(compact('route'));
     }
 }

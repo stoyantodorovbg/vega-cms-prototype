@@ -72,6 +72,8 @@ class GroupsController extends Controller
      */
     public function update(Group $group, AdminGroupRequest $request)
     {
-        return redirect()->back();
+        $group->update($request->all());
+
+        return redirect()->back()->with(compact($group));
     }
 }

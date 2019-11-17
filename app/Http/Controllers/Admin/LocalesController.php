@@ -72,6 +72,8 @@ class LocalesController extends Controller
      */
     public function update(Locale $locale, AdminLocaleRequest $request)
     {
-        return redirect()->back();
+        $locale->update($request->all());
+
+        return redirect()->back()->with(compact('locale'));
     }
 }

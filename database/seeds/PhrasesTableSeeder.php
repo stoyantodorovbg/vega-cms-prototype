@@ -154,72 +154,114 @@ class PhrasesTableSeeder extends Seeder
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.all-routes',
+            'system_name' => 'buttons.all-routes',
             'text' => [
                 'en' => 'all routes'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.edit-route',
+            'system_name' => 'buttons.edit-route',
             'text' => [
                 'en' => 'edit route'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.all-user-groups',
+            'system_name' => 'buttons.show-route',
+            'text' => [
+                'en' => 'show route'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all-user-groups',
             'text' => [
                 'en' => 'all user groups'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.edit-user-group',
+            'system_name' => 'buttons.edit-user-group',
             'text' => [
                 'en' => 'edit user group'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.all-locales',
+            'system_name' => 'buttons.show-user-group',
+            'text' => [
+                'en' => 'show user group'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all-locales',
             'text' => [
                 'en' => 'all locales'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.edit-locale',
+            'system_name' => 'buttons.edit-locale',
             'text' => [
                 'en' => 'edit locale'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.all-phrases',
+            'system_name' => 'buttons.show-locale',
+            'text' => [
+                'en' => 'show locale'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all-phrases',
             'text' => [
                 'en' => 'all phrases'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.edit-phrase',
+            'system_name' => 'buttons.edit-phrase',
             'text' => [
                 'en' => 'edit phrase'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.all-users',
+            'system_name' => 'buttons.show-phrase',
+            'text' => [
+                'en' => 'show phrase'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all-users',
             'text' => [
                 'en' => 'all users'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'labels.edit-user',
+            'system_name' => 'buttons.edit-user',
             'text' => [
                 'en' => 'edit user'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.show-user',
+            'text' => [
+                'en' => 'show user'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.submit',
+            'text' => [
+                'en' => 'submit'
             ]
         ]);
     }

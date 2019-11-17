@@ -60,7 +60,7 @@ class PhrasesController extends Controller
      */
     public function edit(Phrase $phrase)
     {
-        return view('admin.phrases.edit');
+        return view('admin.phrases.edit', compact('phrase'));
     }
 
     /**

@@ -60,7 +60,7 @@ class RoutesController extends Controller
      */
     public function edit(Route $route)
     {
-        return view('admin.routes.edit');
+        return view('admin.routes.edit', compact('route'));
     }
 
     /**

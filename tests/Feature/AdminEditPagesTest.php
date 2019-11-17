@@ -108,7 +108,7 @@ class AdminEditPagesTest extends TestCase
     }
 
     /** @test */
-    public function locale_data_can_be_viewed_on_user_locale_page()
+    public function locale_data_can_be_viewed_on_locale_edit_page()
     {
         $this->authenticate(null, 'admins');
 
@@ -118,6 +118,6 @@ class AdminEditPagesTest extends TestCase
         );
 
         $this->get(route('admin-locales.edit', $locale->id))
-            ->assertSee('/test');
+            ->assertSee('fr');
     }
 }

@@ -60,7 +60,7 @@ class LocalesController extends Controller
      */
     public function edit(Locale $locale)
     {
-        return view('admin.locales.edit');
+        return view('admin.locales.edit', compact('locale'));
     }
 
     /**

@@ -60,7 +60,7 @@ class GroupsController extends Controller
      */
     public function edit(Group $group)
     {
-        return view('admin.groups.edit');
+        return view('admin.groups.edit', compact('group'));
     }
 
     /**

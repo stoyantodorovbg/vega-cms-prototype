@@ -28,12 +28,15 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-capitalize">{{ phrase('labels.status') }}</label>
-            <input type="text"
-                   name="status"
-                   value="{{ isset($locale) ? old('language', $locale->status) : '' }}"
-                   id="admin-form-locale-status"
-                   class="form-control"
-            >
+            <select class="form-control" name="status" id="admin-form-locale-status">
+                <option>{{ phrase('labels.choose_status') }}</option>
+                <option {{ isset($locale) && $locale->status === 1 ? 'selected' : '' }} value="1">
+                    {{ phrase('labels.active') }}
+                </option>
+                <option {{ isset($locale) && $locale->status === 0 ? 'selected' : '' }} value="0">
+                    {{ phrase('labels.inactive') }}
+                </option>
+            </select>
         </div>
         <div class="form-group col-6">
             <label class="text-capitalize">{{ phrase('labels.add_to_url') }}</label>

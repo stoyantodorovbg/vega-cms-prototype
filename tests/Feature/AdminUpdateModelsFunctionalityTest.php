@@ -114,6 +114,7 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
             'name' => 'edited',
             'email' => 'edited@email.com',
             'password' => 'edited',
+            'password_confirmation' => 'edited'
         ])
             ->assertStatus(302);
 

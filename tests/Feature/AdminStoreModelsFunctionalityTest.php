@@ -101,6 +101,7 @@ class AdminStoreModelsFunctionalityTest extends TestCase
             'name' => 'test',
             'email' => 'test@email.com',
             'password' => 'test-password',
+            'password_confirmation' => 'test-password'
         ])
             ->assertStatus(302);
 

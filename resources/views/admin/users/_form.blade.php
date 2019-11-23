@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($user) ? route('admin-users.update', $user->getSlug()) : route('admin-users.create') }}"
+      action="{{ isset($user) ? route('admin-users.update', $user->getSlug()) : route('admin-users.store') }}"
 >
     @csrf
     @if(isset($user))
@@ -35,10 +35,10 @@
             >
         </div>
         <div class="form-group col-6">
-            <label class="text-capitalize">{{ phrase('labels.confirm_password') }}</label>
+            <label class="text-capitalize">{{ phrase('labels.password_confirmation') }}</label>
             <input type="password"
-                   name="confirm_password"
-                   id="admin-form-user-confirm_password"
+                   name="password_confirmation"
+                   id="admin-form-user-password_confirmation"
                    class="form-control"
             >
         </div>

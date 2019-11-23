@@ -23,6 +23,11 @@ class AdminPhraseRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        $key = $this->isMethod('POST') ? '' : $this->phrase->id;
+
+        return [
+            'system_name' => 'required|string|max:50|unique:phrases,system_name' . $key,
+            'text.*' => 'required|string|max:20000000',
+        ];
     }
 }

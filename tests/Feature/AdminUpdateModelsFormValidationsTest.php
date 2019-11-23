@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Phrase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -73,13 +74,36 @@ class AdminUpdateModelsFormValidationsTest extends TestCase
             'password' => 'testpass',
             'password_confirmation' => 'testpass'
         ])->assertSessionHasNoErrors();
+    }
 
-//        dd(session()->all());
+    /** @test */
+    public function phrase_form_validation()
+    {
+        $this->authenticate(null, 'admins');
 
-//        factory(User::class)->create([
-//            'email' => 'test@email.com',
-//        ]);
+        $phrase = factory(Phrase::class)->create([
+            'system_name' => 'test',
+            'text' => ['en' => 'test']
+        ]);
 
+        $this->patch(route('admin-phrases.update', $phrase->getSlug()), [
+            'system_name' => '',
+            'text' => ['en' => '']
+        ])->assertSessionHasErrors([
+            'system_name' => 'The system name field is required.',
+            'text.en' => 'The text.en field is required.'
+        ]);
 
+        $this->patch(route('admin-phrases.update', $phrase->getSlug()), [
+            'system_name' => 'test',
+            'text' => ['bg' => '']
+        ])->assertSessionHasErrors([
+            'text.bg' => 'The text.bg field is required.'
+        ]);
+
+        $this->patch(route('admin-phrases.update', $phrase->getSlug()), [
+            'system_name' => 'test',
+            'text' => ['bg' => 'test1']
+        ])->assertSessionHasNoErrors();
     }
 }

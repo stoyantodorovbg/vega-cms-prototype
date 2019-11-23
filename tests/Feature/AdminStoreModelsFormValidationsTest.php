@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Phrase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -67,6 +68,39 @@ class AdminStoreModelsFormValidationsTest extends TestCase
             'password_confirmation' => 'test'
         ])->assertSessionHasErrors([
             'password' => 'The password must be at least 5 characters.'
+        ]);
+    }
+
+    /** @test */
+    public function phrase_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        $this->post(route('admin-phrases.store'), [
+            'system_name' => '',
+            'text' => ['en' => '']
+        ])->assertSessionHasErrors([
+            'system_name' => 'The system name field is required.',
+            'text.en' => 'The text.en field is required.'
+        ]);
+
+        $this->post(route('admin-phrases.store'), [
+            'system_name' => 'test',
+            'text' => ['bg' => '']
+        ])->assertSessionHasErrors([
+            'text.bg' => 'The text.bg field is required.'
+        ]);
+
+        factory(Phrase::class)->create([
+            'system_name' => 'test',
+            'text' => ['en' => 'test']
+        ]);
+
+        $this->post(route('admin-phrases.store'), [
+            'system_name' => 'test',
+            'text' => ['bg' => 'test']
+        ])->assertSessionHasErrors([
+            'system_name' => 'The system name has already been taken.'
         ]);
     }
 }

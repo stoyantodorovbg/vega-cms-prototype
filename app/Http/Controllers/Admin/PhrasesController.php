@@ -47,7 +47,7 @@ class PhrasesController extends Controller
      */
     public function store(AdminPhraseRequest $request)
     {
-        $phrase = Phrase::create($request->all());
+        $phrase = Phrase::create($request->validated());
 
         return redirect()->route('admin-phrases.show', $phrase->getSlug())->with(compact('phrase'));
     }
@@ -72,6 +72,8 @@ class PhrasesController extends Controller
      */
     public function update(Phrase $phrase, AdminPhraseRequest $request)
     {
-        return redirect()->back();
+        $phrase->update($request->validated());
+
+        return redirect()->back()->with(compact('phrase'));
     }
 }

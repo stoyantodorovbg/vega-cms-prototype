@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Phrase;
+use App\Models\Locale;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -101,6 +102,53 @@ class AdminStoreModelsFormValidationsTest extends TestCase
             'text' => ['bg' => 'test']
         ])->assertSessionHasErrors([
             'system_name' => 'The system name has already been taken.'
+        ]);
+    }
+
+    /** @test */
+    public function locale_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        $this->post(route('admin-locales.store'), [
+            'language' => '',
+            'code' => '',
+            'status' => 3,
+            'add_to_url' => 3
+        ])->assertSessionHasErrors([
+            'language' => 'The language field is required.',
+            'code' => 'The code field is required.',
+            'status' => 'The status must be between 0 and 1.',
+            'add_to_url' => 'The add to url must be between 0 and 1.'
+        ]);
+
+        $this->post(route('admin-locales.store'), [
+            'language' => 'Bulgariannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+            'code' => 'bgg',
+            'status' => 11,
+            'add_to_url' => 11
+        ])->assertSessionHasErrors([
+            'language' => 'The language may not be greater than 50 characters.',
+            'code' => 'The code may not be greater than 2 characters.',
+            'status' => 'The status must be between 0 and 1.',
+            'add_to_url' => 'The add to url must be between 0 and 1.'
+        ]);
+
+        factory(Locale::class)->create([
+            'language' => 'Bulgarian',
+            'code' => 'bg',
+            'status' => 1,
+            'add_to_url' => 1
+        ]);
+
+        $this->post(route('admin-locales.store'), [
+            'language' => 'Bulgarian',
+            'code' => 'bg',
+            'status' => 0,
+            'add_to_url' => 0
+        ])->assertSessionHasErrors([
+            'language' => 'The language has already been taken.',
+            'code' => 'The code has already been taken.',
         ]);
     }
 }

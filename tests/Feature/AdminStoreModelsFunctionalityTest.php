@@ -37,16 +37,16 @@ class AdminStoreModelsFunctionalityTest extends TestCase
         $this->authenticate(null, 'admins');
 
         $this->post(route('admin-locales.store'), [
-            'language' => 'testTitle',
-            'code' => 'testDescription',
+            'language' => 'Bulgarian',
+            'code' => 'bg',
             'status' => 1,
             'add_to_url' => 1
         ])
             ->assertStatus(302);
 
         $this->assertDatabaseHas('locales', [
-            'language' => 'testTitle',
-            'code' => 'testDescription',
+            'language' => 'Bulgarian',
+            'code' => 'bg',
             'status' => 1,
             'add_to_url' => 1
         ]);

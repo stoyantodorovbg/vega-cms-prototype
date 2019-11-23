@@ -23,6 +23,13 @@ class AdminLocaleRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        $key = $this->isMethod('POST') ? '' : explode('/', $this->getRequestUri())[4];
+
+        return [
+            'language' => 'required|string|max:50|unique:locales,language,  ' . $key,
+            'code' => 'required|string|max:2|unique:locales,code,' . $key,
+            'status' => 'required|integer|between:0,1',
+            'add_to_url' => 'required|integer|between:0,1',
+        ];
     }
 }

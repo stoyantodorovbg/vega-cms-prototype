@@ -46,23 +46,23 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
         $this->authenticate(null, 'admins');
 
         $locale = factory(Locale::class)->create([
-            'language' => 'testTitle',
-            'code' => 'testDescription',
+            'language' => 'Bulgaria',
+            'code' => 'b',
             'status' => 1,
             'add_to_url' => 1
         ]);
 
         $this->patch(route('admin-locales.update', $locale->getSlug()), [
-            'language' => 'edited',
-            'code' => 'edited',
+            'language' => 'Bulgarian',
+            'code' => 'bg',
             'status' => 0,
             'add_to_url' => 0
         ])
             ->assertStatus(302);
 
         $this->assertDatabaseHas('locales', [
-            'language' => 'edited',
-            'code' => 'edited',
+            'language' => 'Bulgarian',
+            'code' => 'bg',
             'status' => 0,
             'add_to_url' => 0
         ]);
@@ -83,7 +83,7 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
 
         $this->patch(route('admin-routes.update', $locale->getSlug()), [
             'url' => '/test-edited',
-            'method' => 'post',
+            'method' => 'patch',
             'action' => 'TestController@edited',
             'name' => 'edited',
             'route_type' => 'web'
@@ -92,7 +92,7 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
 
         $this->assertDatabaseHas('routes', [
             'url' => '/test-edited',
-            'method' => 'post',
+            'method' => 'patch',
             'action' => 'TestController@edited',
             'name' => 'edited',
             'route_type' => 'web'
@@ -124,5 +124,49 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
         ]);
 
         $this->assertTrue(Hash::check('edited', User::where('email', 'edited@email.com')->first()->password));
+    }
+
+    /** @test */
+    public function locale_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        $locale = factory(Locale::class)->create([
+            'language' => 'Bulgarian',
+            'code' => 'bg',
+            'status' => 1,
+            'add_to_url' => 1
+        ]);
+
+        $this->patch(route('admin-locales.update', $locale->getSlug()), [
+            'language' => '',
+            'code' => '',
+            'status' => 3,
+            'add_to_url' => 3
+        ])->assertSessionHasErrors([
+            'language' => 'The language field is required.',
+            'code' => 'The code field is required.',
+            'status' => 'The status must be between 0 and 1.',
+            'add_to_url' => 'The add to url must be between 0 and 1.'
+        ]);
+
+        $this->patch(route('admin-locales.update', $locale->getSlug()), [
+            'language' => 'Bulgariannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+            'code' => 'bgg',
+            'status' => 11,
+            'add_to_url' => 11
+        ])->assertSessionHasErrors([
+            'language' => 'The language may not be greater than 50 characters.',
+            'code' => 'The code may not be greater than 2 characters.',
+            'status' => 'The status must be between 0 and 1.',
+            'add_to_url' => 'The add to url must be between 0 and 1.'
+        ]);
+
+        $this->patch(route('admin-locales.update', $locale->getSlug()), [
+            'language' => 'Bulgarian',
+            'code' => 'bg',
+            'status' => 0,
+            'add_to_url' => 0
+        ])->assertSessionHasNoErrors();
     }
 }

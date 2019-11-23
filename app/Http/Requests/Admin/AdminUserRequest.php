@@ -28,7 +28,7 @@ class AdminUserRequest extends FormRequest
 
         return [
             'name' => 'required|string|max:30',
-            'email' => 'required|email|max:50|unique:users,email' . $key,
+            'email' => 'required|email|max:50|unique:users,email,' . $key,
             'password' => 'required|string|max:50|min:5|confirmed'
         ];
     }

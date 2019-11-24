@@ -16,31 +16,6 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function group_can_be_updated_through_admin_form()
-    {
-        $this->authenticate(null, 'admins');
-
-        $group = factory(Group::class)->create([
-            'title' => 'testTitle',
-            'description' => 'testDescription',
-            'status' => 1
-        ]);
-
-        $this->patch(route('admin-groups.update', $group->getSlug()), [
-            'title' => 'edited',
-            'description' => 'edited',
-            'status' => 0
-        ])
-            ->assertStatus(302);
-
-        $this->assertDatabaseHas('groups', [
-            'title' => 'edited',
-            'description' => 'edited',
-            'status' => 0
-        ]);
-    }
-
-    /** @test */
     public function locale_can_be_updated_through_admin_form()
     {
         $this->authenticate(null, 'admins');
@@ -168,5 +143,27 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
             'status' => 0,
             'add_to_url' => 0
         ])->assertSessionHasNoErrors();
+    }
+
+    /** @test */
+    public function group_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        $this->artisan('generate:group testTitle --description=description');
+
+        $route = Group::where('title', 'testTitle')->first();
+        $this->patch(route('admin-groups.update', $route->getSlug()), [
+            'description' => 'edited',
+            'status' => 0
+        ])->assertStatus(302);
+
+        $this->assertDatabaseHas('groups', [
+            'title' => 'testTitle',
+            'description' => 'edited',
+            'status' => 0
+        ]);
+
+        $this->artisan('destroy:group testTitle');
     }
 }

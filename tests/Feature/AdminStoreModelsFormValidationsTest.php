@@ -151,4 +151,44 @@ class AdminStoreModelsFormValidationsTest extends TestCase
             'code' => 'The code has already been taken.',
         ]);
     }
+
+    /** @test */
+    public function group_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        $this->post(route('admin-groups.store'), [
+            'title' => '',
+            'description' => 'testDescription',
+            'status' => 3
+        ])->assertSessionHasErrors([
+            'title' => 'The title field is required.',
+            'status' => 'The status must be between 0 and 1.',
+        ]);
+
+        $this->post(route('admin-groups.store'), [
+            'title' => 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+            'description' => 'testDescription',
+            'status' => 11
+        ])->assertSessionHasErrors([
+            'title' => 'The title may not be greater than 30 characters.',
+            'status' => 'The status must be between 0 and 1.',
+        ]);
+
+        $this->post(route('admin-groups.store'), [
+            'title' => 'TestTitle',
+            'description' => 'testDescription',
+            'status' => 1
+        ]);
+
+        $this->post(route('admin-groups.store'), [
+            'title' => 'TestTitle',
+            'description' => 'testDescription',
+            'status' => 1
+        ])->assertSessionHasErrors([
+            'title' => 'The title has already been taken.',
+        ]);
+
+        $this->artisan('destroy:group TestTitle');
+    }
 }

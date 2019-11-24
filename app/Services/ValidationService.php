@@ -190,7 +190,7 @@ class ValidationService implements ValidationServiceInterface
             'title' => [
                 'required',
                 'string',
-                'max:255',
+                'max:30',
                 'unique:groups,title',
                 'regex:/^[a-zA-Z]*$/',
             ],

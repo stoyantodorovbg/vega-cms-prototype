@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Group;
+use App\Models\Route;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Phrase;
@@ -105,5 +107,24 @@ class AdminUpdateModelsFormValidationsTest extends TestCase
             'system_name' => 'test',
             'text' => ['bg' => 'test1']
         ])->assertSessionHasNoErrors();
+    }
+
+    /** @test */
+    public function group_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        $this->artisan('generate:group testTitle --description=description');
+
+        $route = Group::where('title', 'testTitle')->first();
+        $this->patch(route('admin-groups.update', $route->getSlug()), [
+            'description' => '',
+            'status' => 3
+        ])->assertSessionHasErrors([
+            'description' => 'The description must be a string.',
+            'status' => 'The status must be between 0 and 1.',
+        ]);
+
+        $this->artisan('destroy:group testTitle');
     }
 }

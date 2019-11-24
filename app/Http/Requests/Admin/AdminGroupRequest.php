@@ -23,6 +23,15 @@ class AdminGroupRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        $validation = [
+            'description' => 'string|max:65535',
+            'status' => 'required|integer|between:0,1'
+        ];
+
+        if($this->isMethod('POST')) {
+            $validation['title'] = 'required|string|max:30|regex:/^[a-zA-Z]*$/|unique:groups,title';
+        }
+
+        return $validation;
     }
 }

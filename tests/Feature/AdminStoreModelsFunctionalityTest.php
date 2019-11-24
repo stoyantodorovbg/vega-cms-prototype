@@ -29,6 +29,10 @@ class AdminStoreModelsFunctionalityTest extends TestCase
             'description' => 'testDescription',
             'status' => 1
         ]);
+
+        $this->assertFileExists(base_path() . '/app/Http/Middleware/TestTitle.php');
+
+        $this->artisan('destroy:group testTitle');
     }
 
     /** @test */

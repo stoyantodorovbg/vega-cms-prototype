@@ -6,15 +6,17 @@
         @method('PATCH')
     @endif
     <div class="row">
-        <div class="form-group col-6">
-            <label class="text-capitalize">{{ phrase('labels.title') }}</label>
-            <input type="text"
-                   name="title"
-                   value="{{ isset($group) ? old('title', $group->title) : '' }}"
-                   id="admin-form-group-title"
-                   class="form-control"
-            >
-        </div>
+        @if(!isset($group))
+            <div class="form-group col-6">
+                <label class="text-capitalize">{{ phrase('labels.title') }}</label>
+                <input type="text"
+                       name="title"
+                       value="{{ isset($group) ? old('title', $group->title) : '' }}"
+                       id="admin-form-group-title"
+                       class="form-control"
+                >
+            </div>
+        @endif
         <div class="form-group col-6">
             <label class="text-capitalize">{{ phrase('labels.status') }}</label>
             <select class="form-control text-capitalize" name="status" id="admin-form-group-status">

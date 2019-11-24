@@ -5,9 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminGroupRequest;
+use App\Services\Interfaces\GroupServiceInterface;
 
 class GroupsController extends Controller
 {
+    /**
+     * @var GroupServiceInterface
+     */
+    protected $groupService;
+
+    /**
+     * GroupsController constructor.
+     * @param GroupServiceInterface $groupService
+     */
+    public function __construct(GroupServiceInterface $groupService)
+    {
+        $this->groupService = $groupService;
+    }
+
     /**
      * Admin groups index page
      *
@@ -47,9 +62,15 @@ class GroupsController extends Controller
      */
     public function store(AdminGroupRequest $request)
     {
-        $group = Group::create($request->all());
+        $validationData = $this->groupService->create($request->validated());
+        if($validationData === true) {
+            $group = Group::where('title', $request->title)->first();
 
-        return redirect()->route('admin-groups.show', $group->getSlug())->with(compact('group'));
+            return redirect()->route('admin-groups.show', $group->getSlug())->with(compact('group'));
+        }
+
+        return redirect()->back()->with(['messageData' => $validationData]);
+
     }
 
     /**
@@ -72,7 +93,7 @@ class GroupsController extends Controller
      */
     public function update(Group $group, AdminGroupRequest $request)
     {
-        $group->update($request->all());
+        $group->update($request->validated());
 
         return redirect()->back()->with(compact($group));
     }

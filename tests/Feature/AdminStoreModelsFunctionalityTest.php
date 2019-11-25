@@ -13,7 +13,7 @@ class AdminStoreModelsFunctionalityTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function group_can_be_stored_through_admin_form()
+    public function group_can_be_created_through_admin_form()
     {
         $this->authenticate(null, 'admins');
 
@@ -33,6 +33,31 @@ class AdminStoreModelsFunctionalityTest extends TestCase
         $this->assertFileExists(base_path() . '/app/Http/Middleware/TestTitle.php');
 
         $this->artisan('destroy:group testTitle');
+    }
+
+    /** @test */
+    public function route_can_be_created_trough_admin_form()
+    {
+        $this->authenticate(null, 'admins');
+
+        $this->post(route('admin-routes.store'), [
+            'url' => '/test',
+            'method' => 'get',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+            'route_type' => 'web',
+            'action_type' => 'front'
+        ])
+            ->assertStatus(302);
+
+        $this->assertDatabaseHas('routes', [
+            'url' => '/test',
+            'action' => 'Front\TestController@test',
+            'name' => 'test.test',
+        ]);
+
+        $this->artisan('destroy:route test.test');
+
     }
 
     /** @test */
@@ -70,29 +95,6 @@ class AdminStoreModelsFunctionalityTest extends TestCase
         $this->assertDatabaseHas('phrases', [
             'system_name' => 'test_phrase',
             'text' => '{"en":"test phrase"}'
-        ]);
-    }
-
-    /** @test */
-    public function route_can_be_stored_through_admin_form()
-    {
-        $this->authenticate(null, 'admins');
-
-        $this->post(route('admin-routes.store'), [
-            'url' => '/test',
-            'method' => 'get',
-            'action' => 'TestController@test',
-            'name' => 'test',
-            'route_type' => 'web'
-        ])
-            ->assertStatus(302);
-
-        $this->assertDatabaseHas('routes', [
-            'url' => '/test',
-            'method' => 'get',
-            'action' => 'TestController@test',
-            'name' => 'test',
-            'route_type' => 'web'
         ]);
     }
 

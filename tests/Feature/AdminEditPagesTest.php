@@ -55,12 +55,12 @@ class AdminEditPagesTest extends TestCase
         $this->authenticate(null, 'admins');
 
         $group = factory(Group::class)->create([
-                'title' => 'Test Group'
+                'description' => 'Test description'
             ]
         );
 
         $this->get(route('admin-groups.edit', $group->id))
-            ->assertSee('Test Group');
+            ->assertSee('Test description');
     }
 
     /** @test */

@@ -44,37 +44,6 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
     }
 
     /** @test */
-    public function route_can_be_updated_through_admin_form()
-    {
-        $this->authenticate(null, 'admins');
-
-        $locale = factory(Route::class)->create([
-            'url' => '/test',
-            'method' => 'get',
-            'action' => 'TestController@test',
-            'name' => 'test',
-            'route_type' => 'web'
-        ]);
-
-        $this->patch(route('admin-routes.update', $locale->getSlug()), [
-            'url' => '/test-edited',
-            'method' => 'patch',
-            'action' => 'TestController@edited',
-            'name' => 'edited',
-            'route_type' => 'web'
-        ])
-            ->assertStatus(302);
-
-        $this->assertDatabaseHas('routes', [
-            'url' => '/test-edited',
-            'method' => 'patch',
-            'action' => 'TestController@edited',
-            'name' => 'edited',
-            'route_type' => 'web'
-        ]);
-    }
-
-    /** @test */
     public function user_can_be_updated_through_admin_form()
     {
         $this->authenticate(null, 'admins');

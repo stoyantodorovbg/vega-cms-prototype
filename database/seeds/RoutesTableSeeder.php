@@ -107,25 +107,25 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
-        // Admin groups edit
-        $this->createRoute('/groups/{group}/edit',
-            'get',
-            'GroupsController@edit',
-            'admin-groups.edit',
-            'admin',
-            'admin',
-            'admins'
-        );
-
-        // Admin groups update
-        $this->createRoute('/groups/{group}/update',
-            'patch',
-            'GroupsController@update',
-            'admin-groups.update',
-            'admin',
-            'admin',
-            'admins'
-        );
+//        // Admin groups edit
+//        $this->createRoute('/groups/{group}/edit',
+//            'get',
+//            'GroupsController@edit',
+//            'admin-groups.edit',
+//            'admin',
+//            'admin',
+//            'admins'
+//        );
+//
+//        // Admin groups update
+//        $this->createRoute('/groups/{group}/update',
+//            'patch',
+//            'GroupsController@update',
+//            'admin-groups.update',
+//            'admin',
+//            'admin',
+//            'admins'
+//        );
 
         // Admin users index
         $this->createRoute('/users',

@@ -191,4 +191,60 @@ class AdminStoreModelsFormValidationsTest extends TestCase
 
         $this->artisan('destroy:group TestTitle');
     }
+
+    /** @test */
+    public function route_group_form_validation()
+    {
+        $this->authenticate(null, 'admins');
+
+        //$this->artisan('generate:route /test get TestController@test test.test');
+        $this->post(route('admin-routes.store'), [
+            'url' => '',
+            'method' => '',
+            'action' => '',
+            'name' => '',
+            'route_type' => '',
+            'action_type' => ''
+        ])->assertSessionHasErrors([
+            'url' => 'The url field is required.',
+            'method' => 'The method field is required.',
+            'action' => 'The action field is required.',
+            'name' => 'The name field is required.',
+            'route_type' => 'The route type must be a string.',
+            'action_type' => 'The action type must be a string.'
+
+        ]);
+
+        $this->post(route('admin-routes.store'), [
+            'url' => 'test',
+            'method' => 'test',
+            'action' => 'test',
+            'name' => 'test',
+            'route_type' => 'test',
+            'action_type' => 'test'
+        ])->assertSessionHasErrors([
+            'url' => 'The url format is invalid.',
+            'method' => 'The method format is invalid.',
+            'action' => 'The action format is invalid.',
+            'route_type' => 'The route type format is invalid.',
+            'action_type' => 'The action type format is invalid.'
+
+        ]);
+
+        $this->artisan('generate:route /test get TestController@test test.test');
+
+        $this->post(route('admin-routes.store'), [
+            'url' => '/test',
+            'method' => 'get',
+            'action' => 'TestController@test',
+            'name' => 'test.test',
+            'route_type' => 'web',
+            'action_type' => 'front'
+        ])->assertSessionHasErrors([
+            'url' => 'The url has already been taken.',
+            'name' => 'The name has already been taken.',
+        ]);
+
+        $this->artisan('destroy:route test.test');
+    }
 }

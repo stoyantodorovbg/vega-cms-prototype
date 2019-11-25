@@ -14,8 +14,8 @@
             <tr v-for="model in models" :key="model.id">
                 <cell-td v-for="field in displayedFields" :key="field.name" :content="model[field.name]"></cell-td>
                 <td>
-                    <icon-link :prop_data="getIconShowData(model.id)"></icon-link>
-                    <icon-link :prop_data="getIconEditData(model.id)"></icon-link>
+                    <icon-link v-if="actions.show" :prop_data="getIconShowData(model.id)"></icon-link>
+                    <icon-link v-if="actions.edit" :prop_data="getIconEditData(model.id)"></icon-link>
                 </td>
             </tr>
             </tbody>
@@ -34,7 +34,7 @@
     export default {
         components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters, ButtonLink, IconLink },
 
-        props: ['model_name'],
+        props: ['model_name', 'actions'],
 
         data() {
             return {

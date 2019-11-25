@@ -48,12 +48,22 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-capitalize">{{ phrase('labels.route_type') }}</label>
-            <input type="text"
-                   name="url"
-                   value="{{ isset($route) ? old('route_type', $route->route_type) : '' }}"
-                   id="admin-form-route-route_type"
-                   class="form-control"
-            >
+            <select class="form-control text-capitalize" name="route_type" id="admin-form-locale-route_type">
+                <option value="">{{ phrase('labels.choose_route_type') }}</option>
+                <option value="web">web</option>
+                <option value="admin">admin</option>
+                <option value="page">page</option>
+                <option value="api">api</option>
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label class="text-capitalize">{{ phrase('labels.action_type') }}</label>
+            <select class="form-control text-capitalize" name="route_type" id="admin-form-locale-action_type">
+                <option value="">{{ phrase('labels.choose_action_type') }}</option>
+                <option value="front">front</option>
+                <option value="admin">admin</option>
+                <option value="api">api</option>
+            </select>
         </div>
     </div>
     <div class="row">

@@ -320,5 +320,26 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'no'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'labels.action_type',
+            'text' => [
+                'en' => 'action type'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.choose_route_type',
+            'text' => [
+                'en' => 'choose route type'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.choose_action_type',
+            'text' => [
+                'en' => 'choose action type'
+            ]
+        ]);
     }
 }

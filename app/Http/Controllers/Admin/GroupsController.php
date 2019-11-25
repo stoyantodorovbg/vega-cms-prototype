@@ -73,28 +73,28 @@ class GroupsController extends Controller
 
     }
 
-    /**
-     * Admin groups edit page
-     *
-     * @param Group $group
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit(Group $group)
-    {
-        return view('admin.groups.edit', compact('group'));
-    }
-
-    /**
-     * Admin groups update action
-     *
-     * @param Group $group
-     * @param AdminGroupRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function update(Group $group, AdminGroupRequest $request)
-    {
-        $group->update($request->validated());
-
-        return redirect()->back()->with(compact($group));
-    }
+//    /**
+//     * Admin groups edit page
+//     *
+//     * @param Group $group
+//     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+//     */
+//    public function edit(Group $group)
+//    {
+//        return view('admin.groups.edit', compact('group'));
+//    }
+//
+//    /**
+//     * Admin groups update action
+//     *
+//     * @param Group $group
+//     * @param AdminGroupRequest $request
+//     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+//     */
+//    public function update(Group $group, AdminGroupRequest $request)
+//    {
+//        $group->update($request->validated());
+//
+//        return redirect()->back()->with(compact($group));
+//    }
 }

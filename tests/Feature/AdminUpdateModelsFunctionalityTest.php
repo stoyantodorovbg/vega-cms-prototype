@@ -114,25 +114,25 @@ class AdminUpdateModelsFunctionalityTest extends TestCase
         ])->assertSessionHasNoErrors();
     }
 
-    /** @test */
-    public function group_form_validation()
-    {
-        $this->authenticate(null, 'admins');
-
-        $this->artisan('generate:group testTitle --description=description');
-
-        $route = Group::where('title', 'testTitle')->first();
-        $this->patch(route('admin-groups.update', $route->getSlug()), [
-            'description' => 'edited',
-            'status' => 0
-        ])->assertStatus(302);
-
-        $this->assertDatabaseHas('groups', [
-            'title' => 'testTitle',
-            'description' => 'edited',
-            'status' => 0
-        ]);
-
-        $this->artisan('destroy:group testTitle');
-    }
+//    /** @test */
+//    public function group_form_validation()
+//    {
+//        $this->authenticate(null, 'admins');
+//
+//        $this->artisan('generate:group testTitle --description=description');
+//
+//        $route = Group::where('title', 'testTitle')->first();
+//        $this->patch(route('admin-groups.update', $route->getSlug()), [
+//            'description' => 'edited',
+//            'status' => 0
+//        ])->assertStatus(302);
+//
+//        $this->assertDatabaseHas('groups', [
+//            'title' => 'testTitle',
+//            'description' => 'edited',
+//            'status' => 0
+//        ]);
+//
+//        $this->artisan('destroy:group testTitle');
+//    }
 }

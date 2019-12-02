@@ -18,8 +18,9 @@ interface GroupServiceInterface
      * Destroy a group
      *
      * @param array $data
+     * @param null $group
      */
-    public function destroy(array $data);
+    public function destroy(array $data, $group = null);
 
     /**
      * Check if a user has a group

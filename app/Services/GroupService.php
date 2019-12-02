@@ -103,9 +103,10 @@ class GroupService implements GroupServiceInterface
      * Destroy a group
      *
      * @param array $data
+     * @param null $group
      * @return mixed
      */
-    public function destroy(array $data)
+    public function destroy(array $data, $group = null)
     {
         $validatedData = $this->validationService->validate(
             $data,
@@ -117,7 +118,7 @@ class GroupService implements GroupServiceInterface
         if ($validatedData === true &&
             $this->baseRepository->rowExists('groups', ['title' => $data['title']])
         ) {
-            $group = Group::where('title', $data['title'])->first();
+            $group = $group ? $group : Group::where('title', $data['title'])->first();
             $fileDestroyService = resolve(FileDestroyServiceInterface::class);
             $fileDestroyService->destroyFile('/app/Http/Middleware/', ucfirst($group->title), '.php');
             $this->removeMiddlewareRegistration($group->title);

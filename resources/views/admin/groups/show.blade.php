@@ -9,12 +9,12 @@
                 'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
             }"
             ></button-link>
-            <button-link :prop_data="{
-                'url': '{{ route('admin-groups.edit', $group->getSlug()) }}',
-                'text': '{{ phrase('buttons.show-user-group') }}',
-                'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'
-            }"
-            ></button-link>
+{{--            <button-link :prop_data="{--}}
+{{--                'url': '{{ route('admin-groups.edit', $group->getSlug()) }}',--}}
+{{--                'text': '{{ phrase('buttons.show-user-group') }}',--}}
+{{--                'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'--}}
+{{--            }"--}}
+{{--            ></button-link>--}}
             <table class="table table-bordered">
                 <thead>
                 <tr>

@@ -10,12 +10,12 @@
                     'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
                 }"
                 ></button-link>
-                <button-link :prop_data="{
-                    'url': '{{ route('admin-routes.edit', $route->getSlug()) }}',
-                    'text': '{{ phrase('buttons.edit-route') }}',
-                    'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'
-                }"
-                ></button-link>
+{{--                <button-link :prop_data="{--}}
+{{--                    'url': '{{ route('admin-routes.edit', $route->getSlug()) }}',--}}
+{{--                    'text': '{{ phrase('buttons.edit-route') }}',--}}
+{{--                    'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'--}}
+{{--                }"--}}
+{{--                ></button-link>--}}
             </div>
             <div class="pt-5">
                 <table class="table table-bordered">

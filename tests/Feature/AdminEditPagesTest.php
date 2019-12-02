@@ -39,29 +39,29 @@ class AdminEditPagesTest extends TestCase
             ->assertSee('Test User');
     }
 
-    /** @test */
-    public function group_edit_page_can_be_visited_from_admins()
-    {
-        $group = factory(Group::class)->create();
-        $this->authenticate(null, 'admins');
+    //    /** @test */
+    //    public function group_edit_page_can_be_visited_from_admins()
+    //    {
+    //        $group = factory(Group::class)->create();
+    //        $this->authenticate(null, 'admins');
+    //
+    //        $this->get(route('admin-groups.edit', $group->getSlug()))
+    //            ->assertStatus(200);
+    //    }
 
-        $this->get(route('admin-groups.edit', $group->getSlug()))
-            ->assertStatus(200);
-    }
-
-    /** @test */
-    public function group_data_can_be_viewed_on_group_edit_page()
-    {
-        $this->authenticate(null, 'admins');
-
-        $group = factory(Group::class)->create([
-                'description' => 'Test description'
-            ]
-        );
-
-        $this->get(route('admin-groups.edit', $group->id))
-            ->assertSee('Test description');
-    }
+//    /** @test */
+//    public function group_data_can_be_viewed_on_group_edit_page()
+//    {
+//        $this->authenticate(null, 'admins');
+//
+//        $group = factory(Group::class)->create([
+//                'description' => 'Test description'
+//            ]
+//        );
+//
+//        $this->get(route('admin-groups.edit', $group->id))
+//            ->assertSee('Test description');
+//    }
 
     /** @test */
     public function phrase_edit_page_can_be_visited_from_admins()
@@ -87,15 +87,15 @@ class AdminEditPagesTest extends TestCase
             ->assertSee('test_system_name');
     }
 
-    /** @test */
-    public function route_edit_page_can_be_visited_from_admins()
-    {
-        $route = factory(Route::class)->create();
-        $this->authenticate(null, 'admins');
-
-        $this->get(route('admin-routes.edit', $route->getSlug()))
-            ->assertStatus(200);
-    }
+//    /** @test */
+//    public function route_edit_page_can_be_visited_from_admins()
+//    {
+//        $route = factory(Route::class)->create();
+//        $this->authenticate(null, 'admins');
+//
+//        $this->get(route('admin-routes.edit', $route->getSlug()))
+//            ->assertStatus(200);
+//    }
 
     /** @test */
     public function locale_edit_page_can_be_visited_from_admins()

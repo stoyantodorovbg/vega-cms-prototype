@@ -376,6 +376,15 @@ class RoutesTableSeeder extends Seeder
             'api',
             'admins'
         );
+
+        $this->createRoute('/admin/destroy',
+            'delete',
+            'Admin\\\DeleteController@destroy',
+            'api-admin.destroy',
+            'api',
+            'api',
+            'admins'
+        );
     }
 
     /**

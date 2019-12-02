@@ -341,5 +341,18 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'choose action type'
             ]
         ]);
+        Phrase::create([
+            'system_name' => 'messages.deleted',
+            'text' => [
+                'en' => 'deleted!'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.password_confirmation',
+            'text' => [
+                'en' => 'password confirmation'
+            ]
+        ]);
     }
 }

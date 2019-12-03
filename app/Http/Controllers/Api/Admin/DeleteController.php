@@ -22,8 +22,9 @@ class DeleteController
     public function destroy(AdminDeleteRequest $request, string $methodName = '')
     {
         $modelPath = '\\App\\Models\\' . ucfirst($request->modelName);
-        $method = $request->methodName;
-        if(!$method && $model = $modelPath::find($request->slug)) {
+        $method = strtolower($request->modelName);
+        $methodExists = method_exists($this, $method);
+        if(!$methodExists && $model = $modelPath::find($request->slug)) {
             $model->delete();
 
             return response()->json([
@@ -32,7 +33,7 @@ class DeleteController
             ]);
         }
 
-        if($result = $this->$method($request->slug)) {
+        if($methodExists && $result = $this->$method($request->slug)) {
             return $result;
         }
 

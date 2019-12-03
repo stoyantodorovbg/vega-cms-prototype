@@ -16,10 +16,15 @@
                 <td>
                     <icon-link v-if="actions.show" :prop_data="getIconShowData(model.id)"></icon-link>
                     <icon-link v-if="actions.edit" :prop_data="getIconEditData(model.id)"></icon-link>
+                    <icon-link v-if="actions.delete"
+                               :prop_data="getIconDeleteData()"
+                               @click.native="renderModal(model.id)"
+                    ></icon-link>
                 </td>
             </tr>
             </tbody>
         </table>
+        <delete-confirmation v-show="deleting" :request_data="deleteRequestData"></delete-confirmation>
     </div>
 </template>
 
@@ -30,9 +35,18 @@
     import MenageFilters from "../components/filters/MenageFilters";
     import ButtonLink from "../components/links/ButtonLink";
     import IconLink from "../components/links/IconLink";
+    import DeleteConfirmation from "../components/modals/DeleteConfirmation";
 
     export default {
-        components: { CellTd, CellTh, CustomizeModelIndex, MenageFilters, ButtonLink, IconLink },
+        components: {
+            CellTd,
+            CellTh,
+            CustomizeModelIndex,
+            MenageFilters,
+            ButtonLink,
+            IconLink,
+            DeleteConfirmation
+        },
 
         props: ['model_name', 'actions'],
 
@@ -42,7 +56,9 @@
                 displayedFields: [],
                 modelFields: {},
                 defaultFieldsCount: 10,
-                filters: {}
+                filters: {},
+                deleting: false,
+                deleteRequestData: {},
             }
         },
 
@@ -214,16 +230,41 @@
             },
             getIconShowData(itemId) {
                 return {
-                    url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/' + itemId,
+                    url: '/admin/' +
+                        this.$store.state.locale +
+                        '/' +
+                        this.$pluralize(this.model_name.toLowerCase()) +
+                        '/' +
+                        itemId,
                     icon_class: 'fas fa-eye'
                 }
             },
             getIconEditData(itemId) {
                 return {
-                    url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/' + itemId + '/edit',
+                    url: '/admin/' +
+                        this.$store.state.locale +
+                        '/' +
+                        this.$pluralize(this.model_name.toLowerCase()) +
+                        '/' +
+                        itemId +
+                        '/edit',
                     icon_class: 'fas fa-pencil-alt'
                 }
             },
+            getIconDeleteData() {
+                return {
+                    url: '#',
+                    icon_class: 'far fa-trash-alt'
+                }
+            },
+            renderModal(itemId) {
+                this.deleting = true;
+                this.deleteRequestData = {
+                    'slug': itemId,
+                    'modelName': this.model_name.toLowerCase(),
+                }
+                document.getElementById('deleteModelModalTrigger').click();
+            }
         }
     }
 </script>

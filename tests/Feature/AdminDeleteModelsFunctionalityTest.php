@@ -78,7 +78,6 @@ class AdminDeleteModelsFunctionalityTest extends TestCase
         $this->delete('api/' . app()->getLocale() . '/admin/destroy', [
             'slug' => $group->getSlug(),
             'modelName' => 'group',
-            'methodName' => 'group'
         ])->assertStatus(200);
 
         $this->assertDatabaseMissing('groups', [
@@ -93,11 +92,10 @@ class AdminDeleteModelsFunctionalityTest extends TestCase
         $route = Route::where('name', 'test.testroute')->first();
 
         $this->authenticate(null, 'admins');
-$this->withExceptionHandling();
+
         $this->delete('api/' . app()->getLocale() . '/admin/destroy', [
             'slug' => $route->getSlug(),
             'modelName' => 'route',
-            'methodName' => 'route'
         ])->assertStatus(200);
 
         $this->assertDatabaseMissing('routes', [

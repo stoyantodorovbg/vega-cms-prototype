@@ -26,7 +26,6 @@ class AdminDeleteRequest extends FormRequest
         return [
             'slug' => 'required|string|max:100',
             'modelName' => 'required|string|max:30',
-            'methodName' => 'nullable|string|max:50'
-        ];
+            ];
     }
 }

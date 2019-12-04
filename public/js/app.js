@@ -2103,6 +2103,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'DeleteConfirmation',
+  props: ['request_data'],
+  methods: {
+    deleteModel: function deleteModel() {
+      var _this = this;
+
+      axios["delete"]('/api/' + this.$store.state.locale + '/admin/destroy', {
+        params: {
+          slug: this.request_data.slug,
+          modelName: this.request_data.modelName
+        }
+      }).then(function (response) {
+        document.getElementById('closeDeleteModelModal').click();
+
+        _this.$parent.load(false);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/table/CellTd.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/components/table/CellTd.vue?vue&type=script&lang=js& ***!
@@ -2210,6 +2277,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_filters_MenageFilters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/filters/MenageFilters */ "./resources/js/admin/components/filters/MenageFilters.vue");
 /* harmony import */ var _components_links_ButtonLink__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/links/ButtonLink */ "./resources/js/admin/components/links/ButtonLink.vue");
 /* harmony import */ var _components_links_IconLink__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/links/IconLink */ "./resources/js/admin/components/links/IconLink.vue");
+/* harmony import */ var _components_modals_DeleteConfirmation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/modals/DeleteConfirmation */ "./resources/js/admin/components/modals/DeleteConfirmation.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -2237,6 +2305,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -2250,7 +2324,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     CustomizeModelIndex: _components_table_CustomizeModelIndex__WEBPACK_IMPORTED_MODULE_2__["default"],
     MenageFilters: _components_filters_MenageFilters__WEBPACK_IMPORTED_MODULE_3__["default"],
     ButtonLink: _components_links_ButtonLink__WEBPACK_IMPORTED_MODULE_4__["default"],
-    IconLink: _components_links_IconLink__WEBPACK_IMPORTED_MODULE_5__["default"]
+    IconLink: _components_links_IconLink__WEBPACK_IMPORTED_MODULE_5__["default"],
+    DeleteConfirmation: _components_modals_DeleteConfirmation__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   props: ['model_name', 'actions'],
   data: function data() {
@@ -2259,7 +2334,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       displayedFields: [],
       modelFields: {},
       defaultFieldsCount: 10,
-      filters: {}
+      filters: {},
+      deleting: false,
+      deleteRequestData: {}
     };
   },
   computed: {
@@ -2486,6 +2563,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/' + itemId + '/edit',
         icon_class: 'fas fa-pencil-alt'
       };
+    },
+    getIconDeleteData: function getIconDeleteData() {
+      return {
+        url: '#',
+        icon_class: 'far fa-trash-alt'
+      };
+    },
+    renderModal: function renderModal(itemId) {
+      this.deleting = true;
+      this.deleteRequestData = {
+        'slug': itemId,
+        'modelName': this.model_name.toLowerCase()
+      };
+      document.getElementById('deleteModelModalTrigger').click();
     }
   }
 });
@@ -38275,6 +38366,132 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=template&id=59653e24&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=template&id=59653e24& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      {
+        staticClass: "d-none",
+        attrs: {
+          type: "button",
+          id: "deleteModelModalTrigger",
+          "data-toggle": "modal",
+          "data-target": "#deleteModel"
+        }
+      },
+      [_vm._v("\n        Launch demo modal\n    ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "deleteModel",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "exampleModalLabel" }
+                  },
+                  [_vm._v("Delete a " + _vm._s(_vm.request_data.modelName))]
+                ),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._v(
+                  "\n                    Are You sure you want to delete this " +
+                    _vm._s(_vm.request_data.modelName) +
+                    "?\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-light",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cancel")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteModel()
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          id: "closeDeleteModelModal",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/table/CellTd.vue?vue&type=template&id=1cf984fe&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/components/table/CellTd.vue?vue&type=template&id=1cf984fe& ***!
@@ -38464,6 +38681,17 @@ var render = function() {
                       ? _c("icon-link", {
                           attrs: { prop_data: _vm.getIconEditData(model.id) }
                         })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.actions.delete
+                      ? _c("icon-link", {
+                          attrs: { prop_data: _vm.getIconDeleteData() },
+                          nativeOn: {
+                            click: function($event) {
+                              return _vm.renderModal(model.id)
+                            }
+                          }
+                        })
                       : _vm._e()
                   ],
                   1
@@ -38474,7 +38702,19 @@ var render = function() {
           }),
           0
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c("delete-confirmation", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.deleting,
+            expression: "deleting"
+          }
+        ],
+        attrs: { request_data: _vm.deleteRequestData }
+      })
     ],
     1
   )
@@ -52606,6 +52846,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IconLink_vue_vue_type_template_id_0f828bd8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IconLink_vue_vue_type_template_id_0f828bd8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/components/modals/DeleteConfirmation.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/admin/components/modals/DeleteConfirmation.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DeleteConfirmation_vue_vue_type_template_id_59653e24___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeleteConfirmation.vue?vue&type=template&id=59653e24& */ "./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=template&id=59653e24&");
+/* harmony import */ var _DeleteConfirmation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeleteConfirmation.vue?vue&type=script&lang=js& */ "./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DeleteConfirmation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DeleteConfirmation_vue_vue_type_template_id_59653e24___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DeleteConfirmation_vue_vue_type_template_id_59653e24___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/components/modals/DeleteConfirmation.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeleteConfirmation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./DeleteConfirmation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeleteConfirmation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=template&id=59653e24&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=template&id=59653e24& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeleteConfirmation_vue_vue_type_template_id_59653e24___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./DeleteConfirmation.vue?vue&type=template&id=59653e24& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/modals/DeleteConfirmation.vue?vue&type=template&id=59653e24&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeleteConfirmation_vue_vue_type_template_id_59653e24___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeleteConfirmation_vue_vue_type_template_id_59653e24___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AdminRouteRequest;
+use App\Models\Group;
 use App\Models\Route;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Requests\Admin\AdminRouteRequest;
 use App\Services\Interfaces\RouteServiceInterface;
+use App\Http\Requests\Admin\AdminUpdateRouteRequest;
 
 class RoutesController extends Controller
 {
@@ -73,28 +76,56 @@ class RoutesController extends Controller
         return redirect()->back()->with(['messageData' => $validationData]);
     }
 
-//    /**
-//     * Admin routes edit page
-//     *
-//     * @param Route $route
-//     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-//     */
-//    public function edit(Route $route)
-//    {
-//        return view('admin.routes.edit', compact('route'));
-//    }
-//
-//    /**
-//     * Admin routes update action
-//     *
-//     * @param Route $route
-//     * @param AdminRouteRequest $request
-//     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-//     */
-//    public function update(Route $route, AdminRouteRequest $request)
-//    {
-//        $route->update($request->validated());
-//
-//        return redirect()->back()->with(compact('route'));
-//    }
+    /**
+     * Admin routes edit page
+     *
+     * @param Route $route
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Route $route)
+    {
+        $groups = Group::where('status', 1)->get();
+        $routeGroupsTitles = $route->groups->pluck('title')->toArray();
+
+        return view('admin.routes.edit', compact('route', 'groups', 'routeGroupsTitles'));
+    }
+
+    /**
+     * Admin routes update action
+     *
+     * @param Route $route
+     * @param AdminRouteRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function update(Route $route, AdminUpdateRouteRequest $request)
+    {
+        $routeGroups = $route->groups->pluck('title')->toArray();
+        if($request->titles) {
+            foreach ($request->titles as $title) {
+                if(!in_array($title, $routeGroups)) {
+                    Artisan::call('attach:route-to-group', [
+                        'name' => $route->name,
+                        'title' => $title
+                    ]);
+                }
+            }
+            foreach ($routeGroups as $group) {
+                if(!in_array($group, $request->titles)) {
+                    Artisan::call('detach:route-from-group', [
+                        'name' => $route->name,
+                        'title' => $group
+                    ]);
+                }
+            }
+        } else {
+            foreach ($routeGroups as $group) {
+                Artisan::call('detach:route-from-group', [
+                    'name' => $route->name,
+                    'title' => $group
+                ]);
+            }
+        }
+
+        return redirect()->back()->with(compact('route'));
+    }
 }

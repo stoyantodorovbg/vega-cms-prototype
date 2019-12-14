@@ -131,7 +131,7 @@ class RouteService implements RouteServiceInterface
             list($route, $group) = $this->fetchRouteAndGroup($data);
             $group->routes()->detach($route->id);
 
-            $this->detachMiddlewareToRoute($route, $data['title']);
+            $this->detachMiddlewareFromRoute($route, $data['title']);
 
             return true;
         }
@@ -235,7 +235,7 @@ class RouteService implements RouteServiceInterface
      * @param Route $route
      * @return void
      */
-    protected function detachMiddlewareToRoute(Route $route): void
+    protected function detachMiddlewareFromRoute(Route $route): void
     {
         $routesFileContent = $this->getRoutes($route->route_type);
         $routeName = $route->name;
@@ -243,11 +243,19 @@ class RouteService implements RouteServiceInterface
 
         $replacement = '';
         $routeRepository = resolve(RouteRepositoryInterface::class);
-        $groupsTitles = $routeRepository->getTheRouteGroupsCount($route);
+        $groupsTitles = $routeRepository->getRouteGroupsTitles($route)->toArray();
 
         if($routeRepository->getTheRouteGroupsCount($route)) {
-            $groupString = explode(', ', $groupsTitles);
-            $replacement = "->middleware($groupString)";
+            $groupsTitlesString = '';
+            $groupsTitlesCount = count($groupsTitles);
+            for ($i = 1; $i <= $groupsTitlesCount; $i++) {
+                $groupsTitlesString .= "'" . $groupsTitles[$i - 1]->title . "'";
+                if($i < $groupsTitlesCount) {
+                    $groupsTitlesString .= ', ';
+                }
+            }
+
+            $replacement = "->middleware($groupsTitlesString)";
         }
 
 

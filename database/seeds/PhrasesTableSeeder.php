@@ -354,5 +354,12 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'password confirmation'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'labels.route_groups',
+            'text' => [
+                'en' => 'route groups'
+            ]
+        ]);
     }
 }

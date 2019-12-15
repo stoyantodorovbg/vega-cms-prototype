@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Group;
-use App\Services\Interfaces\FileCreateServiceInterface;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
+use App\Services\Interfaces\FileCreateServiceInterface;
 
 class GroupsTableSeeder extends Seeder
 {

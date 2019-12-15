@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Locale;
+use Illuminate\Database\Seeder;
 
 class LocalesTableSeeder extends Seeder
 {

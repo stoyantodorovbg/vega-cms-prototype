@@ -3,7 +3,7 @@
 namespace App\Repositories\Interfaces;
 
 use App\Models\Route;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface RouteRepositoryInterface
 {
@@ -13,7 +13,7 @@ interface RouteRepositoryInterface
      * @param Route $route
      * @return Collection
      */
-    public function getRouteGroupsNames(Route $route): Collection;
+    public function getRouteGroupsTitles(Route $route): Collection;
 
     /**
      * Fetch the count of the route groups

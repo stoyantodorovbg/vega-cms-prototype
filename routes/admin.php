@@ -35,8 +35,8 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::patch('/locales/{locale}/update', 'Admin\LocalesController@update')->name('admin-locales.update')->middleware('admins');
     Route::get('/routes/create', 'Admin\RoutesController@create')->name('admin-routes.create')->middleware('admins');
     Route::post('/routes/store', 'Admin\RoutesController@store')->name('admin-routes.store')->middleware('admins');
-//    Route::get('/routes/{route}/edit', 'Admin\RoutesController@edit')->name('admin-routes.edit')->middleware('admins');
-//    Route::patch('/routes/{route}/update', 'Admin\RoutesController@update')->name('admin-routes.update')->middleware('admins');
+    Route::get('/routes/{route}/edit', 'Admin\RoutesController@edit')->name('admin-routes.edit')->middleware('admins');
+    Route::patch('/routes/{route}/update', 'Admin\RoutesController@update')->name('admin-routes.update')->middleware('admins');
     Route::get('/groups/{group}', 'Admin\GroupsController@show')->name('admin-groups.show')->middleware('admins');
     Route::get('/users/{user}', 'Admin\UsersController@show')->name('admin-users.show')->middleware('admins');
     Route::get('/phrases/{phrase}', 'Admin\PhrasesController@show')->name('admin-phrases.show')->middleware('admins');

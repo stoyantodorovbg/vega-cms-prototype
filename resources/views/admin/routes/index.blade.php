@@ -4,7 +4,7 @@
     <model-index :model_name="'Route'"
                  :actions="{
                         'show': 1,
-                        'edit': 0,
+                        'edit': 1,
                         'delete': 1
                     }"
     ></model-index>

@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoutesTableSeeder::class);
         $this->call(LocalesTableSeeder::class);
         $this->call(PhrasesTableSeeder::class);
+        $this->call(MenuTableSeeder ::class);
     }
 }

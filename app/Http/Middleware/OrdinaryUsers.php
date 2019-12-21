@@ -12,18 +12,18 @@ use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 class OrdinaryUsers extends Middleware
 {
     /**
-     * @var GroupServiceInterface
-     */
+    * @var GroupServiceInterface
+    */
     protected $groupService;
 
     /**
-     * Handle an incoming request.
-     *
-     * @param  Request  $request
-     * @param Closure $next
-     * @return mixed
-     * @throws ReflectionException
-     */
+    * Handle an incoming request.
+    *
+    * @param  Request  $request
+    * @param Closure $next
+    * @return mixed
+    * @throws ReflectionException
+    */
     public function handle($request, Closure $next)
     {
         if (! auth()->check()) {

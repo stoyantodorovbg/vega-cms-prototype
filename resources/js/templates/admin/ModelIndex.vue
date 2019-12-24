@@ -29,13 +29,13 @@
 </template>
 
 <script>
-    import CellTd from '../components/table/CellTd'
-    import CellTh from '../components/table/CellTh'
-    import CustomizeModelIndex from "../components/table/CustomizeModelIndex";
-    import MenageFilters from "../components/filters/MenageFilters";
-    import ButtonLink from "../components/links/ButtonLink";
-    import IconLink from "../components/links/IconLink";
-    import DeleteConfirmation from "../components/modals/DeleteConfirmation";
+    import CellTd from '../../components/table/CellTd'
+    import CellTh from '../../components/table/CellTh'
+    import CustomizeModelIndex from "../../components/table/CustomizeModelIndex";
+    import MenageFilters from "../../components/filters/MenageFilters";
+    import ButtonLink from "../../components/links/ButtonLink";
+    import IconLink from "../../components/links/IconLink";
+    import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
 
     export default {
         components: {

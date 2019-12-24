@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Models\Group;
 use App\Models\Route;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminDeleteRequest;
 use App\Services\Interfaces\GroupServiceInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 
-class DeleteController
+class DeleteController extends Controller
 {
     /**
      * Destroy a model

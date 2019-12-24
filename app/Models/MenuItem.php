@@ -38,4 +38,22 @@ class MenuItem extends BasicModel
     {
         return $this->hasMany(MenuItem::class, 'parent_id');
     }
+
+    /**
+     * Load all child menu items recursivelly
+     *
+     * @param MenuItem $menuItem
+     * @return void
+     */
+    public function loadAllChildItems(MenuItem $menuItem): void
+    {
+        $menuItem->load('childMenuItems');
+        foreach ($this->childMenuItems as $childMenuItem) {
+            $childMenuItem->load('childMenuItems');
+
+            if($childMenuItem->childMenuItems->count()) {
+                $childMenuItem->loadAllChildItems($childMenuItem);
+            }
+        }
+    }
 }

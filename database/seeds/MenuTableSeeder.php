@@ -15,18 +15,18 @@ class MenuTableSeeder extends Seeder
     {
         $menu = factory(Menu::class)->create();
 
-        $parentMenuItems = factory(MenuItem::class, 10)->create([
+        $parentMenuItems = factory(MenuItem::class, 3)->create([
             'menu_id' => $menu->id,
         ]);
 
         foreach ($parentMenuItems as $parentMenuItem) {
-            $childMenuItems = factory(MenuItem::class, 10)->create([
+            $childMenuItems = factory(MenuItem::class, 3)->create([
                 'menu_id' => $menu->id,
                 'parent_id' => $parentMenuItem->id,
             ]);
 
             foreach ($childMenuItems as $childMenuItem) {
-                factory(MenuItem::class, 10)->create([
+                factory(MenuItem::class, 3)->create([
                     'menu_id' => $menu->id,
                     'parent_id' => $childMenuItem->id,
                 ]);

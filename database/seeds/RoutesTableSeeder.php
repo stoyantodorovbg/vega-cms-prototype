@@ -385,6 +385,14 @@ class RoutesTableSeeder extends Seeder
             'api',
             'admins'
         );
+
+        $this->createRoute('/menu',
+            'post',
+            'MenuController@getData',
+            'api.menu-data',
+            'api',
+            'api'
+        );
     }
 
     /**

@@ -33,9 +33,9 @@ Vue.use(VuePluralize);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('model-index', require('./admin/templates/ModelIndex.vue').default);
-Vue.component('button-link', require('./admin/components/links/ButtonLink.vue').default);
+Vue.component('model-index', require('./templates/admin/ModelIndex.vue').default);
+Vue.component('button-link', require('./components/links/ButtonLink.vue').default);
+Vue.component('menu', require('./components/menu/Menu.vue').default);
 
 
 /**

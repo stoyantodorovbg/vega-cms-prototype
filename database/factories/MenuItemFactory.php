@@ -13,6 +13,7 @@ $factory->define(MenuItem::class, function (Faker $faker) {
                 return factory(Menu::class)->create()->id;
             },
         'parent_id' => null,
+        'status' => 1,
         'title' => $faker->name,
         'description' => $faker->text(100),
         'classes' => $faker->text(50),

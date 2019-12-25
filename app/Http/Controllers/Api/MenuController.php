@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Menu;
+use App\Http\Resources\MenuResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuDataRequest;
 
@@ -13,7 +14,7 @@ class MenuController extends Controller
      *
      * @param MenuDataRequest $request
      */
-    public function getData(MenuDataRequest $request)
+    public function getData(MenuDataRequest $request, MenuResource $resource)
     {
         $menu = Menu::find($request->menu_id);
 
@@ -21,7 +22,7 @@ class MenuController extends Controller
             $menu->loadAllMenuItems();
 
             return response([
-                'menu' => $menu
+                'menu' => $resource->toArray($menu)
             ], 200);
         }
 

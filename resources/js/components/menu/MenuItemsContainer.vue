@@ -2,13 +2,13 @@
     <div :class="menuData.classes"
          :style="menuData.styles"
     >
-        <div v-if="menuData.title.status"
+        <div v-if="menuData.title && menuData.title.status"
              :class="menuData.title.classes"
              :style="menuData.title.styles"
         >
             {{ menuData.title.text }}
         </div>
-        <div v-if="menuData.description.status"
+        <div v-if="menuData.description && menuData.description.status"
              :class="menuData.description.classes"
              :style="menuData.description.styles"
         >

@@ -1,12 +1,18 @@
 <template>
-    <div v-if="menuData.status">
-
-    </div>
+        <menu-items-container v-if="menuData.status"
+                              :menuData="menuData"
+        ></menu-items-container>
 </template>
 
 <script>
+    import MenuItemsContainer from "./MenuItemsContainer";
+
     export default {
         name: 'Menu',
+
+        components: {
+            MenuItemsContainer,
+        },
 
         props: ['menu_id'],
 

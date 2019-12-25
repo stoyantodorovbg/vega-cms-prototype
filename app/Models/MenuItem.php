@@ -10,6 +10,15 @@ class MenuItem extends BasicModel
     protected $guarded = [];
 
     /**
+     * @var array
+     */
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+        'styles' => 'array'
+    ];
+
+    /**
      * The menu item belongs to a menu
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

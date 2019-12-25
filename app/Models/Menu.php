@@ -10,6 +10,15 @@ class Menu extends BasicModel
     protected $guarded = [];
 
     /**
+     * @var array
+     */
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+        'styles' => 'array'
+    ];
+
+    /**
      * The menu may has many menu items
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -31,18 +31,32 @@
                         <th>{{ phrase('labels.id') }}</th>
                         <td>{{ $menu->id }}</td>
                     </tr>
-{{--                    <tr>--}}
-{{--                        <th class="text-capitalize">{{ phrase('labels.language') }}</th>--}}
-{{--                        <td>{{ $menu->language }}</td>--}}
-{{--                    </tr>--}}
-{{--                    <tr>--}}
-{{--                        <th class="text-capitalize">{{ phrase('labels.code') }}</th>--}}
-{{--                        <td>{{ $menu->code }}</td>--}}
-{{--                    </tr>--}}
-{{--                    <tr>--}}
-{{--                        <th class="text-capitalize">{{ phrase('labels.add_to_url') }}</th>--}}
-{{--                        <td>{{ $menu->add_to_url }}</td>--}}
-{{--                    </tr>--}}
+                    <tr>
+                        <th class="text-capitalize">{{ phrase('labels.title') }}</th>
+                        <td>
+                            <json-presenter :json_data="{{ $menu->title }}"></json-presenter>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-capitalize">{{ phrase('labels.status') }}</th>
+                        <td>{{ $menu->status }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-capitalize">{{ phrase('labels.description') }}</th>
+                        <td>
+                            <json-presenter :json_data="{{ $menu->description }}"></json-presenter>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-capitalize">{{ phrase('labels.classes') }}</th>
+                        <td>{{ $menu->classes }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-capitalize">{{ phrase('labels.styles') }}</th>
+                        <td>
+                            <json-presenter :json_data="{{ $menu->styles }}"></json-presenter>
+                        </td>
+                    </tr>
                     <tr>
                         <th class="text-capitalize">{{ phrase('labels.created_at') }}</th>
                         <td>{{ $menu->created_at }}</td>

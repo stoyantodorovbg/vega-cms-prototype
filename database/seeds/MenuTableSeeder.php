@@ -100,27 +100,6 @@ class MenuTableSeeder extends Seeder
             'menu_id' => $menu->id,
             'parent_id' => null,
             'status' => 1,
-            'url' => '/dashboard',
-            'title' => json_encode([
-                'text' => 'dashboard',
-                'status' => 1,
-                'classes' => 'text-dark',
-                'styles' => []
-            ]),
-            'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => []
-            ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
-            'styles' => json_encode([]),
-        ]);
-
-        factory(MenuItem::class)->create([
-            'menu_id' => $menu->id,
-            'parent_id' => null,
-            'status' => 1,
             'url' => '/phrases',
             'title' => json_encode([
                 'text' => 'phrases',

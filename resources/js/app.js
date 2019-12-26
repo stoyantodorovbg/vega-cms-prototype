@@ -45,7 +45,7 @@ Vue.use(plugin);
 Vue.component('model-index', require('./templates/admin/ModelIndex.vue').default);
 Vue.component('button-link', require('./components/links/ButtonLink.vue').default);
 Vue.component('dynamic-menu', require('./components/menu/DynamicMenu.vue').default);
-
+Vue.component('json-presenter', require('./components/data/JsonPresenter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

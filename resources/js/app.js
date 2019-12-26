@@ -22,6 +22,15 @@ let store = new Vuex.Store({
 
 Vue.use(VuePluralize);
 
+import helpers from './helpers.js';
+const plugin = {
+    install (Vue, options) {
+        Vue.prototype.$helpers = helpers;
+    }
+};
+
+Vue.use(plugin);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -35,7 +44,7 @@ Vue.use(VuePluralize);
 
 Vue.component('model-index', require('./templates/admin/ModelIndex.vue').default);
 Vue.component('button-link', require('./components/links/ButtonLink.vue').default);
-Vue.component('menu', require('./components/menu/Menu.vue').default);
+Vue.component('dynamic-menu', require('./components/menu/DynamicMenu.vue').default);
 
 
 /**
@@ -48,3 +57,4 @@ const app = new Vue({
     el: '#app',
     store: store
 });
+

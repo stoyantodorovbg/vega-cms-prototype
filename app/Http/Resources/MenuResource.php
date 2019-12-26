@@ -46,6 +46,7 @@ class MenuResource implements ResourceInterface
             $menuData[] = [
                 'id' => $menuItem->id,
                 'status' => $menuItem->status,
+                'url' => $menuItem->url,
                 'title' => json_decode($menuItem->title, true),
                 'description' => json_decode($menuItem->description, true),
                 'classes' => $menuItem->classes,

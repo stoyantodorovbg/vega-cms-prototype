@@ -2,21 +2,22 @@
     <div :class="menuItemData.classes"
          :style="menuItemData.styles"
     >
-        <div v-if="menuItemData.title && menuItemData.title.status"
-             :class="menuItemData.title.classes"
-             :style="menuItemData.title.styles"
-        >
-            {{ menuData.title.text }}
-        </div>
+        <a v-if="menuItemData.title && menuItemData.title.status"
+                :href="$helpers.adminUrlPrefix($store.state.locale) + menuItemData.url"
+                :class="menuItemData.title.classes"
+                :style="menuItemData.title.styles"
+            >
+            {{ menuItemData.title.text }}
+        </a>
         <div v-if="menuItemData.description && menuItemData.description.status"
              :class="menuItemData.description.classes"
              :style="menuItemData.description.styles"
         >
-            {{ menuData.description.text }}
+            {{ menuItemData.description.text }}
         </div>
         <menu-items-container
             v-if="menuItemData.menuItemsContainer"
-            :menuData="menuItemData.menuItemsContainer"
+            :menuItemData="menuItemData.menuItemsContainer"
         ></menu-items-container>
     </div>
 </template>
@@ -25,11 +26,9 @@
     import MenuItemsContainer from "./MenuItemsContainer";
 
     export default {
-        name: MenuItem,
+        name: 'MenuItem',
+
         components: {MenuItemsContainer},
-        comments: {
-            MenuItemsContainer
-        },
 
         props: ['menuItemData']
     }

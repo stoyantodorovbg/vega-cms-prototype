@@ -8,7 +8,7 @@
     import MenuItemsContainer from "./MenuItemsContainer";
 
     export default {
-        name: 'Menu',
+        name: 'DynamicMenu',
 
         components: {
             MenuItemsContainer,
@@ -30,11 +30,11 @@
             load() {
                 axios.get('/api/' + this.$store.state.locale + '/menu', {
                         params: {
-                            id: this.menu_id
+                            menu_id: this.menu_id
                         }
                     }
                 ).then((response) => {
-                    this.menuData = response.data;
+                    this.menuData = response.data.menu;
                 });
             }
         }

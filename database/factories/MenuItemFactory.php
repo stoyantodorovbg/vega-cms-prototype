@@ -14,6 +14,7 @@ $factory->define(MenuItem::class, function (Faker $faker) {
             },
         'parent_id' => null,
         'status' => 1,
+        'url' => $faker->url,
         'title' => json_encode([
             'text' => $faker->name,
             'status' => 1,

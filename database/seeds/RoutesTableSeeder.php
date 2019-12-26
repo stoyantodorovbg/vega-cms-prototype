@@ -387,7 +387,7 @@ class RoutesTableSeeder extends Seeder
         );
 
         $this->createRoute('/menu',
-            'post',
+            'get',
             'MenuController@getData',
             'api.menu-data',
             'api',

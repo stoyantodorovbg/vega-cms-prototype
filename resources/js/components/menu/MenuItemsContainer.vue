@@ -28,11 +28,7 @@
     export default {
         components: {MenuItem},
 
-        comments: {
-            MenuItem
-        },
-
-        name: MenuItemsContainer,
+        name: 'MenuItemsContainer',
 
         props: ['menuData']
     }

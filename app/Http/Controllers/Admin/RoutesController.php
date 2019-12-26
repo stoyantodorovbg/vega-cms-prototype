@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Group;
 use App\Models\Route;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Artisan;
 use App\Http\Requests\Admin\AdminRouteRequest;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Http\Requests\Admin\AdminUpdateRouteRequest;
@@ -97,13 +96,13 @@ class RoutesController extends Controller
      * @param AdminRouteRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update(Route $route, AdminUpdateRouteRequest $request)
+    public function update(Route $route, AdminUpdateRouteRequest $request, RouteServiceInterface $routeService)
     {
         $routeGroups = $route->groups->pluck('title')->toArray();
         if($request->titles) {
             foreach ($request->titles as $title) {
                 if(!in_array($title, $routeGroups)) {
-                    Artisan::call('attach:route-to-group', [
+                    $routeService->attachRouteToGroup([
                         'name' => $route->name,
                         'title' => $title
                     ]);
@@ -111,7 +110,7 @@ class RoutesController extends Controller
             }
             foreach ($routeGroups as $group) {
                 if(!in_array($group, $request->titles)) {
-                    Artisan::call('detach:route-from-group', [
+                    $routeService->detachRouteFromGroup([
                         'name' => $route->name,
                         'title' => $group
                     ]);
@@ -119,7 +118,7 @@ class RoutesController extends Controller
             }
         } else {
             foreach ($routeGroups as $group) {
-                Artisan::call('detach:route-from-group', [
+                $routeService->detachRouteFromGroup([
                     'name' => $route->name,
                     'title' => $group
                 ]);

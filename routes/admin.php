@@ -42,4 +42,10 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::get('/phrases/{phrase}', 'Admin\PhrasesController@show')->name('admin-phrases.show')->middleware('admins');
     Route::get('/locales/{locale}', 'Admin\LocalesController@show')->name('admin-locales.show')->middleware('admins');
     Route::get('/routes/{route}', 'Admin\RoutesController@show')->name('admin-routes.show')->middleware('admins');
+    Route::get('/menus', 'Admin\MenusController@index')->name('admin-menus.index')->middleware('admins');
+    Route::get('/menus/create', 'Admin\MenusController@create')->name('admin-menus.create')->middleware('admins');
+    Route::get('/menus/{menu}', 'Admin\MenusController@show')->name('admin-menus.show')->middleware('admins');
+    Route::post('/menus/store', 'Admin\MenusController@store')->name('admin-menus.store')->middleware('admins');
+    Route::get('/menus/{menu}/edit', 'Admin\MenusController@edit')->name('admin-menus.edit')->middleware('admins');
+    Route::patch('/menus/{menu}/update', 'Admin\MenusController@update')->name('admin-menus.update')->middleware('admins');
 });

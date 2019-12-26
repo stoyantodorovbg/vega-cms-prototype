@@ -367,6 +367,66 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin menus index
+        $this->createRoute('/menus',
+            'get',
+            'MenusController@index',
+            'admin-menus.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin menus show
+        $this->createRoute('/menus/{menu}',
+            'get',
+            'MenusController@show',
+            'admin-menus.show',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin menus create
+        $this->createRoute('/menus/create',
+            'get',
+            'MenusController@create',
+            'admin-menus.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin menus store
+        $this->createRoute('/menus/store',
+            'post',
+            'MenusController@store',
+            'admin-menus.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin menus edit
+        $this->createRoute('/menus/{menu}/edit',
+            'get',
+            'MenusController@edit',
+            'admin-menus.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin menus update
+        $this->createRoute('/menus/{menu}/update',
+            'patch',
+            'MenusController@update',
+            'admin-menus.update',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // API Models index
         $this->createRoute('/admin/index',
             'get',

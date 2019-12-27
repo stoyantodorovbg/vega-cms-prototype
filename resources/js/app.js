@@ -22,6 +22,15 @@ let store = new Vuex.Store({
 
 Vue.use(VuePluralize);
 
+import helpers from './helpers.js';
+const plugin = {
+    install (Vue, options) {
+        Vue.prototype.$helpers = helpers;
+    }
+};
+
+Vue.use(plugin);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -33,10 +42,10 @@ Vue.use(VuePluralize);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('model-index', require('./admin/templates/ModelIndex.vue').default);
-Vue.component('button-link', require('./admin/components/links/ButtonLink.vue').default);
-
+Vue.component('model-index', require('./templates/admin/ModelIndex.vue').default);
+Vue.component('button-link', require('./components/links/ButtonLink.vue').default);
+Vue.component('dynamic-menu', require('./components/menu/DynamicMenu.vue').default);
+Vue.component('json-presenter', require('./components/data/JsonPresenter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -48,3 +57,4 @@ const app = new Vue({
     el: '#app',
     store: store
 });
+

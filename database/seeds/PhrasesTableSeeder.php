@@ -361,5 +361,19 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'route groups'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'labels.classes',
+            'text' => [
+                'en' => 'classes'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.styles',
+            'text' => [
+                'en' => 'styles'
+            ]
+        ]);
     }
 }

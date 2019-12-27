@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Phrase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminPhraseRequest;
-use App\Models\Phrase;
 
 class PhrasesController extends Controller
 {

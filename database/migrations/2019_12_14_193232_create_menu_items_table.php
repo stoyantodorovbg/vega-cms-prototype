@@ -17,8 +17,10 @@ class CreateMenuItemsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->boolean('status')->default(1);
+            $table->text('url')->nullable();
+            $table->json('title')->nullable();
+            $table->json('description')->nullable();
             $table->text('classes')->nullable();
             $table->json('styles')->nullable();
             $table->timestamps();

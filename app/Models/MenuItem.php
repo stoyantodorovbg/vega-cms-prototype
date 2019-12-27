@@ -10,6 +10,15 @@ class MenuItem extends BasicModel
     protected $guarded = [];
 
     /**
+     * @var array
+     */
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+        'styles' => 'array'
+    ];
+
+    /**
      * The menu item belongs to a menu
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -37,5 +46,23 @@ class MenuItem extends BasicModel
     public function childMenuItems()
     {
         return $this->hasMany(MenuItem::class, 'parent_id');
+    }
+
+    /**
+     * Load all child menu items recursivelly
+     *
+     * @param MenuItem $menuItem
+     * @return void
+     */
+    public function loadAllChildItems(MenuItem $menuItem): void
+    {
+        $menuItem->load('childMenuItems');
+        foreach ($this->childMenuItems as $childMenuItem) {
+            $childMenuItem->load('childMenuItems');
+
+            if($childMenuItem->childMenuItems->count()) {
+                $childMenuItem->loadAllChildItems($childMenuItem);
+            }
+        }
     }
 }

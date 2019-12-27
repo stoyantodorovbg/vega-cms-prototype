@@ -22,7 +22,7 @@ class DetachRouteFromGroup extends Command
      *
      * @var string
      */
-    protected $description = 'Remove the provided route accessibility for the group members';
+    protected $description = 'Remove route accessibility for the group members';
 
     /**
      * @var RouteServiceInterface

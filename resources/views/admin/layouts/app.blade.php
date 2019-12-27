@@ -23,7 +23,7 @@
 <div id="app" data-locale="{{ app()->getLocale() }}">
     @include('front.partials.nav')
     <main class="row">
-        @include('admin.partials.side_nav')
+        <dynamic-menu :menu_id="1"></dynamic-menu>
         <div class="col-10">
             @yield('content')
         </div>

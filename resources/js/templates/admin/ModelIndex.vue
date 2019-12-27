@@ -1,7 +1,10 @@
 <template>
-    <div>
+    <div class="row">
+        <!-- Create User -->
         <button-link :prop_data="getButtonCreatePropData()"></button-link>
+        <!-- Filters -->
         <menage-filters :fields="fieldsFiltersSettings"></menage-filters>
+        <!-- Settings -->
         <customize-model-index :fields="fieldsGridSettings"></customize-model-index>
         <table class="table">
             <thead>
@@ -225,7 +228,7 @@
                 return {
                     url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/create',
                     text: 'Create ' + this.model_name,
-                    htmlClass: 'btn btn-success float-right m-1'
+                    htmlClass: 'btn btn-secondary float-right mt-3 mb-3'
                 }
             },
             getIconShowData(itemId) {

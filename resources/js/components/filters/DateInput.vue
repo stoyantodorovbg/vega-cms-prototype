@@ -10,8 +10,7 @@
         <input @change="changeInput(name, 'lessThen', 'lessThenInputValue')"
                v-model="lessThenInputValue"
                type="date"
-               class="form-control"
-        >
+               class="form-control">
     </div>
 </template>
 

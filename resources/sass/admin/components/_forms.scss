@@ -1,0 +1,32 @@
+/***** Checkboxes ******/
+.custom-control-label {
+  width: 100%;
+  cursor: pointer;
+}
+.custom-control-input {
+  cursor: pointer;
+}
+.custom-checkbox {
+  .custom-control-input:checked ~ .custom-control-label::before {
+    color: white;
+    border-color: $green;
+    background-color: $green;
+  }
+  .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: $teal;
+  }
+  .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+  }
+}
+
+/******** Custom Forms ********/
+.custom-filter-panel,
+.custom-grid-panel {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+

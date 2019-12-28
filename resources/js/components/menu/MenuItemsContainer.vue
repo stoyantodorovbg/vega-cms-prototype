@@ -26,7 +26,9 @@
     import MenuItem from "./MenuItem";
 
     export default {
-        components: {MenuItem},
+        components: {
+          MenuItem
+        },
 
         name: 'MenuItemsContainer',
 

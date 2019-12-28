@@ -22,10 +22,19 @@
 <body>
 <div id="app" data-locale="{{ app()->getLocale() }}">
     @include('front.partials.nav')
-    <main class="row">
-        <dynamic-menu :menu_id="1"></dynamic-menu>
-        <div class="col-10">
-            @yield('content')
+    <main class="container-fluid admin-content-wrapper">
+        <div class="row">
+
+            <div class="col-md-12 col-lg-2">
+                <dynamic-menu :menu_id="1"></dynamic-menu>
+            </div>
+
+
+            <div class="col-md-12 col-lg-10">
+                <div class="admin-panel">
+                    @yield('content')
+                </div>
+            </div>
         </div>
     </main>
 </div>

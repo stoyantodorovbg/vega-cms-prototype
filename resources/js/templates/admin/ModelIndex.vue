@@ -1,29 +1,45 @@
 <template>
-    <div>
+    <div class="row">
+        <!-- Create User -->
         <button-link :prop_data="getButtonCreatePropData()"></button-link>
+        <!-- Filters -->
         <menage-filters :fields="fieldsFiltersSettings"></menage-filters>
-        <customize-model-index :fields="fieldsGridSettings"></customize-model-index>
-        <table class="table">
-            <thead>
-            <tr>
-                <cell-th v-for="field in displayedFields" :key="field.name" :content="field.name"></cell-th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="model in models" :key="model.id">
-                <cell-td v-for="field in displayedFields" :key="field.name" :content="model[field.name]"></cell-td>
-                <td>
-                    <icon-link v-if="actions.show" :prop_data="getIconShowData(model.id)"></icon-link>
-                    <icon-link v-if="actions.edit" :prop_data="getIconEditData(model.id)"></icon-link>
-                    <icon-link v-if="actions.delete"
-                               :prop_data="getIconDeleteData()"
-                               @click.native="renderModal(model.id)"
-                    ></icon-link>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+
+        <section class="section-grid">
+            <div class="row">
+                <!-- Settings -->
+                <customize-model-index :fields="fieldsGridSettings"></customize-model-index>
+
+                <!-- User Info -->
+                <div class="col-lg-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <cell-th v-for="field in displayedFields" :key="field.name" :content="field.name"></cell-th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="model in models" :key="model.id">
+                            <cell-td v-for="field in displayedFields" :key="field.name" :content="model[field.name]"></cell-td>
+                            <td>
+                                <icon-link v-if="actions.show" :prop_data="getIconShowData(model.id)"></icon-link>
+                                <icon-link v-if="actions.edit" :prop_data="getIconEditData(model.id)"></icon-link>
+                                <icon-link v-if="actions.delete"
+                                           :prop_data="getIconDeleteData()"
+                                           @click.native="renderModal(model.id)"
+                                ></icon-link>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Modal window -->
         <delete-confirmation v-show="deleting" :request_data="deleteRequestData"></delete-confirmation>
     </div>
 </template>
@@ -225,7 +241,7 @@
                 return {
                     url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/create',
                     text: 'Create ' + this.model_name,
-                    htmlClass: 'btn btn-success float-right m-1'
+                    htmlClass: 'btn btn-secondary float-right mt-3 mb-3'
                 }
             },
             getIconShowData(itemId) {

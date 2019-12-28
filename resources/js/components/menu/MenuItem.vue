@@ -28,7 +28,9 @@
     export default {
         name: 'MenuItem',
 
-        components: {MenuItemsContainer},
+        components: {
+          MenuItemsContainer
+        },
 
         props: ['menuItemData']
     }

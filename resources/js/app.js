@@ -10,7 +10,9 @@ require('./bootstrap');
 import Vue from 'vue';
 import Vuex from 'vuex'
 import VuePluralize from 'vue-pluralize'
+import BootstrapVue from 'bootstrap-vue'
 
+Vue.use(BootstrapVue);
 Vue.use(Vuex);
 
 let store = new Vuex.Store({

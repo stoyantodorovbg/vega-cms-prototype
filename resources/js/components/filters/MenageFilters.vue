@@ -1,20 +1,38 @@
 <template>
-    <div>
-        <filters :filters="filters"></filters>
-        <button @click="changeEditing" type="button" class="btn btn-success float-right m-1">{{ getButtonValue() }}</button>
-        <div v-if="editing" class="form-group d-flex mt-3">
-            <div class="form-check w-25"
-                 v-for="filter in filters"
-            >
-                <input type="checkbox"
-                       class="form-check-input"
-                       :checked="filter.visibility"
-                       @change="checkVisibility(filter.name, filter.visibility)"
-                >
-                <label class="form-check-label ml-1">{{ filter.name }}</label>
+    <section class="section-filters">
+        <div class="row">
+            <!-- Filter Options -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
+                    </div>
+                    <div class="col-lg-12">
+                        <div v-if="editing" class="form-group custom-filter-panel">
+                            <div class="form-check"
+                                 v-for="filter in filters">
+                                <b-form-checkbox
+                                        class="form-check-input"
+                                        :checked="filter.visibility"
+                                        @change="checkVisibility(filter.name, filter.visibility)">
+
+                                        <div class="slot">
+                                            {{ filter.name }}
+                                        </div>
+                                </b-form-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Form -->
+            <div class="col-lg-12">
+                <filters :filters="filters"></filters>
             </div>
         </div>
-    </div>
+    </section>
+
 </template>
 
 <script>

@@ -5,13 +5,20 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
-// Variables
-@import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
+
+// Globals
+@import 'admin/globals/base';
+@import 'admin/globals/elements';
+
+// Variables
+@import 'admin/globals/variables';
 
 // Components
-@import 'admin/components/side_nav';
-@import 'admin/components/admin_main';
+@import 'admin/components/navigations';
+@import 'admin/components/forms';
+@import 'admin/components/sections';
+
 

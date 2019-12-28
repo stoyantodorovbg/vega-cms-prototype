@@ -1,12 +1,9 @@
 <template>
     <div>
-        <div>
-            <label>{{ name }}</label>
-            <input @change="changeInput(name, 'exact')"
-                   v-model="inputValue"
-                   type="checkbox"
-            >
-        </div>
+        <label>{{ name }}</label>
+        <input @change="changeInput(name, 'exact')"
+               v-model="inputValue"
+               type="checkbox">
     </div>
 </template>
 

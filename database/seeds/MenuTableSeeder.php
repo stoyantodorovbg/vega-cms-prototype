@@ -13,7 +13,7 @@ class MenuTableSeeder extends Seeder
      */
     public function run()
     {
-        // Right side admin menu
+        // Sidebar navigation - admin panel
         $menu = factory(Menu::class)->create([
             'title' => json_encode([
                 'text' => 'Admin side nav',
@@ -40,11 +40,11 @@ class MenuTableSeeder extends Seeder
                 ]
             ]),
             'status' => 1,
-            'classes' => 'admin-side-nav p-3 pl-4 col-2',
+            'classes' => 'admin-side-nav',
             'styles' => json_encode([]),
         ]);
 
-        // Right side admin menu - menu items
+        // Sidebar navigation - admin panel - menu items
         $menuItem = factory(MenuItem::class)->create([
             'menu_id' => $menu->id,
             'parent_id' => null,
@@ -74,7 +74,7 @@ class MenuTableSeeder extends Seeder
                     'styles' => []
                 ]
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
 
@@ -107,7 +107,7 @@ class MenuTableSeeder extends Seeder
                     'styles' => []
                 ]
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
 
@@ -173,7 +173,7 @@ class MenuTableSeeder extends Seeder
                     'styles' => []
                 ]
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
 
@@ -206,7 +206,7 @@ class MenuTableSeeder extends Seeder
                     'styles' => []
                 ]
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
 
@@ -239,7 +239,7 @@ class MenuTableSeeder extends Seeder
                     'styles' => []
                 ]
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
 
@@ -272,7 +272,7 @@ class MenuTableSeeder extends Seeder
                     'styles' => []
                 ]
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
     }

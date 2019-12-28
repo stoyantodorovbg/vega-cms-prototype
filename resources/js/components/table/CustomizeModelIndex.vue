@@ -1,17 +1,21 @@
 <template>
-    <div>
-        <button @click="changeEditing" type="button" class="btn btn-success float-right m-1">{{ getButtonValue() }}</button>
-        <div v-if="editing" class="form-group d-flex mt-3">
-            <div class="form-check w-25"
+    <div class="col-lg-12">
+        <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
+        <div v-if="editing" class="form-group custom-grid-panel">
+            <div class="form-check"
                  v-for="field in fields"
-                 :key="field.name"
-            >
-                <input type="checkbox"
-                       class="form-check-input"
-                       :checked="field.visibility"
-                       @change="checkVisibility(field.name, field.visibility, field.position)"
-                >
-                <label class="form-check-label ml-1">{{ field.name }}</label>
+                 :key="field.name">
+
+                <b-form-checkbox
+                        class="form-check-input"
+                        :name="field.name"
+                        :checked="field.visibility"
+                        @change="checkVisibility(field.name, field.visibility, field.position)">
+
+                        <div class="slot">
+                            {{ field.name }}
+                        </div>
+                </b-form-checkbox>
             </div>
         </div>
     </div>
@@ -21,7 +25,7 @@
     export default {
         name: 'customize-model-index',
 
-        props: ['fields'],
+      props: ['fields'],
 
         data() {
             return {
@@ -40,6 +44,9 @@
             changeEditing() {
                 this.editing = !this.editing;
             }
+        },
+        mounted() {
+          // console.log(this.fields);
         }
     }
 </script>

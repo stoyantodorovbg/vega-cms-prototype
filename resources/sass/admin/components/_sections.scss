@@ -1,0 +1,11 @@
+section {
+  @extend .col-12;
+  margin: 15px 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.section-filters,
+.section-grid,
+.section-create-user {
+  @extend .card;
+}

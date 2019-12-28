@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12 mt-3 mb-3">
+    <div class="col-lg-12">
         <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
         <div v-if="editing" class="form-group custom-grid-panel">
             <div class="form-check"
@@ -12,7 +12,9 @@
                         :checked="field.visibility"
                         @change="checkVisibility(field.name, field.visibility, field.position)">
 
-                    {{ field.name }}
+                        <div class="slot">
+                            {{ field.name }}
+                        </div>
                 </b-form-checkbox>
             </div>
         </div>

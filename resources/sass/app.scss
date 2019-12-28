@@ -9,11 +9,16 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index.scss';
 
+// Globals
+@import 'admin/globals/base';
+@import 'admin/globals/elements';
+
 // Variables
 @import 'admin/globals/variables';
 
 // Components
 @import 'admin/components/navigations';
 @import 'admin/components/forms';
+@import 'admin/components/sections';
 
 

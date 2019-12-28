@@ -1,9 +1,11 @@
 <template>
-    <div class="col-lg-12 float-right">
-        <a :href="prop_data.url" :class="prop_data.htmlClass">
-            {{ prop_data.text}}
-        </a>
-    </div>
+    <section class="section-create-user">
+        <div>
+            <a :href="prop_data.url" :class="prop_data.htmlClass">
+                {{ prop_data.text}}
+            </a>
+        </div>
+    </section>
 </template>
 
 <script>

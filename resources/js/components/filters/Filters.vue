@@ -1,26 +1,22 @@
 <template>
     <!-- Filter Form -->
-    <div class="row mt-3 mb-3">
+    <div class="row">
         <div class="col-lg-12">
             <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
         </div>
         <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div v-if="showFilters" class="form-group d-flex">
-                        <div class="form-check"
-                             v-for="filter in getFiltersData()">
-                            <div v-if="filter.visibility">
-                                <component v-bind:is="getFilterDefaultType(filter.name)"
-                                           :name="filter.name">
+            <div v-if="showFilters" class="form-group d-flex">
+                <div class="form-check"
+                     v-for="filter in getFiltersData()">
+                    <div v-if="filter.visibility">
+                        <component v-bind:is="getFilterDefaultType(filter.name)"
+                                   :name="filter.name">
 
-                                </component>
-                            </div>
-                        </div>
-                        <div class="form-check">
-                            <button @click="filter" type="button" class="btn btn-primary h-100">FILTER</button>
-                        </div>
+                        </component>
                     </div>
+                </div>
+                <div class="form-check">
+                    <button @click="filter" type="button" class="btn btn-primary h-100">FILTER</button>
                 </div>
             </div>
         </div>

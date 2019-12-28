@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12">
+    <section class="section-filters">
         <div class="row">
             <!-- Filter Options -->
             <div class="col-lg-12">
@@ -16,7 +16,9 @@
                                         :checked="filter.visibility"
                                         @change="checkVisibility(filter.name, filter.visibility)">
 
-                                    {{ filter.name }}
+                                        <div class="slot">
+                                            {{ filter.name }}
+                                        </div>
                                 </b-form-checkbox>
                             </div>
                         </div>
@@ -29,7 +31,7 @@
                 <filters :filters="filters"></filters>
             </div>
         </div>
-    </div>
+    </section>
 
 </template>
 

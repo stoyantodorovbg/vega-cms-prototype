@@ -375,5 +375,26 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'styles'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.edit-menu',
+            'text' => [
+                'en' => 'edit menu'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.show-menu',
+            'text' => [
+                'en' => 'show menu'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all-menus',
+            'text' => [
+                'en' => 'all menus'
+            ]
+        ]);
     }
 }

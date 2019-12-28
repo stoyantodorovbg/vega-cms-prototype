@@ -13,6 +13,12 @@ $factory->define(Menu::class, function (Faker $faker) {
             'classes' => $faker->text(50),
             'styles' => [
                 'color' => 'red'
+            ],
+            'structure' => [
+                'text' => '',
+                'status' => 0,
+                'classes' => '',
+                'styles' => []
             ]
         ]),
         'description' => json_encode([
@@ -21,13 +27,20 @@ $factory->define(Menu::class, function (Faker $faker) {
             'classes' => $faker->text(50),
             'styles' => [
                 'color' => 'red'
+            ],
+            'structure' => [
+                'text' => '',
+                'status' => 0,
+                'classes' => '',
+                'styles' => []
             ]
         ]),
         'status' => 1,
         'classes' => $faker->text(50),
         'styles' => json_encode([
             'height' => '100px',
-            'display' => 'inline-block'
+            'display' => 'inline-block',
+            'structure' => []
         ]),
     ];
 });

@@ -12,6 +12,10 @@ $factory->define(Phrase::class, function (Faker $faker) {
         'text' => [
             'en' => $faker->word,
             'bg' => $faker->word,
+            'structure' => [
+                'en' => '',
+                'bg' => ''
+            ]
         ],
     ];
 });

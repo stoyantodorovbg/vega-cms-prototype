@@ -12,8 +12,8 @@
                 }"
                 ></button-link>
                 <button-link :prop_data="{
-                    'url': '{{ route('admin-locales.show', $locale->getSlug()) }}',
-                    'text': '{{ phrase('buttons.show-locale') }}',
+                    'url': '{{ route('admin-locales.edit', $locale->getSlug()) }}',
+                    'text': '{{ phrase('buttons.edit-locale') }}',
                     'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'
                 }"
                 ></button-link>

@@ -12,8 +12,8 @@
                 }"
                 ></button-link>
                 <button-link :prop_data="{
-                    'url': '{{ route('admin-menus.show', $menu->getSlug()) }}',
-                    'text': '{{ phrase('buttons.show-menu') }}',
+                    'url': '{{ route('admin-menus.edit', $menu->getSlug()) }}',
+                    'text': '{{ phrase('buttons.edit-menu') }}',
                     'htmlClass': 'btn btn-danger float-right m-1 text-capitalize'
                 }"
                 ></button-link>

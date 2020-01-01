@@ -9,7 +9,7 @@ use App\Http\Requests\Admin\AdminMenuRequest;
 class MenusController extends Controller
 {
     /**
-     * Admin phrases menus page
+     * Admin menus menus page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

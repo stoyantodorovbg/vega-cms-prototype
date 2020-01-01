@@ -7,6 +7,9 @@
             <label>{{ key }}</label>
             <text-input
                 :input_value="value"
+                :input_name="getInputName(key)"
+                :input_key="key"
+                :json_input_name="input_name"
             ></text-input>
         </div>
         <add-json-input-key></add-json-input-key>
@@ -16,6 +19,7 @@
 <script>
     import TextInput from "./TextInput";
     import AddJsonInputKey from "./AddJsonInputKey";
+    import EventBus from '../../eventBus';
 
     export default {
         name: 'JsonInput',
@@ -33,7 +37,12 @@
                     {
                         structure: {}
                     },
+                inputName: this.input_name + '[]',
             }
+        },
+
+        mounted() {
+            this.watchForAddedInput();
         },
 
         computed: {
@@ -44,7 +53,7 @@
                 }
 
                 return inputsData;
-            }
+            },
         },
 
         methods: {
@@ -53,6 +62,17 @@
                     this.inputsData[newKey] = '';
                     this.$forceUpdate();
                 }
+            },
+            watchForAddedInput() {
+                EventBus.$on('json_text_input_added', (data) => {
+                    console.log(data)
+                    if(data.jsonInputName === this.input_name) {
+                        this.inputsData[data.inputName] = data.inputValue;
+                    }
+                });
+            },
+            getInputName(key) {
+                return this.input_name + '[' + key + ']';
             }
         }
     }

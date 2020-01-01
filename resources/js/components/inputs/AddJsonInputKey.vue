@@ -1,5 +1,4 @@
 <template>
-    <div>
         <div v-if="adding">
             <input v-model="newKey"
                    type="text"
@@ -8,12 +7,16 @@
             <button type="button"
                     class="btn btn-success"
                     @click="addKey()"
-            >Add</button>
+            >Add key
+            </button>
         </div>
-        <div v-else
-            @click="addingKey()"
-        >ADD</div>
-    </div>
+        <button v-else
+                type="button"
+                class="btn btn-success"
+                @click="addingKey()"
+        >
+            Create key
+        </button>
 </template>
 
 <script>

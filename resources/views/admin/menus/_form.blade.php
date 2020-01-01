@@ -46,7 +46,7 @@
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.styles') }}</label>
             <json-input json_data="{{ $menu->styles }}"
-                        input_name="description"
+                        input_name="styles"
             ></json-input>
         </div>
     </div>

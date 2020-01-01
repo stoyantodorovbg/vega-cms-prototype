@@ -12,7 +12,13 @@ class MenuDataMapper implements DataMapper
      */
     public function mapData(array $data): array
     {
-        $mappedData = [];
+        $emptyJsonField = json_encode([]);
+        $mappedData = [
+            'title' => $emptyJsonField,
+            'description' => $emptyJsonField,
+            'styles' => $emptyJsonField,
+        ];
+
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $value['structure'] = array_keys($value);

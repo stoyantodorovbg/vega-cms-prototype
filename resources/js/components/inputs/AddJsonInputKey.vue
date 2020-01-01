@@ -15,7 +15,7 @@
                 class="btn btn-success"
                 @click="addingKey()"
         >
-            Create key
+            Create new key
         </button>
 </template>
 

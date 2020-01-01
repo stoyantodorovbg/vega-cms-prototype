@@ -11,6 +11,7 @@
                 :input_key="key"
                 :json_input_name="input_name"
             ></text-input>
+            <remove-json-key :input_key="key"></remove-json-key>
         </div>
         <add-json-input-key></add-json-input-key>
     </div>
@@ -20,12 +21,13 @@
     import TextInput from "./TextInput";
     import AddJsonInputKey from "./AddJsonInputKey";
     import EventBus from '../../eventBus';
+    import RemoveJsonKey from "./RemoveJsonKey"
 
     export default {
         name: 'JsonInput',
 
         components: {
-            TextInput, AddJsonInputKey
+            TextInput, AddJsonInputKey, RemoveJsonKey
         },
 
         props: ['json_data', 'input_name'],
@@ -62,6 +64,12 @@
             addStructureKey(newKey) {
                 if(this.inputsData[newKey] != 'undefined') {
                     this.inputsData[newKey] = '';
+                    this.$forceUpdate();
+                }
+            },
+            removeStructureKey(key) {
+                if(this.inputsData[key] != 'undefined') {
+                    delete this.inputsData[key];
                     this.$forceUpdate();
                 }
             },

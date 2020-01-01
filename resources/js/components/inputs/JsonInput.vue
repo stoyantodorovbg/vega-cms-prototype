@@ -48,8 +48,10 @@
         computed: {
             inputsData: function () {
                 let inputsData = {};
-                for (let key in this.jsonData.structure) {
-                    inputsData[key] = this.jsonData[key] !== 'undefined' ? this.jsonData[key] : '';
+                if(this.jsonData.structure != 'undefined' && this.jsonData.structure.length > 0) {
+                    for (let field of this.jsonData.structure) {
+                        inputsData[field] = this.jsonData[field] !== 'undefined' ? this.jsonData[field] : '';
+                    }
                 }
 
                 return inputsData;
@@ -65,7 +67,6 @@
             },
             watchForAddedInput() {
                 EventBus.$on('json_text_input_added', (data) => {
-                    console.log(data)
                     if(data.jsonInputName === this.input_name) {
                         this.inputsData[data.inputName] = data.inputValue;
                     }

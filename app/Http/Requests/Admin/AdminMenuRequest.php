@@ -29,7 +29,7 @@ class AdminMenuRequest extends FormRequest
             'status' => 'required|integer|between:0,1',
             'classes' => 'nullable|string|max:500',
             'title' => 'nullable|array',
-            'description' => 'nullable|array'
+            'description' => 'nullable|array',
             'styles' => 'nullable|array'
         ];
     }

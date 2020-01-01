@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
+use App\DataMappers\MenuDataMapper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminMenuRequest;
 
@@ -72,7 +73,9 @@ class MenusController extends Controller
      */
     public function update(Menu $menu, AdminMenuRequest $request)
     {
-        $menu->update($request->validated());
+        $mappedData = resolve(MenuDataMapper::class)->mapData($request->validated());
+
+        $menu->update($mappedData);
 
         return redirect()->back()->with(compact('menu'));
     }

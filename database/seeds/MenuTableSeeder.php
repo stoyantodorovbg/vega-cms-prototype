@@ -17,26 +17,26 @@ class MenuTableSeeder extends Seeder
         $menu = factory(Menu::class)->create([
             'title' => json_encode([
                 'text' => 'Admin side nav',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
                 'text' => 'Right side navigation for the administration.',
-                'status' => 0,
+                'status',
                 'classes' => 'admin-side-nav d-inline-flex p-3 pl-4 col-2',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'status' => 1,
@@ -54,24 +54,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'dashboard',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'text-uppercase',
@@ -87,24 +87,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'users',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'text-uppercase',
@@ -120,24 +120,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'user groups',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'mb-2 mt-2 text-uppercase',
@@ -153,24 +153,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'phrases',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'text-uppercase',
@@ -186,24 +186,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'locales',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'text-uppercase',
@@ -219,24 +219,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'routes',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'text-uppercase',
@@ -252,24 +252,24 @@ class MenuTableSeeder extends Seeder
                 'text' => 'menus',
                 'status' => 1,
                 'classes' => 'text-dark',
-                'styles' => [],
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'description' => json_encode([
-                'text' => '',
-                'status' => 0,
-                'classes' => '',
-                'styles' => [],
+                'text',
+                'status',
+                'classes',
+                'styles',
                 'structure' => [
-                    'text' => '',
-                    'status' => 0,
-                    'classes' => '',
-                    'styles' => []
+                    'text',
+                    'status',
+                    'classes',
+                    'styles'
                 ]
             ]),
             'classes' => 'text-uppercase',

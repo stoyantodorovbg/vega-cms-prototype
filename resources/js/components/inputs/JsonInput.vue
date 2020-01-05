@@ -1,19 +1,36 @@
 <template>
-    <div>
+    <div class="ml-4">
         <div class="form-group"
              v-for="(value, key) in inputsData"
              :key="key"
         >
             <label>{{ key }}</label>
             <text-input
-                :input_value="value"
+                v-if="value.type === 'text'"
+                :input_value="value.value"
                 :input_name="getInputName(key)"
                 :input_key="key"
                 :json_input_name="input_name"
             ></text-input>
+            <json-input v-else
+                        :input_name="input_name + '[' + key + ']'"
+                        :json_data="JSON.stringify(value)"
+                        :level="parseInt(level) + 1"
+            ></json-input>
             <remove-json-key :input_key="key"></remove-json-key>
         </div>
-        <add-json-input-key></add-json-input-key>
+        <input v-if="Object.keys(jsonData).length === 0 && jsonData.constructor === Object"
+               type="hidden"
+               :name="input_name"
+               value="[]"
+        />
+        <add-json-input-key :input_key="input_name"></add-json-input-key>
+        <input
+            v-if="level < 1"
+            type="hidden"
+            :name="input_name + '[structure]'"
+            :value="structure"
+        />
     </div>
 </template>
 
@@ -30,7 +47,7 @@
             TextInput, AddJsonInputKey, RemoveJsonKey
         },
 
-        props: ['json_data', 'input_name'],
+        props: ['json_data', 'input_name', 'level'],
 
         data() {
             return {
@@ -48,22 +65,86 @@
         },
 
         computed: {
+            structure: function() {
+                if(typeof this.jsonData.structure === 'object' && typeof this.jsonData.structure !== null) {
+                    return JSON.stringify(this.jsonData.structure);
+                }
+
+                return '';
+            },
             inputsData: function () {
                 let inputsData = {};
-                if(this.jsonData.structure != 'undefined' && this.jsonData.structure.length > 0) {
-                    for (let field of this.jsonData.structure) {
-                        inputsData[field] = this.jsonData[field] !== 'undefined' ? this.jsonData[field] : '';
+                //if(this.jsonData.structure != 'undefined') {
+                    for (let key in this.jsonData.structure) {
+                        if(key !== 'structure' && key !== 'type') {
+                            if(this.jsonData.structure[key].type === 'text') {
+                                inputsData[key] = {
+                                    type: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
+                                        'json' : 'text',
+                                    value: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
+                                        this.jsonData[key].value : this.jsonData[key],
+                                }
+                            } else if(typeof this.jsonData.structure[key] === 'object' && this.jsonData.structure[key] !== null) {
+                                inputsData[key] = {};
+                                if(key === 'www') {
+                                    //console.log(this.jsonData[key])
+                                }
+                                //console.log(this.jsonData[key])
+                                for (let subKey in this.jsonData[key]) {
+                                    if(typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
+                                        //console.log(this.jsonData[key])
+                                        inputsData[key][subKey] = {
+                                            type: 'json',
+                                            value: {}
+                                        };
+                                        console.log(this.jsonData[key][subKey])
+                                        for (let objectSubKey in this.jsonData[key][subKey]) {
+                                            inputsData[key][subKey].value[objectSubKey] = this.jsonData[key][subKey][objectSubKey];
+                                        }
+                                        inputsData[key].structure = this.jsonData.structure[key].nested;
+                                    } else {
+                                        //console.log(this.jsonData[key])
+                                        //console.log(subKey)
+                                        inputsData[key][subKey] = {
+                                            type: 'text',
+                                            value: this.jsonData[key][subKey],
+                                        };
+                                    }
+                                    // if(typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
+                                    //     inputsData[key][subKey] = {
+                                    //         type: 'json',
+                                    //         value: this.jsonData[key][subKey],
+                                    //     };
+                                    //     inputsData[key].structure = this.jsonData.structure[key].nested;
+                                    // } else {
+                                    //     inputsData[key][subKey] = {
+                                    //         type: 'text',
+                                    //         value: this.jsonData[key][subKey],
+                                    //     };
+                                    //     inputsData[key][subKey].structure = this.jsonData.structure[key].nested;
+                                    // }
+                                }
+                            } else {
+                                inputsData[key] = {
+                                    type: 'text',
+                                    value: ''
+                                }
+                            }
+                        }
                     }
-                }
+                //}
 
                 return inputsData;
             },
         },
 
         methods: {
-            addStructureKey(newKey) {
+            addStructureKey(newKey, keyType) {
                 if(this.inputsData[newKey] != 'undefined') {
-                    this.inputsData[newKey] = '';
+                    this.inputsData[newKey] = {
+                        type: keyType,
+                        value: keyType === 'text' ? '' : {structure: []}
+                    };
                     this.$forceUpdate();
                 }
             },
@@ -76,7 +157,7 @@
             watchForAddedInput() {
                 EventBus.$on('json_text_input_added', (data) => {
                     if(data.jsonInputName === this.input_name) {
-                        this.inputsData[data.inputName] = data.inputValue;
+                        this.inputsData[data.inputName.value] = data.inputValue;
                     }
                 });
             },

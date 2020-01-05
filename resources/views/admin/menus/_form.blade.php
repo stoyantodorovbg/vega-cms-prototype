@@ -33,12 +33,14 @@
             <label class="text-uppercase">{{ phrase('labels.title') }}</label>
             <json-input json_data="{{ $menu->title }}"
                         input_name="title"
+                        level="1"
             ></json-input>
         </div>
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.description') }}</label>
             <json-input json_data="{{ $menu->description }}"
                         input_name="description"
+                        level="1"
             ></json-input>
         </div>
     </div>
@@ -47,6 +49,7 @@
             <label class="text-uppercase">{{ phrase('labels.styles') }}</label>
             <json-input json_data="{{ $menu->styles }}"
                         input_name="styles"
+                        level="1"
             ></json-input>
         </div>
     </div>

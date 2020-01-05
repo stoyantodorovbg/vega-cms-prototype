@@ -17,7 +17,7 @@
 
         data() {
             return {
-                inputValue: this.input_value,
+                inputValue: this.input_value !== null ? this.input_value : '',
             }
         },
 

@@ -1,8 +1,8 @@
 <template>
     <button type="button"
-            class="btn btn-danger"
+            class="btn btn-danger btn-sm"
             @click="removeKey()"
-    >Remove this input key
+    >Remove {{ input_key }} input key
     </button>
 </template>
 

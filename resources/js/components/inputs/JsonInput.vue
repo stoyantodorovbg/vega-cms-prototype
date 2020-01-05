@@ -65,74 +65,49 @@
         },
 
         computed: {
-            structure: function() {
-                if(typeof this.jsonData.structure === 'object' && typeof this.jsonData.structure !== null) {
-                    return JSON.stringify(this.jsonData.structure);
+            structure: function () {
+                if (typeof this.jsonData.structure === 'object' && typeof this.jsonData.structure !== null) {
+                    return this.jsonData.structure;
                 }
 
                 return '';
             },
             inputsData: function () {
                 let inputsData = {};
-                //if(this.jsonData.structure != 'undefined') {
-                    for (let key in this.jsonData.structure) {
-                        if(key !== 'structure' && key !== 'type') {
-                            if(this.jsonData.structure[key].type === 'text') {
-                                inputsData[key] = {
-                                    type: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
-                                        'json' : 'text',
-                                    value: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
-                                        this.jsonData[key].value : this.jsonData[key],
-                                }
-                            } else if(typeof this.jsonData.structure[key] === 'object' && this.jsonData.structure[key] !== null) {
-                                inputsData[key] = {};
-                                if(key === 'www') {
-                                    //console.log(this.jsonData[key])
-                                }
-                                //console.log(this.jsonData[key])
-                                for (let subKey in this.jsonData[key]) {
-                                    if(typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
-                                        //console.log(this.jsonData[key])
-                                        inputsData[key][subKey] = {
-                                            type: 'json',
-                                            value: {}
-                                        };
-                                        console.log(this.jsonData[key][subKey])
-                                        for (let objectSubKey in this.jsonData[key][subKey]) {
-                                            inputsData[key][subKey].value[objectSubKey] = this.jsonData[key][subKey][objectSubKey];
-                                        }
-                                        inputsData[key].structure = this.jsonData.structure[key].nested;
-                                    } else {
-                                        //console.log(this.jsonData[key])
-                                        //console.log(subKey)
-                                        inputsData[key][subKey] = {
-                                            type: 'text',
-                                            value: this.jsonData[key][subKey],
-                                        };
+                for (let key in this.jsonData.structure) {
+                    if (key !== 'structure' && key !== 'type') {
+                        if (this.jsonData.structure[key].type === 'text') {
+                            inputsData[key] = {
+                                type: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
+                                    'json' : 'text',
+                                value: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
+                                    this.jsonData[key].value : this.jsonData[key],
+                            }
+                        } else if (this.jsonData.structure[key].type === 'json') {
+                            inputsData[key] = {};
+                            for (let subKey in this.jsonData[key]) {
+
+                                if (typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
+                                    inputsData[key][subKey] = {
+                                        type: 'json',
+                                        value: {}
+                                    };
+                                    for (let objectSubKey in this.jsonData[key][subKey]) {
+                                        inputsData[key][subKey][objectSubKey] = this.jsonData[key][subKey][objectSubKey];
                                     }
-                                    // if(typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
-                                    //     inputsData[key][subKey] = {
-                                    //         type: 'json',
-                                    //         value: this.jsonData[key][subKey],
-                                    //     };
-                                    //     inputsData[key].structure = this.jsonData.structure[key].nested;
-                                    // } else {
-                                    //     inputsData[key][subKey] = {
-                                    //         type: 'text',
-                                    //         value: this.jsonData[key][subKey],
-                                    //     };
-                                    //     inputsData[key][subKey].structure = this.jsonData.structure[key].nested;
-                                    // }
+                                } else {
+                                    inputsData[key][subKey] = this.jsonData[key][subKey]
                                 }
-                            } else {
-                                inputsData[key] = {
-                                    type: 'text',
-                                    value: ''
-                                }
+                            }
+                            inputsData[key].structure = this.jsonData.structure[key].nested;
+                        } else {
+                            inputsData[key] = {
+                                type: 'text',
+                                value: ''
                             }
                         }
                     }
-                //}
+                }
 
                 return inputsData;
             },

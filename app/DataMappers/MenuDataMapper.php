@@ -21,7 +21,16 @@ class MenuDataMapper implements DataMapper
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $value['structure'] = $this->prepareJsonStructure($value);//array_keys($value);
+                $value['structure'] = $this->prepareJsonStructure($value);
+
+                $value = array_map(function($item) use($value) {
+                    if(ctype_digit($item)) {
+                        return (int) $item;
+                    }
+
+                    return $item;
+                }, $value);
+
                 $mappedData[$key] = json_encode($value, JSON_HEX_QUOT);
             } else {
                 $mappedData[$key] = $value !== null ? $value : '';

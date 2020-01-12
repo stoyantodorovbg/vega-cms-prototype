@@ -4,6 +4,7 @@
            type="text"
            class="form-control"
            @change="inputChange(input_key)"
+           :hidden="this.input_key === 'empty_json'"
     />
 </template>
 
@@ -28,7 +29,7 @@
                     inputValue: this.inputValue,
                     jsonInputName: this.json_input_name,
                 });
-            }
+            },
         }
     }
 </script>

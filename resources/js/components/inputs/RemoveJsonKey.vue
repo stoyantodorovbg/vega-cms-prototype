@@ -1,5 +1,6 @@
 <template>
-    <button type="button"
+    <button v-if="this.input_key !== 'empty_json'"
+        type="button"
             class="btn btn-danger btn-sm"
             @click="removeKey()"
     >Remove {{ input_key }} input key

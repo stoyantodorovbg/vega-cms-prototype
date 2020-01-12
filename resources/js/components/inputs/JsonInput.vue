@@ -4,7 +4,7 @@
              v-for="(value, key) in inputsData"
              :key="key"
         >
-            <label>{{ key }}</label>
+            <label v-if="key !== 'empty_json'">{{ key }}</label>
             <text-input
                 v-if="value.type === 'text'"
                 :input_value="value.value"
@@ -85,21 +85,28 @@
                             }
                         } else if (this.jsonData.structure[key].type === 'json') {
                             inputsData[key] = {};
-                            for (let subKey in this.jsonData[key]) {
-
-                                if (typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
-                                    inputsData[key][subKey] = {
-                                        type: 'json',
-                                        value: {}
-                                    };
-                                    for (let objectSubKey in this.jsonData[key][subKey]) {
-                                        inputsData[key][subKey][objectSubKey] = this.jsonData[key][subKey][objectSubKey];
-                                    }
-                                } else {
-                                    inputsData[key][subKey] = this.jsonData[key][subKey]
+                            if(this.jsonData[key].length === 0) {
+                                inputsData[key]['empty_json'] = '';
+                                inputsData[key]['structure'] = {
+                                    empty_json: 'text'
                                 }
+                            } else {
+                                for (let subKey in this.jsonData[key]) {
+
+                                    if (typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
+                                        inputsData[key][subKey] = {
+                                            type: 'json',
+                                            value: {}
+                                        };
+                                        for (let objectSubKey in this.jsonData[key][subKey]) {
+                                            inputsData[key][subKey][objectSubKey] = this.jsonData[key][subKey][objectSubKey];
+                                        }
+                                    } else {
+                                        inputsData[key][subKey] = this.jsonData[key][subKey];
+                                    }
+                                }
+                                inputsData[key].structure = this.jsonData.structure[key].nested;
                             }
-                            inputsData[key].structure = this.jsonData.structure[key].nested;
                         } else {
                             inputsData[key] = {
                                 type: 'text',
@@ -118,7 +125,9 @@
                 if(this.inputsData[newKey] != 'undefined') {
                     this.inputsData[newKey] = {
                         type: keyType,
-                        value: keyType === 'text' ? '' : {structure: []}
+                        value: keyType === 'text' ? '' : {
+                            structure: { newKey: {} }
+                        }
                     };
                     this.$forceUpdate();
                 }
@@ -138,7 +147,7 @@
             },
             getInputName(key) {
                 return this.input_name + '[' + key + ']';
-            }
+            },
         }
     }
 </script>

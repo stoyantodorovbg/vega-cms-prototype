@@ -74,43 +74,50 @@
             },
             inputsData: function () {
                 let inputsData = {};
-                for (let key in this.jsonData.structure) {
-                    if (key !== 'structure' && key !== 'type') {
-                        if (this.jsonData.structure[key].type === 'text') {
-                            inputsData[key] = {
-                                type: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
-                                    'json' : 'text',
-                                value: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
-                                    this.jsonData[key].value : this.jsonData[key],
-                            }
-                        } else if (this.jsonData.structure[key].type === 'json') {
-                            inputsData[key] = {};
-                            if(this.jsonData[key].length === 0) {
-                                inputsData[key]['empty_json'] = '';
-                                inputsData[key]['structure'] = {
-                                    empty_json: 'text'
+                if(this.jsonData.structure === 0) {
+                    inputsData['empty_json'] = '';
+                    inputsData['structure'] = {
+                        empty_json: 'text'
+                    }
+                } else {
+                    for (let key in this.jsonData.structure) {
+                        if (key !== 'structure' && key !== 'type') {
+                            if (this.jsonData.structure[key].type === 'text') {
+                                inputsData[key] = {
+                                    type: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
+                                        'json' : 'text',
+                                    value: typeof this.jsonData[key] === 'object' && this.jsonData[key] !== null ?
+                                        this.jsonData[key].value : this.jsonData[key],
+                                }
+                            } else if (this.jsonData.structure[key].type === 'json') {
+                                inputsData[key] = {};
+                                if(this.jsonData[key].length === 0) {
+                                    inputsData[key]['empty_json'] = '';
+                                    inputsData[key]['structure'] = {
+                                        empty_json: 'text'
+                                    }
+                                } else {
+                                    for (let subKey in this.jsonData[key]) {
+
+                                        if (typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
+                                            inputsData[key][subKey] = {
+                                                type: 'json',
+                                                value: {}
+                                            };
+                                            for (let objectSubKey in this.jsonData[key][subKey]) {
+                                                inputsData[key][subKey][objectSubKey] = this.jsonData[key][subKey][objectSubKey];
+                                            }
+                                        } else {
+                                            inputsData[key][subKey] = this.jsonData[key][subKey];
+                                        }
+                                    }
+                                    inputsData[key].structure = this.jsonData.structure[key].nested;
                                 }
                             } else {
-                                for (let subKey in this.jsonData[key]) {
-
-                                    if (typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
-                                        inputsData[key][subKey] = {
-                                            type: 'json',
-                                            value: {}
-                                        };
-                                        for (let objectSubKey in this.jsonData[key][subKey]) {
-                                            inputsData[key][subKey][objectSubKey] = this.jsonData[key][subKey][objectSubKey];
-                                        }
-                                    } else {
-                                        inputsData[key][subKey] = this.jsonData[key][subKey];
-                                    }
+                                inputsData[key] = {
+                                    type: 'text',
+                                    value: ''
                                 }
-                                inputsData[key].structure = this.jsonData.structure[key].nested;
-                            }
-                        } else {
-                            inputsData[key] = {
-                                type: 'text',
-                                value: ''
                             }
                         }
                     }
@@ -123,12 +130,22 @@
         methods: {
             addStructureKey(newKey, keyType) {
                 if(this.inputsData[newKey] != 'undefined') {
-                    this.inputsData[newKey] = {
-                        type: keyType,
-                        value: keyType === 'text' ? '' : {
-                            structure: { newKey: {} }
+                    if(keyType === 'text') {
+                        this.inputsData[newKey] = {
+                            type: keyType,
+                            value: ''
+                        };
+                        if('empty_json' in this.inputsData) {
+                            delete this.inputsData.empty_json
                         }
-                    };
+                    } else {
+                        this.inputsData[newKey] = {
+                            empty_json: '',
+                            structure: {
+                                empty_json: 'text'
+                            }
+                        };
+                    }
                     this.$forceUpdate();
                 }
             },

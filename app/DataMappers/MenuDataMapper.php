@@ -18,21 +18,23 @@ class MenuDataMapper implements DataMapper
             'description' => $emptyJsonField,
             'styles' => $emptyJsonField,
         ];
-
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                if($key !== 'empty_json') {
-                    $value['structure'] = $this->prepareJsonStructure($value);
+                $processedValue  = [];
 
-                    $value = $this->prepareNestedJsonData($value);
-
-                    $mappedData[$key] = json_encode($value, JSON_HEX_QUOT);
+                if(array_key_exists('empty_json', $value)) {
+                    $processedValue['structure'] = $this->prepareJsonStructure($value);
+                    $mappedData[$key] = json_encode([], JSON_HEX_QUOT);
+                } else {
+                    $processedValue = $this->prepareNestedJsonData($value);
+                    $processedValue['structure'] = $this->prepareJsonStructure($value);
+                    $mappedData[$key] = json_encode($processedValue, JSON_HEX_QUOT);
                 }
             } else {
                 $mappedData[$key] = $value !== null ? $value : '';
             }
-        }
 
+        }
         return $mappedData;
     }
 
@@ -45,7 +47,9 @@ class MenuDataMapper implements DataMapper
     protected function prepareNestedJsonData(array $data): array
     {
         $data = array_map(function($item) {
-            if(is_array($item)) {
+            if(is_array($item) && array_key_exists('empty_json', $item)) {
+                $item = [];
+            } elseif (is_array($item)) {
                 $item = $this->prepareNestedJsonData($item);
             }
 
@@ -74,23 +78,21 @@ class MenuDataMapper implements DataMapper
     {
         $structure = [];
         if($data !== '[]') {
-            foreach($data as $key => $value) {
-                if($key !== 'empty_json') {
-                    $structure[$key] = [
-                        'type' => 'text'
-                    ];
+            foreach ($data as $key => $value) {
+                $structure[$key] = [
+                    'type' => 'text'
+                ];
 
-                    if(is_array($value)) {
-                        $structure[$key] = [
-                            'type' => 'json',
-                            'nested' => $this->prepareJsonStructure($value),
-                        ];
-                    } elseif ($value === '[]') {
-                        $structure[$key] = [
-                            'type' => 'json',
-                            'nested' => [],
-                        ];
-                    }
+                if (is_array($value) && array_key_exists('empty_json', $value)) {
+                    $structure[$key] = [
+                        'type' => 'json',
+                        'nested' => [],
+                    ];
+                } elseif (is_array($value)) {
+                    $structure[$key] = [
+                        'type' => 'json',
+                        'nested' => $this->prepareJsonStructure($value),
+                    ];
                 }
             }
         }

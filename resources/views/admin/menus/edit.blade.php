@@ -20,4 +20,10 @@
             @include('admin.menus._form')
         </div>
     </div>
+    <button-link :prop_data="{
+        'url': '{{ route('admin-menu-items.index', ['menu' => $menu->id, 'menuItem' => 0]) }}',
+        'text': '{{ phrase('buttons.show-parent-menu-items') }}',
+        'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
+        }"
+    ></button-link>
 @endsection

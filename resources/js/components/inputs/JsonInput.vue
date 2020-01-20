@@ -1,6 +1,6 @@
 <template>
-    <div class="ml-4">
-        <div class="form-group"
+    <div class="ml-5">
+        <div class="form-group m-2 border p-2"
              v-for="(value, key) in inputsData"
              :key="key"
         >
@@ -17,7 +17,7 @@
                         :json_data="JSON.stringify(value)"
                         :level="parseInt(level) + 1"
             ></json-input>
-            <remove-json-key :input_key="key"></remove-json-key>
+            <remove-json-key :input_key="input_name"></remove-json-key>
         </div>
         <input v-if="Object.keys(jsonData).length === 0 && jsonData.constructor === Object"
                type="hidden"

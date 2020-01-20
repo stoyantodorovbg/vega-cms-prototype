@@ -61,6 +61,8 @@ class MenusController extends Controller
      */
     public function edit(Menu $menu)
     {
+        $menu->loadAllMenuItems();
+
         return view('admin.menus.edit', compact('menu'));
     }
 

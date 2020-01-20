@@ -39,7 +39,7 @@ class EloquentFilterService implements EloquentFilterServiceInterface
      * @param string $value
      * @return Builder
      */
-    protected function exact(Builder $builder, string $fieldName, string $value): Builder
+    protected function exact(Builder $builder, string $fieldName, $value): Builder
     {
         return $builder->where($fieldName, $value);
     }

@@ -48,4 +48,10 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::post('/menus/store', 'Admin\MenusController@store')->name('admin-menus.store')->middleware('admins');
     Route::get('/menus/{menu}/edit', 'Admin\MenusController@edit')->name('admin-menus.edit')->middleware('admins');
     Route::patch('/menus/{menu}/update', 'Admin\MenusController@update')->name('admin-menus.update')->middleware('admins');
+    Route::get('/menu-items/index/{menu}/{menuItem}', 'Admin\MenuItemsController@index')->name('admin-menu-items.index')->middleware('admins');
+    Route::get('/menu-items/{menuItem}', 'Admin\MenuItemsController@show')->name('admin-menu-items.show')->middleware('admins');
+    Route::get('/menu-items/create', 'Admin\MenuItemsController@create')->name('admin-menu-items.create')->middleware('admins');
+    Route::post('/menu-items/store', 'Admin\MenuItemsController@store')->name('admin-menu-items.store')->middleware('admins');
+    Route::get('/menu-items/{menuItem}/edit', 'Admin\MenuItemsController@edit')->name('admin-menu-items.edit')->middleware('admins');
+    Route::patch('/menu-items/{menuItem}/update', 'Admin\MenuItemsController@update')->name('admin-menu-items.update')->middleware('admins');
 });

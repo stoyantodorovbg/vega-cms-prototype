@@ -64,7 +64,7 @@
             DeleteConfirmation
         },
 
-        props: ['model_name', 'actions'],
+        props: ['model_name', 'actions', 'default_filters'],
 
         data() {
             return {
@@ -72,7 +72,7 @@
                 displayedFields: [],
                 modelFields: {},
                 defaultFieldsCount: 10,
-                filters: {},
+                filters: this.default_filters ? this.default_filters : {},
                 deleting: false,
                 deleteRequestData: {},
             }
@@ -119,6 +119,11 @@
                     return fieldSettings;
                 },
             },
+            modelNameSlug: {
+                get: function () {
+                    return this.model_name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+                }
+            }
         },
 
         mounted() {
@@ -249,7 +254,7 @@
                     url: '/admin/' +
                         this.$store.state.locale +
                         '/' +
-                        this.$pluralize(this.model_name.toLowerCase()) +
+                        this.$pluralize(this.modelNameSlug) +
                         '/' +
                         itemId,
                     icon_class: 'fas fa-eye'
@@ -260,7 +265,7 @@
                     url: '/admin/' +
                         this.$store.state.locale +
                         '/' +
-                        this.$pluralize(this.model_name.toLowerCase()) +
+                        this.$pluralize(this.modelNameSlug) +
                         '/' +
                         itemId +
                         '/edit',
@@ -277,7 +282,7 @@
                 this.deleting = true;
                 this.deleteRequestData = {
                     'slug': itemId,
-                    'modelName': this.model_name.toLowerCase(),
+                    'modelName': this.modelNameSlug,
                 }
                 document.getElementById('deleteModelModalTrigger').click();
             }

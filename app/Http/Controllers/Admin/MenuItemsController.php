@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
 use App\Models\MenuItem;
+use App\DataMappers\MenuDataMapper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminMenuItemRequest;
 
 class MenuItemsController extends Controller
 {
@@ -80,9 +82,9 @@ class MenuItemsController extends Controller
      */
     public function edit(MenuItem $menuItem)
     {
-        $menuItem->loadAllMenuItemItems();
+        $menuItem->loadAllChildItems($menuItem);
 
-        return view('admin.menus.edit', compact('menuItem'));
+        return view('admin.menu_items.edit', compact('menuItem'));
     }
 
     /**
@@ -94,7 +96,7 @@ class MenuItemsController extends Controller
      */
     public function update(MenuItem $menuItem, AdminMenuItemRequest $request)
     {
-        $mappedData = resolve(MenuItemDataMapper::class)->mapData($request->validated());
+        $mappedData = resolve(MenuDataMapper::class)->mapData($request->validated());
 
         $menuItem->update($mappedData);
 

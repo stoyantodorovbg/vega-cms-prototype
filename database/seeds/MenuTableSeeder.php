@@ -111,10 +111,7 @@ class MenuTableSeeder extends Seeder
                 ],
             ]),
             'classes' => 'text-uppercase',
-            'styles' => json_encode([
-                'empty_json' => '',
-                'structure' => ''
-            ]),
+            'styles' => json_encode([]),
         ]);
 
         factory(MenuItem::class)->create([

@@ -377,21 +377,21 @@ class PhrasesTableSeeder extends Seeder
         ]);
 
         Phrase::create([
-            'system_name' => 'buttons.edit-menu',
+            'system_name' => 'buttons.edit_menu',
             'text' => [
                 'en' => 'edit menu'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'buttons.show-menu',
+            'system_name' => 'buttons.show_menu',
             'text' => [
                 'en' => 'show menu'
             ]
         ]);
 
         Phrase::create([
-            'system_name' => 'buttons.all-menus',
+            'system_name' => 'buttons.all_menus',
             'text' => [
                 'en' => 'all menus'
             ]
@@ -405,10 +405,19 @@ class PhrasesTableSeeder extends Seeder
         ]);
 
         Phrase::create([
-            'system_name' => 'buttons.edit-menu-item',
+            'system_name' => 'buttons.edit_menu_item',
             'text' => [
                 'en' => 'edit menu item'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.show_menu_item',
+            'text' => [
+                'en' => 'show menu item'
+            ]
+        ]);
+
+
     }
 }

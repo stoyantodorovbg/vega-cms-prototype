@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Group;
 use App\Models\Route;
+use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminDeleteRequest;
@@ -22,7 +23,7 @@ class DeleteController extends Controller
      */
     public function destroy(AdminDeleteRequest $request, string $methodName = '')
     {
-        $modelPath = '\\App\\Models\\' . ucfirst($request->modelName);
+        $modelPath = '\\App\\Models\\' . Str::studly($request->modelName);
         $method = strtolower($request->modelName);
         $methodExists = method_exists($this, $method);
         if(!$methodExists && $model = $modelPath::find($request->slug)) {

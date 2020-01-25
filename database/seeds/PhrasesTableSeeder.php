@@ -418,6 +418,39 @@ class PhrasesTableSeeder extends Seeder
             ]
         ]);
 
+        Phrase::create([
+            'system_name' => 'buttons.show-child-menu-items',
+            'text' => [
+                'en' => 'show child menu items'
+            ]
+        ]);
 
+        Phrase::create([
+            'system_name' => 'buttons.menu_show',
+            'text' => [
+                'en' => 'show menu'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.menu_edit',
+            'text' => [
+                'en' => 'edit menu'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.parent_menu_item_menu_show',
+            'text' => [
+                'en' => 'parent menu item show'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.parent_menu_item_edit_menu_edit',
+            'text' => [
+                'en' => 'parent menu item edit'
+            ]
+        ]);
     }
 }

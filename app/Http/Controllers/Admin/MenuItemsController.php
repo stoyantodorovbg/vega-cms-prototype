@@ -35,7 +35,8 @@ class MenuItemsController extends Controller
         ];
 
         return view('admin.menu_items.index')->with([
-            'defaultFilters' => json_encode($defaultFilters)
+            'defaultFilters' => json_encode($defaultFilters),
+            'menuSlug' => $menu->getSlug()
         ]);
     }
 

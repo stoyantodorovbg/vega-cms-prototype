@@ -81,5 +81,4 @@ class EloquentFilterService implements EloquentFilterServiceInterface
     {
         return $builder->where($fieldName, '<', $value);
     }
-
 }

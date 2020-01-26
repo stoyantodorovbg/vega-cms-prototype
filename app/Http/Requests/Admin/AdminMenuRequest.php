@@ -23,8 +23,6 @@ class AdminMenuRequest extends FormRequest
      */
     public function rules()
     {
-        $key = $this->isMethod('POST') ? '' : explode('/', $this->getRequestUri())[4];
-
         return [
             'status' => 'required|integer|between:0,1',
             'classes' => 'nullable|string|max:500',

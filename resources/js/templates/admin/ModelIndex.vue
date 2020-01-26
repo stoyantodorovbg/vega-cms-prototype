@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <!-- Create User -->
+        <!-- Create Model -->
         <button-link :prop_data="getButtonCreatePropData()"></button-link>
         <!-- Filters -->
         <menage-filters :fields="fieldsFiltersSettings"></menage-filters>
@@ -242,9 +242,11 @@
                     localStorage.setItem('adminIndexDisplaySettings', JSON.stringify({}));
                 }
             },
-            getButtonCreatePropData() {
+                getButtonCreatePropData() {
                 return {
-                    url: '/admin/' + this.$store.state.locale + '/' + this.$pluralize(this.model_name.toLowerCase()) + '/create',
+                    url: '/admin/' + this.$store.state.locale + '/' +
+                        this.$pluralize(this.model_name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()) +
+                        '/create',
                     text: 'Create ' + this.model_name,
                     htmlClass: 'btn btn-secondary float-right mt-3 mb-3'
                 }

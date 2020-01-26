@@ -7,6 +7,7 @@ use App\Models\MenuItem;
 use App\DataMappers\MenuDataMapper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminMenuItemRequest;
+use App\Repositories\Interfaces\DefaultJsonStructureRepositoryInterface;
 
 class MenuItemsController extends Controller
 {
@@ -58,7 +59,11 @@ class MenuItemsController extends Controller
      */
     public function create()
     {
-        return view('admin.menu_items.create');
+        $defaultJsonStructureRepository = resolve(DefaultJsonStructureRepositoryInterface::class);
+        $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(MenuItem::class)
+            ->pluck('structure', 'field')->toArray();
+
+        return view('admin.menu_items.create', compact('defaultJsonFieldsData'));
     }
 
     /**

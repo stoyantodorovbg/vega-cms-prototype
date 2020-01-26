@@ -31,14 +31,14 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.title') }}</label>
-            <json-input json_data="{{ $menuItem->title }}"
+            <json-input json_data="{{ isset($menuItem) ? $menuItem->title :  $defaultJsonFieldsData['title']}}"
                         input_name="title"
                         level="1"
             ></json-input>
         </div>
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.description') }}</label>
-            <json-input json_data="{{ $menuItem->description }}"
+            <json-input json_data="{{ isset($menuItem) ? $menuItem->description :  $defaultJsonFieldsData['description'] }}"
                         input_name="description"
                         level="1"
             ></json-input>
@@ -47,7 +47,7 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.styles') }}</label>
-            <json-input json_data="{{ $menuItem->styles }}"
+            <json-input json_data="{{ isset($menuItem) ? $menuItem->styles :  $defaultJsonFieldsData['styles'] }}"
                         input_name="styles"
                         level="1"
             ></json-input>

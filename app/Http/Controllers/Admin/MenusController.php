@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\DefaultJsonStructure;
 use App\Models\Menu;
 use App\DataMappers\MenuDataMapper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminMenuRequest;
+use App\Repositories\Interfaces\DefaultJsonStructureRepositoryInterface;
 
 class MenusController extends Controller
 {
@@ -37,7 +39,11 @@ class MenusController extends Controller
      */
     public function create()
     {
-        return view('admin.menus.create');
+        $defaultJsonStructureRepository = resolve(DefaultJsonStructureRepositoryInterface::class);
+        $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(Menu::class)
+            ->pluck('structure', 'field')->toArray();
+
+        return view('admin.menus.create', compact('defaultJsonFieldsData'));
     }
 
     /**
@@ -48,7 +54,9 @@ class MenusController extends Controller
      */
     public function store(AdminMenuRequest $request)
     {
-        $menu = Menu::create($request->validated());
+        $mappedData = resolve(MenuDataMapper::class)->mapData($request->validated());
+
+        $menu = Menu::create($mappedData);
 
         return redirect()->route('admin-menus.show', $menu->getSlug())->with(compact('menu'));
     }

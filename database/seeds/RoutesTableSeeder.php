@@ -437,21 +437,21 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
-        // Admin menu items show
-        $this->createRoute('/menu-items/{menuItem}',
-            'get',
-            'MenuItemsController@show',
-            'admin-menu-items.show',
-            'admin',
-            'admin',
-            'admins'
-        );
-
         // Admin menu items create
         $this->createRoute('/menu-items/create',
             'get',
             'MenuItemsController@create',
             'admin-menu-items.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin menu items show
+        $this->createRoute('/menu-items/{menuItem}',
+            'get',
+            'MenuItemsController@show',
+            'admin-menu-items.show',
             'admin',
             'admin',
             'admins'

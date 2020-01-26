@@ -1,5 +1,5 @@
 <form method="POST"
-      action="{{ isset($menu) ? route('admin-menus.update', $menu->getSlug()) : route('admin-menus.create') }}"
+      action="{{ isset($menu) ? route('admin-menus.update', $menu->getSlug()) : route('admin-menus.store') }}"
 >
     @csrf
     @if(isset($menu))
@@ -31,14 +31,14 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.title') }}</label>
-            <json-input json_data="{{ $menu->title }}"
+            <json-input json_data="{{ isset($menu) ? $menu->title : $defaultJsonFieldsData['title'] }}"
                         input_name="title"
                         level="1"
             ></json-input>
         </div>
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.description') }}</label>
-            <json-input json_data="{{ $menu->description }}"
+            <json-input json_data="{{ isset($menu) ? $menu->description : $defaultJsonFieldsData['description'] }}"
                         input_name="description"
                         level="1"
             ></json-input>
@@ -47,7 +47,7 @@
     <div class="row">
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.styles') }}</label>
-            <json-input json_data="{{ $menu->styles }}"
+            <json-input json_data="{{ isset($menu) ? $menu->styles : $defaultJsonFieldsData['styles'] }}"
                         input_name="styles"
                         level="1"
             ></json-input>

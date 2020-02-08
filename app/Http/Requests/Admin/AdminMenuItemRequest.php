@@ -26,10 +26,13 @@ class AdminMenuItemRequest extends FormRequest
         $key = $this->isMethod('POST') ? '' : explode('/', $this->getRequestUri())[4];
 
         return [
+            'menu_id' => 'required|integer|between:0,20',
+            'parent_id' => 'nullable|integer|between:0,20',
             'status' => 'required|integer|between:0,1',
-            'classes' => 'nullable|string|max:500',
+            'url' => 'nullable|string|max:500',
             'title' => 'nullable|array',
             'description' => 'nullable|array',
+            'classes' => 'nullable|string|max:500',
             'styles' => 'nullable|array'
         ];
     }

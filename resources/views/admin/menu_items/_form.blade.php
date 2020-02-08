@@ -1,10 +1,43 @@
 <form method="POST"
-      action="{{ isset($menuItem) ? route('admin-menu-items.update', $menuItem->getSlug()) : route('admin-menu-items.create') }}"
+      action="{{ isset($menuItem) ? route('admin-menu-items.update', $menuItem->getSlug()) : route('admin-menu-items.store') }}"
 >
     @csrf
     @if(isset($menuItem))
         @method('PATCH')
     @endif
+    <div class="row">
+        <div class="form-group col-6">
+            <label class="text-uppercase">{{ phrase('labels.menu') }}</label>
+            <select class="form-control text-capitalize" name="menu_id" id="admin-form-locale-status">
+                <option>{{ phrase('labels.choose_menu') }}</option>
+                @foreach($menus as $id => $titleData)
+                    <option {{ isset($menuItem) && $menuItem->status === 1 ? 'selected' : '' }} value="{{ $id }}">
+                        {{ json_decode($titleData, true)['text'] }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label class="text-uppercase">{{ phrase('labels.url') }}</label>
+            <input type="text"
+                   name="url"
+                   value="{{ isset($menuItem) ? old('name', $menuItem->url) : '' }}"
+                   id="admin-form-user-classes"
+                   class="form-control"
+            >
+        </div>
+{{--        <div class="form-group col-6">--}}
+{{--            <label class="text-uppercase">{{ phrase('labels.attach_to_menu_item') }}</label>--}}
+{{--            <select class="form-control text-capitalize" name="parent_id" id="admin-form-locale-status">--}}
+{{--                <option>{{ phrase('labels.choose_menu') }}</option>--}}
+{{--                @foreach($menuItems as $id => $titleData)--}}
+{{--                    <option {{ isset($menuItem) && $menuItem->status === 1 ? 'selected' : '' }} value="{{ $id }}">--}}
+{{--                        {{ json_decode($titleData, true)['text'] }}--}}
+{{--                    </option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--        </div>--}}
+    </div>
     <div class="row">
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.status') }}</label>

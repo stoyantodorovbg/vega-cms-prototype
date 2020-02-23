@@ -1,10 +1,9 @@
 <template>
     <button v-if="this.input_key !== 'empty_json'"
         type="button"
-            class="btn btn-danger btn-sm"
-            @click="removeKey()"
-    >Remove {{ input_key }} input key
-    </button>
+        class="btn btn-danger btn-sm"
+        @click="removeKey()"
+    >Remove {{ title }} input key</button>
 </template>
 
 <script>
@@ -12,7 +11,7 @@
     export default {
         name: 'RemoveJsonKey',
 
-        props: ['input_key'],
+        props: ['title', 'input_key'],
 
         methods: {
             removeKey() {

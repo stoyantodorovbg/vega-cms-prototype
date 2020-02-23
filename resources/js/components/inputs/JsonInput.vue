@@ -17,7 +17,7 @@
                         :json_data="JSON.stringify(value)"
                         :level="parseInt(level) + 1"
             ></json-input>
-            <remove-json-key :input_key="input_name"></remove-json-key>
+            <remove-json-key :title="getInputName(key)" :input_key="key"></remove-json-key>
         </div>
         <input v-if="Object.keys(jsonData).length === 0 && jsonData.constructor === Object"
                type="hidden"

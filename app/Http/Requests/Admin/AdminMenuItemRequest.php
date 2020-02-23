@@ -36,4 +36,18 @@ class AdminMenuItemRequest extends FormRequest
             'styles' => 'nullable|array'
         ];
     }
+
+    /**
+     * The request data is accessible before validation
+     *
+     * @return array
+     */
+    protected function validationData()
+    {
+        if(is_null($this->parent_id)) {
+            $this->offsetUnset('parent_id');
+        }
+
+        return $this->all();
+    }
 }

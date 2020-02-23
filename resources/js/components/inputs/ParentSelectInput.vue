@@ -5,7 +5,7 @@
             @change="inputChanged()"
             v-model="selectedValue"
     >
-        <option>Choose one</option>
+        <option value="">Choose one</option>
         <option v-for="option in dataOptions"
                 :id="option.value"
                 :value="option.value"

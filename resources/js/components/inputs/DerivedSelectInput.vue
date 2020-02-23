@@ -1,6 +1,6 @@
 <template>
     <select class="form-control text-capitalize" :name="input_data.name" :id="input_data.id">
-        <option>Choose one</option>
+        <option value="">Choose one</option>
         <option v-for="option in options"
                 :id="option.value"
                 :value="option.value"

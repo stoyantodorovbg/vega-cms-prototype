@@ -62,7 +62,12 @@ class MenuItemsController extends Controller
         $defaultJsonStructureRepository = resolve(DefaultJsonStructureRepositoryInterface::class);
         $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(MenuItem::class)
             ->pluck('structure', 'field')->toArray();
-        $menus = Menu::where('status', 1)->pluck('title', 'id');
+        $menus = Menu::where('status', 1)->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'text' => json_decode($item->title)->text
+            ];
+        });
         $menuItems = MenuItem::where('status', 1)->pluck('title', 'id');
 
         return view('admin.menu_items.create', compact('defaultJsonFieldsData', 'menus', 'menuItems'));

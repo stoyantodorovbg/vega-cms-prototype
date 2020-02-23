@@ -49,6 +49,8 @@ Vue.component('button-link', require('./components/links/ButtonLink.vue').defaul
 Vue.component('dynamic-menu', require('./components/menu/DynamicMenu.vue').default);
 Vue.component('json-presenter', require('./components/data/JsonPresenter.vue').default);
 Vue.component('json-input', require('./components/inputs/JsonInput.vue').default);
+Vue.component('parent-select-input', require('./components/inputs/ParentSelectInput.vue').default);
+Vue.component('derived-select-input', require('./components/inputs/DerivedSelectInput.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

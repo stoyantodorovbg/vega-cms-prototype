@@ -198,6 +198,7 @@
                 this.displayedFields.sort(function(a, b){return a.position - b.position});
                 this.storeBrowserSettings(this.fieldsGridSettings)
             },
+
             updateFilters(fieldName, value, type) {
                 if(typeof this.filters[fieldName] === 'undefined') {
                     this.filters[fieldName] = {

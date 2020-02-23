@@ -497,6 +497,7 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // API Models destroy
         $this->createRoute('/admin/destroy',
             'delete',
             'Admin\\\DeleteController@destroy',
@@ -506,10 +507,20 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // API Menu get data
         $this->createRoute('/menu',
             'get',
             'MenuController@getData',
             'api.menu-data',
+            'api',
+            'api'
+        );
+
+        // API Derived Input get data
+        $this->createRoute('/derived-input-data',
+            'get',
+            'DerivedDataController@getModelsData',
+            'api.derived-input-data',
             'api',
             'api'
         );

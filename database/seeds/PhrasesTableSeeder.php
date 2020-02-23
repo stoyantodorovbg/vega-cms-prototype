@@ -452,5 +452,19 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'parent menu item edit'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'labels.assign_to_a_menu',
+            'text' => [
+                'en' => 'assign to a menu'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'labels.assign_to_a_menu_item',
+            'text' => [
+                'en' => 'assign to a menu item'
+            ]
+        ]);
     }
 }

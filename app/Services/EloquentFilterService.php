@@ -25,7 +25,6 @@ class EloquentFilterService implements EloquentFilterServiceInterface
                     $builder = $this->$methodName($builder, $fieldName, $value['value']);
                 }
             }
-
         }
 
         return $builder;

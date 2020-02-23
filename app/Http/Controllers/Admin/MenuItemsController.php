@@ -29,7 +29,7 @@ class MenuItemsController extends Controller
             'parent_id' => [
                 'types' => [
                     'exact' => [
-                        'value' => $menuItem ? $menuItem->id : null
+                        'value' => $menuItem ? $menuItem : null
                     ]
                 ]
             ]
@@ -98,8 +98,15 @@ class MenuItemsController extends Controller
     public function edit(MenuItem $menuItem)
     {
         $menuItem->loadAllChildItems($menuItem);
+        $menus = Menu::where('status', 1)->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'text' => json_decode($item->title)->text
+            ];
+        });
+        $menuItems = MenuItem::where('status', 1)->pluck('title', 'id');
 
-        return view('admin.menu_items.edit', compact('menuItem'));
+        return view('admin.menu_items.edit', compact('menuItem', 'menus', 'menuItems'));
     }
 
     /**

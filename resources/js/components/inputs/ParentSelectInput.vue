@@ -2,7 +2,7 @@
     <select class="form-control text-capitalize"
             :name="input_data.name"
             :id="input_data.id"
-            @change="inputChanged()"
+            @change="fetchDerivedData()"
             v-model="selectedValue"
     >
         <option value="">Choose one</option>
@@ -21,12 +21,12 @@
     export default {
         name: 'ParentSelectInput',
 
-        props: ['input_data', 'event_name', 'options', 'http_data'],
+        props: ['input_data', 'event_name', 'options', 'http_data', 'selected_value'],
 
         data() {
             return {
                 dataOptions: JSON.parse(this.options),
-                selectedValue: ''
+                selectedValue: this.selected_value,
             }
         },
 
@@ -48,12 +48,12 @@
         },
 
         methods: {
-            inputChanged() {
+            fetchDerivedData() {
                 EventBus.$emit(this.event_name, {
                     endpoint: this.http_data.endpoint,
                     params: this.httpDataParams,
                 });
-            }
+            },
         }
     }
 </script>

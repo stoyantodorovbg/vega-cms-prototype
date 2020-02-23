@@ -22,6 +22,7 @@
                     },
                     field_name: 'menu_id'
                 }"
+                selected_value="{{ isset($menuItem) ? $menuItem->menu_id  : null}}"
             ></parent-select-input>
         </div>
         <div class="form-group col-6">
@@ -32,6 +33,7 @@
                     id: 'munu_item_parent_id'
                 }"
                 listen_on="munu_item_menu_id_selected"
+                selected_value="{{ isset($menuItem) ? $menuItem->parent_id  : null}}"
             ></derived-select-input>
         </div>
     </div>

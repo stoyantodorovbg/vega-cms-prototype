@@ -466,5 +466,12 @@ class PhrasesTableSeeder extends Seeder
                 'en' => 'assign to a menu item'
             ]
         ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.show_child_menu_items',
+            'text' => [
+                'en' => 'show child menu items'
+            ]
+        ]);
     }
 }

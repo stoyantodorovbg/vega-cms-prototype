@@ -1,9 +1,14 @@
 <template>
-    <select class="form-control text-capitalize" :name="input_data.name" :id="input_data.id">
+    <select class="form-control text-capitalize"
+            :name="input_data.name"
+            :id="input_data.id"
+            v-model="selected"
+    >
         <option value="">Choose one</option>
         <option v-for="option in options"
                 :id="option.value"
                 :value="option.value"
+                :selected="option.value == selected_value"
         >
             {{ option.text }}
         </option>
@@ -16,11 +21,12 @@
     export default {
         name: 'DerivedSelectInput',
 
-        props: ['input_data', 'listen_on'],
+        props: ['input_data', 'listen_on', 'selected_value'],
 
         data() {
             return {
-                options: []
+                options: [],
+                selected: this.selected_value
             }
         },
 
@@ -35,7 +41,6 @@
                 });
             },
             getData(endpoint, params) {
-                console.log(params)
                 axios.get('/api/' + this.$store.state.locale + endpoint, {
                         params: params
                     }

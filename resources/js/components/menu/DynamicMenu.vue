@@ -6,7 +6,6 @@
 
 <script>
     import MenuItemsContainer from "./MenuItemsContainer";
-    import axios from 'axios';
 
     export default {
         name: 'DynamicMenu',

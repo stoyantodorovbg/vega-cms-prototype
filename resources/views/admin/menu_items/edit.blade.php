@@ -54,7 +54,7 @@
     @if($menuItem->childMenuItems->count())
         <button-link :prop_data="{
             'url': '{{ route('admin-menu-items.index', ['menu' => $menuItem->menu->getSlug(), 'menuItem' => $menuItem->id]) }}',
-            'text': '{{ phrase('buttons.show_parent_menu_items') }}',
+            'text': '{{ phrase('buttons.show_child_menu_items') }}',
             'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
             }"
         ></button-link>

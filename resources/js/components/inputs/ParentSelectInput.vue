@@ -7,7 +7,7 @@
     >
         <option value="">Choose one</option>
         <option v-for="option in dataOptions"
-                :id="option.value"
+                :key="option.value"
                 :value="option.value"
         >
             {{ option.text }}
@@ -45,6 +45,17 @@
 
                 return this.http_data.params;
             }
+        },
+
+        mounted() {
+            document.onreadystatechange = () => {
+                if (document.readyState == "complete") {
+                    if(this.selectedValue) {
+                        this.fetchDerivedData();
+                    }
+                }
+            }
+
         },
 
         methods: {

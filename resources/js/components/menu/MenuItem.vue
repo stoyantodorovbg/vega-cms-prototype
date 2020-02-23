@@ -16,20 +16,21 @@
             {{ menuItemData.description.text }}
         </div>
         <menu-items-container
-            v-if="menuItemData.menuItemsContainer"
-            :menuItemData="menuItemData.menuItemsContainer"
+            v-for="menuItem in menuItemData.menuItems"
+            :key="menuItem.id"
+            :menuItemData="menuItem"
         ></menu-items-container>
     </div>
 </template>
 
 <script>
-    import MenuItemsContainer from "./MenuItemsContainer";
+
 
     export default {
-        name: 'MenuItem',
+        name: 'menu-item',
 
         components: {
-          MenuItemsContainer
+            MenuItemsContainer: () => import('./MenuItemsContainer'),
         },
 
         props: ['menuItemData']

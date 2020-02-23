@@ -6,7 +6,7 @@
     >
         <option value="">Choose one</option>
         <option v-for="option in options"
-                :id="option.value"
+                :key="option.value"
                 :value="option.value"
                 :selected="option.value == selected_value"
         >

@@ -17,9 +17,14 @@
 
 <script>
     export default {
-        props: ['name'],
-
         name: 'NumberInput',
+
+        props: {
+            name: {
+                type: String,
+                default: 'id',
+            }
+        },
 
         data() {
             return {

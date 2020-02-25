@@ -7,7 +7,7 @@
             <label v-if="key !== 'empty_json'">{{ key }}</label>
             <text-input
                 v-if="value.type === 'text'"
-                :input_value="value.value"
+                :input_value="String(value.value)"
                 :input_name="getInputName(key)"
                 :input_key="key"
                 :json_input_name="input_name"

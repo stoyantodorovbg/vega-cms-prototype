@@ -16,9 +16,14 @@
 
 <script>
     export default {
-        props: ['name'],
-
         name: 'DateInput',
+
+        props: {
+            name: {
+                type: String,
+                default: 'created_at',
+            },
+        },
 
         data() {
             return {

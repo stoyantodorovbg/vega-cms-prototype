@@ -43,7 +43,19 @@
 
         name: 'MenageFilters',
 
-        props: ['fields'],
+        props: {
+            fields: {
+                type: Array,
+                default: function() {
+                    return [
+                        {
+                            name: 'id',
+                            visibility: true
+                        }
+                    ]
+                },
+            },
+        },
 
         data() {
             return {

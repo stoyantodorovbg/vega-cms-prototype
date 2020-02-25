@@ -11,9 +11,14 @@
 
 <script>
     export default {
-        props: ['name'],
-
         name: 'TextInput',
+
+        props: {
+            name: {
+                type: String,
+                default: 'id',
+            },
+        },
 
         data() {
             return {
@@ -22,10 +27,9 @@
         },
 
         methods: {
-            changeInput(fieldName, type)
-            {
+            changeInput(fieldName, type) {
                 this.$parent.$parent.$parent.updateFilters(fieldName, this.inputValue, type);
-            }
+            },
         }
     }
 </script>

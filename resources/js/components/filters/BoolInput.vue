@@ -9,9 +9,14 @@
 
 <script>
     export default {
-        props: ['name'],
-
         name: 'BoolInput',
+
+        props: {
+            name: {
+                type: String,
+                default: 'status',
+            },
+        },
 
         data() {
             return {

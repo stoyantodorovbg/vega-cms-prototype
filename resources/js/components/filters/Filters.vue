@@ -35,7 +35,19 @@
 
         name: 'Filters',
 
-        props: ['filters'],
+        props: {
+            filters: {
+                type: Array,
+                default: function() {
+                    return [
+                        {
+                            name: 'id',
+                            visibility: true
+                        }
+                    ]
+                },
+            }
+        },
 
         data() {
             return {

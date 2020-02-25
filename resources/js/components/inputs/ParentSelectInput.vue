@@ -21,7 +21,52 @@
     export default {
         name: 'ParentSelectInput',
 
-        props: ['input_data', 'event_name', 'options', 'http_data', 'selected_value'],
+        props: {
+            input_data: {
+                type: Object,
+                default: function() {
+                    return {
+                        id: '',
+                        name: 'id',
+                    }
+                },
+            },
+            event_name: {
+                type: String,
+                default: 'id_selected',
+            },
+            options: {
+                type: String,
+                default: JSON.stringify([{
+                    value: 0,
+                    text: '',
+                }])
+            },
+            http_data: {
+                type: Object,
+                default: function () {
+                    return {
+                        endpoint: '/derived-input-data',
+                        field_name: 'id',
+                        params: {
+                            filters: {
+                                id: {
+                                    types: {
+                                        exact: {
+                                            value: ''
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            selected_value: {
+                type: String,
+                default: '',
+            }
+        },
 
         data() {
             return {

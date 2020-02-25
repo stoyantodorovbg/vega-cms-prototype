@@ -14,7 +14,24 @@
     export default {
         name: 'TextInput',
 
-        props: ['input_value', 'input_name', 'input_key', 'json_input_name'],
+        props: {
+            input_value: {
+                type: String,
+                default: ''
+            },
+            input_name: {
+                type: String,
+                default: ''
+            },
+            input_key: {
+                type: String,
+                default: ''
+            },
+            json_input_name: {
+                type: String,
+                default: ''
+            },
+        },
 
         data() {
             return {

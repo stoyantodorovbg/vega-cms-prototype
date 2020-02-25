@@ -11,7 +11,16 @@
     export default {
         name: 'RemoveJsonKey',
 
-        props: ['title', 'input_key'],
+        props: {
+            title: {
+                type: String,
+                default: ''
+            },
+            input_key: {
+                type: String,
+                default: ''
+            }
+        },
 
         methods: {
             removeKey() {

@@ -21,7 +21,23 @@
     export default {
         name: 'DerivedSelectInput',
 
-        props: ['input_data', 'listen_on', 'selected_value'],
+        props: {
+            input_data: {
+                type: Object,
+                default: {
+                    id: 'id',
+                    name: 'id',
+                },
+            },
+            listen_on: {
+                type: String,
+                default: 'id_selected',
+            },
+            selected_value: {
+                type: String,
+                default: '',
+            }
+        },
 
         data() {
             return {

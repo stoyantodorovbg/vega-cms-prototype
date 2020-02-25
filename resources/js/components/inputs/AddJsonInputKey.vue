@@ -35,7 +35,12 @@
     export default {
         name: 'AddJsonInputKey',
 
-        props: ['input_key'],
+        props: {
+            input_key: {
+                type: String,
+                default: 'id',
+            },
+        },
 
         data() {
             return {

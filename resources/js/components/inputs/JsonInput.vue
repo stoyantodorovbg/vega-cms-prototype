@@ -47,7 +47,20 @@
             TextInput, AddJsonInputKey, RemoveJsonKey
         },
 
-        props: ['json_data', 'input_name', 'level'],
+        props: {
+            json_data: {
+                type: String,
+                default: '{"structure": {"text": "", "status": 0, "styles": [], "classes": "", "structure": {"text": {"type": "text"}, "status": {"type": "text"}, "styles": {"type": "json", "nested": []}, "classes": {"type": "text"}}}}',
+            },
+            input_name: {
+                type: String,
+                default: '',
+            },
+            level: {
+                type: Number,
+                defailt: 1,
+            },
+        },
 
         data() {
             return {

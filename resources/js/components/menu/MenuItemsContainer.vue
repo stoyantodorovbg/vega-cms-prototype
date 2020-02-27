@@ -45,7 +45,114 @@
             MenuItem: () => import('./MenuItem'),
         },
 
-        props: ['menuData', 'menuItemData'],
+        props: {
+            menuData: {
+                type: Object,
+                default: function () {
+                    return {
+                        id: 1,
+                        classes: '',
+                        status: 1,
+                        title: {
+                            classes: '',
+                            status: 0,
+                            text: 'menu item',
+                            structure: {
+                                classes: {
+                                    type: 'text',
+                                },
+                                status: {
+                                    type: 'text',
+                                },
+                                styles: {
+                                    nested: [],
+                                    type: 'json'
+                                },
+                                text: {
+                                    type: 'text',
+                                },
+                            },
+                            styles: [],
+                        },
+                        description: {
+                            classes: '',
+                            status: 0,
+                            text: 'simple menu item',
+                            structure: {
+                                classes: {
+                                    type: 'text',
+                                },
+                                status: {
+                                    type: 'text',
+                                },
+                                styles: {
+                                    nested: [],
+                                    type: 'json'
+                                },
+                                text: {
+                                    type: 'text',
+                                },
+                            },
+                            styles: [],
+                        },
+                        styles: [],
+                    }
+                }
+            },
+            menuItemData: {
+                type: Object,
+                default: function () {
+                    return {
+                        id: 1,
+                        classes: '',
+                        status: 1,
+                        title: {
+                            classes: '',
+                            status: 0,
+                            text: 'menu item',
+                            structure: {
+                                classes: {
+                                    type: 'text',
+                                },
+                                status: {
+                                    type: 'text',
+                                },
+                                styles: {
+                                    nested: [],
+                                    type: 'json'
+                                },
+                                text: {
+                                    type: 'text',
+                                },
+                            },
+                            styles: [],
+                        },
+                        description: {
+                            classes: '',
+                            status: 0,
+                            text: 'simple menu item',
+                            structure: {
+                                classes: {
+                                    type: 'text',
+                                },
+                                status: {
+                                    type: 'text',
+                                },
+                                styles: {
+                                    nested: [],
+                                    type: 'json'
+                                },
+                                text: {
+                                    type: 'text',
+                                },
+                            },
+                            styles: [],
+                        },
+                        styles: [],
+                    }
+                }
+            }
+        },
 
         computed: {
             nestedItems: function () {

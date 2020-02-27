@@ -7,6 +7,16 @@
 <script>
     export default {
         name: 'IconLink',
-        props: ['prop_data']
+        props: {
+            prop_data: {
+                type: Object,
+                default: function () {
+                    return {
+                        icon_class: 'fas fa-eye',
+                        url: '',
+                    };
+                }
+            },
+        }
     }
 </script>

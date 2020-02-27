@@ -14,7 +14,12 @@
             MenuItemsContainer,
         },
 
-        props: ['menu_id'],
+        props: {
+            menu_id: {
+                type: Number,
+                default: 1
+            },
+        },
 
         data() {
             return {

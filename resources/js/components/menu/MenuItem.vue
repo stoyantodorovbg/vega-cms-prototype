@@ -33,6 +33,60 @@
             MenuItemsContainer: () => import('./MenuItemsContainer'),
         },
 
-        props: ['menuItemData']
+        props: {
+            menuItemData: {
+                type: Object,
+                default: function () {
+                    return {
+                        id: 1,
+                        classes: 'text-uppercase',
+                        url: '/',
+                        title: {
+                            classes: '',
+                            status: 0,
+                            text: 'menu item',
+                            structure: {
+                                classes: {
+                                    type: 'text',
+                                },
+                                status: {
+                                    type: 'text',
+                                },
+                                styles: {
+                                    nested: [],
+                                    type: 'json'
+                                },
+                                text: {
+                                    type: 'text',
+                                },
+                            },
+                            styles: [],
+                        },
+                        description: {
+                            classes: '',
+                            status: 0,
+                            text: 'simple menu item',
+                            structure: {
+                                classes: {
+                                    type: 'text',
+                                },
+                                status: {
+                                    type: 'text',
+                                },
+                                styles: {
+                                    nested: [],
+                                    type: 'json'
+                                },
+                                text: {
+                                    type: 'text',
+                                },
+                            },
+                            styles: [],
+                        },
+                        styles: [],
+                    };
+                }
+            }
+        }
     }
 </script>

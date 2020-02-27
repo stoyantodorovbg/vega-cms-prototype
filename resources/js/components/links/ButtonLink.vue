@@ -11,8 +11,18 @@
 <script>
     export default {
         name: 'ButtonLink',
+
         props: {
-          prop_data: ''
+            prop_data: {
+                type: Object,
+                value: function () {
+                    return {
+                        htmlClass: '',
+                        text: 'submit',
+                        url: '/'
+                    };
+                },
+            },
         }
     }
 </script>

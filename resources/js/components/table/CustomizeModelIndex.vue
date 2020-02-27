@@ -25,7 +25,20 @@
     export default {
         name: 'customize-model-index',
 
-      props: ['fields'],
+        props: {
+            fields: {
+                type: Array,
+                default: function () {
+                    return [
+                        {
+                            name: 'id',
+                            position: 0,
+                            visibility: true,
+                        }
+                    ];
+                }
+            }
+        },
 
         data() {
             return {

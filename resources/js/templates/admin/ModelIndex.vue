@@ -64,7 +64,28 @@
             DeleteConfirmation
         },
 
-        props: ['model_name', 'actions', 'default_filters'],
+        props: {
+            default_filters: {
+                type: Object,
+                default: function () {
+                    return {};
+                },
+            },
+            actions: {
+                type: Object,
+                default: function() {
+                    return {
+                        delete: 1,
+                        edit: 1,
+                        show: 1,
+                    }
+                },
+            },
+            model_name: {
+                type: String,
+                default: 'User',
+            },
+        },
 
         data() {
             return {
@@ -72,7 +93,6 @@
                 displayedFields: [],
                 modelFields: {},
                 defaultFieldsCount: 10,
-                filters: this.default_filters ? this.default_filters : {},
                 deleting: false,
                 deleteRequestData: {},
             }
@@ -137,7 +157,7 @@
                 axios.get('/api/' + this.$store.state.locale + '/admin/index', {
                         params: {
                             model: this.model_name,
-                            filters: this.filters
+                            filters: this.default_filters
                         }
                     }
                 ).then((response) => {
@@ -200,22 +220,22 @@
             },
 
             updateFilters(fieldName, value, type) {
-                if(typeof this.filters[fieldName] === 'undefined') {
-                    this.filters[fieldName] = {
+                if(typeof this.default_filters[fieldName] === 'undefined') {
+                    this.default_filters[fieldName] = {
                         types: {
                             [type]: {
                                 value: value,
                             }
                         }
                     }
-                } else if(typeof this.filters[fieldName] !== 'undefined' &&
-                    typeof this.filters[fieldName].types[type] === 'undefined'
+                } else if(typeof this.default_filters[fieldName] !== 'undefined' &&
+                    typeof this.default_filters[fieldName].types[type] === 'undefined'
                 ) {
-                    this.filters[fieldName].types[type] = {
+                    this.default_filters[fieldName].types[type] = {
                         value: value
                     }
                 } else {
-                    this.filters[fieldName].types[type].value = value;
+                    this.default_filters[fieldName].types[type].value = value;
                 }
             },
             storeBrowserSettings(fields) {

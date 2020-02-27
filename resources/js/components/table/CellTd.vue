@@ -5,6 +5,7 @@
 <script>
     export default {
         name: 'cell-td',
+
         props: ['content'],
     }
 </script>

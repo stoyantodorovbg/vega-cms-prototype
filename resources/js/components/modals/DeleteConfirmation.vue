@@ -37,7 +37,17 @@
     export default {
         name: 'DeleteConfirmation',
 
-        props: ['request_data'],
+        props: {
+            request_data: {
+                type: Object,
+                default: function () {
+                    return {
+                        modelName: 'user',
+                        slug: 1,
+                    }
+                }
+            }
+        },
 
         methods: {
             deleteModel() {

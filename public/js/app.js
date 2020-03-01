@@ -2946,6 +2946,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DynamicMenu',
@@ -69375,9 +69377,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.menuData.status
-    ? _c("menu-items-container", { attrs: { menuData: _vm.menuData } })
-    : _vm._e()
+  return _c(
+    "nav",
+    [
+      _vm.menuData.status
+        ? _c("menu-items-container", { attrs: { menuData: _vm.menuData } })
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

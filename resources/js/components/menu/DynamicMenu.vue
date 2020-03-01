@@ -1,7 +1,9 @@
 <template>
+    <nav>
         <menu-items-container v-if="menuData.status"
                               :menuData="menuData"
         ></menu-items-container>
+    </nav>
 </template>
 
 <script>

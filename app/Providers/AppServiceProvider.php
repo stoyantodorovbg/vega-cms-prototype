@@ -15,7 +15,7 @@ use App\Repositories\RouteRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\EloquentFilterService;
-use App\Services\DefaultJsonStructureRepository;
+use App\Repositories\DefaultJsonStructureRepository;
 use App\Services\Interfaces\GroupServiceInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Services\Interfaces\PhraseServiceInterface;

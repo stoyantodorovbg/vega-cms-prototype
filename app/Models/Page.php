@@ -26,4 +26,10 @@ class Page extends BasicModel
     {
         return $this->belongsToMany(Container::class, 'page_container');
     }
+
+
+    public function getData()
+    {
+
+    }
 }

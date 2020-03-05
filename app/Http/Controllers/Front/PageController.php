@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Page;
-use App\Services\ValidationService;
 use App\Http\Controllers\Controller;
+use App\Services\Interfaces\ValidationServiceInterface;
 
 class PageController extends Controller
 {
@@ -15,7 +15,7 @@ class PageController extends Controller
      */
     public function page($url)
     {
-        if(resolve(ValidationService::class)->validate(['url' => $url], ['url'], 'page', 'access') === true &&
+        if(resolve(ValidationServiceInterface::class)->validate(['url' => $url], ['url'], 'page', 'access') === true &&
             $page = Page::where('url', $url)->where('status', 1)->first()
         ) {
             return view('front.page.renderer')->with([

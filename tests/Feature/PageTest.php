@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Page;
+use App\Models\Route;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PageTest extends TestCase
@@ -28,12 +30,12 @@ class PageTest extends TestCase
     /** @test */
     public function page_with_the_same_url_as_existing_route_can_not_be_created()
     {
-//        $this->artisan('generate:route /test get TestController@test test.test');
-//
-//        factory(Page::class)->create(['url' => '/test']);
-//
-//        $this->assertDatabaseMissing('pages', ['url' => '/test'])
-//
-//        $this->artisan('destroy:route test.test');
+        factory(Route::class)->create(['url' => '/test']);
+
+        $this->expectException(ValidationException::class);
+
+        factory(Page::class)->create(['url' => '/test']);
+
+        $this->assertDatabaseMissing('pages', ['url' => '/test']);
     }
 }

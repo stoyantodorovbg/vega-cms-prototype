@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Page;
 use App\Services\RouteService;
 use App\Services\GroupService;
+use App\Observers\PageObserver;
 use App\Services\PhraseService;
 use App\Services\LocaleService;
 use App\Services\MessageService;
@@ -15,11 +17,11 @@ use App\Repositories\RouteRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\EloquentFilterService;
-use App\Repositories\DefaultJsonStructureRepository;
 use App\Services\Interfaces\GroupServiceInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Services\Interfaces\PhraseServiceInterface;
 use App\Services\Interfaces\LocaleServiceInterface;
+use App\Repositories\DefaultJsonStructureRepository;
 use App\Services\Interfaces\MessageServiceInterface;
 use App\Services\Interfaces\FileCreateServiceInterface;
 use App\Services\Interfaces\ValidationServiceInterface;
@@ -64,6 +66,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Page::observe(PageObserver::class);
     }
 }

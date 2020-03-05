@@ -5,6 +5,8 @@ namespace App\Services\Interfaces;
 interface ValidationServiceInterface
 {
     /**
+     * Validate data
+     *
      * @param array $data
      * @param array $validationTypes
      * @param string $entity

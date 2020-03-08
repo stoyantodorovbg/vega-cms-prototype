@@ -58,4 +58,34 @@ class Container extends BasicModel
             'parent_container_id'
         );
     }
+
+    /**
+     * Load all nested child containers for this container
+     *
+     * @return void
+     */
+    public function loadAllChildContainers(): void
+    {
+        $containers = $this->childContainers;
+
+        $containers->each(function ($container) {
+            $this->loadChildContainers($container);
+        });
+    }
+
+    /**
+     * Recursivelly load child containers fo a givven container
+     *
+     * @param Container $container
+     * @return void
+     */
+    public function loadChildContainers(Container $container): void
+    {
+        $container->load('childContainers');
+        if($container->childContainers->count()) {
+            $container->childContainers->each(function ($container) {
+                $this->loadChildContainers($container);
+            });
+        }
+    }
 }

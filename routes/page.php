@@ -10,6 +10,6 @@
 */
 Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::fallback(function ($url) {
-        resolve(\App\Http\Controllers\Front\PageController::class)->page('/' . $url);
+        return resolve(\App\Http\Controllers\Front\PageController::class)->page('/' . $url);
     });
 });

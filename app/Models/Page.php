@@ -27,9 +27,17 @@ class Page extends BasicModel
         return $this->belongsToMany(Container::class, 'page_container');
     }
 
-
+    /**
+     * Get page with all their containers
+     *
+     * @return mixed
+     */
     public function getData()
     {
-
+        return $this->load('containers')
+            ->containers
+            ->each(function ($container) {
+                $container->loadAllChildContainers();
+            });
     }
 }

@@ -22,6 +22,7 @@ class PageTest extends TestCase
     /** @test */
     public function an_active_page_url_can_be_accessed_through_wildcard_routing()
     {
+        $this->withoutExceptionHandling();
         factory(Page::class)->create(['url' => '/existing-page-url']);
 
         $this->get('/' . app()->getLocale() . '/existing-page-url')->assertStatus(200);

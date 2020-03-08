@@ -18,7 +18,7 @@ class PageController extends Controller
         if(resolve(ValidationServiceInterface::class)->validate(['url' => $url], ['url'], 'page', 'access') === true &&
             $page = Page::where('url', $url)->where('status', 1)->first()
         ) {
-            return view('front.page.renderer')->with([
+            return view('front.page.renderer', [
                 'pageData' => $page->getData(),
             ]);
         }

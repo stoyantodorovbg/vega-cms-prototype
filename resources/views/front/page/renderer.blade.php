@@ -1,1 +1,1 @@
-Page Renderer
+@extends('front.layouts.app')

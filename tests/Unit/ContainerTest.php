@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Page;
 use App\Models\Container;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -46,5 +47,36 @@ class ContainerTest extends TestCase
         $container->childContainers()->attach($childContainersIds);
 
         $this->assertCount(10, $container->childContainers);
+    }
+
+    /** @test */
+    public function the_container_can_load_all_nested_child_containers()
+    {
+        $container = factory(Container::class)->create();
+
+        $childContainers = factory(Container::class, 10)->create();
+
+        $nestedContainers = factory(Container::class, 5)->create();
+
+        $container->childContainers()->attach($childContainers->pluck('id')->toArray());
+
+        $childContainers->each(function ($container) use($nestedContainers) {
+            $container->childContainers()->attach($nestedContainers->pluck('id')->toArray());
+        });
+
+        $container->loadAllChildContainers();
+
+        $queriesCount = 0;
+        DB::listen(function ($query) use (&$queriesCount) {
+            $queriesCount++;
+        });
+
+        $this->assertCount(10, $container->childContainers);
+
+        foreach ($container->childContainers as $childContainer) {
+            $this->assertCount(5, $childContainer->childContainers);
+        }
+
+        $this->assertEquals(0 , $queriesCount);
     }
 }

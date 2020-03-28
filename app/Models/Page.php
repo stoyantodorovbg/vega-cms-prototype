@@ -32,12 +32,14 @@ class Page extends BasicModel
      *
      * @return mixed
      */
-    public function getData()
+    public function getData(): Page
     {
-        return $this->load('containers')
+        $this->load('containers')
             ->containers
             ->each(function ($container) {
                 $container->loadAllChildContainers();
             });
+
+        return $this;
     }
 }

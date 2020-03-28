@@ -37,8 +37,6 @@
             </div>
         </section>
 
-
-
         <!-- Modal window -->
         <delete-confirmation v-show="deleting" :request_data="deleteRequestData"></delete-confirmation>
     </div>

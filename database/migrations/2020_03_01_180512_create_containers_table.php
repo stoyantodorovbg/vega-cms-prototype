@@ -20,6 +20,7 @@ class CreateContainersTable extends Migration
             $table->integer('row_position');
             $table->integer('col_position');
             $table->smallInteger('col_width');
+            $table->string('row_classes');
             $table->string('classes');
             $table->json('title')->nullable();
             $table->json('summary')->nullable();

@@ -51,6 +51,7 @@ Vue.component('json-presenter', require('./components/data/JsonPresenter.vue').d
 Vue.component('json-input', require('./components/inputs/JsonInput.vue').default);
 Vue.component('parent-select-input', require('./components/inputs/ParentSelectInput.vue').default);
 Vue.component('derived-select-input', require('./components/inputs/DerivedSelectInput.vue').default);
+Vue.component('page', require('./components/page/Page.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

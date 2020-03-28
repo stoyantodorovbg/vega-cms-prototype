@@ -437,7 +437,22 @@ class PageTestTableSeeder extends Seeder
             'body' => json_encode([
                 'semantic_tag' => 'div',
                 'col_width' => 12,
-                'text' => $faker->text(300),
+                'text' => [
+                    [
+                        'tag' => 'span',
+                        'content' => $faker->text(100)
+                    ],
+                    [
+                        'tag' => 'a',
+                        'href' => 'https://google.com',
+                        'target' => '_blank',
+                        'content' => 'Google'
+                    ],
+                    [
+                    'tag' => 'span',
+                    'content' => $faker->text(100)
+                    ]
+                ],
                 'status' => 1,
                 'row_classes' => '',
                 'classes' => 'text-capitalize m-1',
@@ -518,7 +533,43 @@ class PageTestTableSeeder extends Seeder
             'body' => json_encode([
                 'semantic_tag' => 'div',
                 'col_width' => 12,
-                'text' => $faker->text(300),
+                'text' => [
+                    [
+                        'tag' => 'a',
+                        'href' => 'https://google.com',
+                        'target' => '_blank',
+                        'content' => [
+                            [
+                                'tag' => 'img',
+                                'src' => '/storage/images/Essential-images.jpg',
+                                'alt' => 'example-image',
+                                'class' => '',
+                                'style' => [
+                                    'width' => '30px',
+                                    'height' => '30px',
+                                ]
+                            ]
+                        ],
+                    ],
+                    [
+                        'tag' => 'span',
+                        'content' => $faker->text(100)
+                    ],
+                    [
+                        'tag' => 'img',
+                        'src' => '/storage/images/Essential-images.jpg',
+                        'alt' => 'example-image',
+                        'class' => '',
+                        'style' => [
+                            'width' => '30px',
+                            'height' => '30px',
+                        ]
+                    ],
+                    [
+                        'tag' => 'span',
+                        'content' => $faker->text(100)
+                    ]
+                ],
                 'status' => 1,
                 'row_classes' => '',
                 'classes' => 'text-capitalize m-1',

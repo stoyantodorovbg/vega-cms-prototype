@@ -2,7 +2,7 @@
     <div class="container">
         <div :class="'row ' + pageData.outer_row_classes">
             <div v-if="pageData.status"
-                 :style="pageStyles"
+                 :style="pageStyles ? pageStyles : false"
                  :class="'col-md-' + pageData.col_width + ' ' + pageData.classes"
             >
                 <div :class="'row ' + pageData.inner_row_classes">

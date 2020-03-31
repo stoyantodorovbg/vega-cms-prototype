@@ -152,7 +152,7 @@
 
         methods: {
             load(initial = true) {
-                axios.get('/api/' + this.$store.state.locale + '/admin/index', {
+                axios.get('/api/' + this.$store.getters.locale + '/admin/index', {
                         params: {
                             model: this.model_name,
                             filters: this.default_filters
@@ -263,7 +263,7 @@
             },
                 getButtonCreatePropData() {
                 return {
-                    url: '/admin/' + this.$store.state.locale + '/' +
+                    url: '/admin/' + this.$store.getters.locale + '/' +
                         this.$pluralize(this.model_name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()) +
                         '/create',
                     text: 'Create ' + this.model_name,
@@ -273,7 +273,7 @@
             getIconShowData(itemId) {
                 return {
                     url: '/admin/' +
-                        this.$store.state.locale +
+                        this.$store.getters.locale +
                         '/' +
                         this.$pluralize(this.modelNameSlug) +
                         '/' +
@@ -284,7 +284,7 @@
             getIconEditData(itemId) {
                 return {
                     url: '/admin/' +
-                        this.$store.state.locale +
+                        this.$store.getters.locale +
                         '/' +
                         this.$pluralize(this.modelNameSlug) +
                         '/' +
@@ -304,7 +304,7 @@
                 this.deleteRequestData = {
                     'slug': itemId,
                     'modelName': this.modelNameSlug,
-                }
+                };
                 document.getElementById('deleteModelModalTrigger').click();
             }
         }

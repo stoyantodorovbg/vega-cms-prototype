@@ -3,25 +3,14 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
-
-//window.Vue = require('vue');
 import Vue from 'vue';
-import Vuex from 'vuex'
+import store from './store/store.js';
+
 import VuePluralize from 'vue-pluralize'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
-Vue.use(Vuex);
-
-let store = new Vuex.Store({
-    state: {
-        locale: document.getElementById('app').getAttribute('data-locale'),
-    },
-    mutations: {}
-});
-
 Vue.use(VuePluralize);
 
 import helpers from './helpers.js';
@@ -61,6 +50,6 @@ Vue.component('page', require('./components/page/Page.vue').default);
 
 const app = new Vue({
     el: '#app',
-    store: store
+    store
 });
 

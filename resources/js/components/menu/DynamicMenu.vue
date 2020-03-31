@@ -35,7 +35,7 @@
 
         methods: {
             load() {
-                axios.get('/api/' + this.$store.state.locale + '/menu', {
+                axios.get('/api/' + this.$store.getters.locale + '/menu', {
                         params: {
                             menu_id: this.menu_id
                         }

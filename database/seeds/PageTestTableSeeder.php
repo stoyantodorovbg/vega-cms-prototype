@@ -20,17 +20,26 @@ class PageTestTableSeeder extends Seeder
             'url' => '/test-page',
             'status' => 1,
             'col_width' => 12,
-            'title' => 'Test Page Title',
+            'title' => 'Test Page',
             'description' => 'Test Page Description',
             'outer_row_classes' => '',
             'inner_row_classes' => 'p-3',
             'classes' => '',
             'styles' => json_encode([
-                'border' => '1px solid blue'
+                'border' => '1px solid blue',
+                'structure' => [
+                    'border' => [
+                        'type' => 'text'
+                    ],
+                ]
             ]),
             'meta_tags' => json_encode([
-                [
-                    'keywords' => 'test-page',
+                'keywords' => [],
+                'structure' => [
+                    'keywords' => [
+                        'type' => 'json',
+                        'nested' => [],
+                    ],
                 ]
             ]),
         ]);
@@ -44,7 +53,7 @@ class PageTestTableSeeder extends Seeder
             'row_classes' => 'm-2',
             'classes' => 'p-2',
             'title' => json_encode([
-                'semantic_tag' => 'h1',
+                'semantic_tag' => 'h2',
                 'col_width' => 12,
                 'text' => 'Test Page Header',
                 'status' => 1,

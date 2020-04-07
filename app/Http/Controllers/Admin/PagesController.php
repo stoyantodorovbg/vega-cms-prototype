@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Menu;
+use App\Models\Page;
 use App\Http\Controllers\Controller;
 use App\DataMappers\DataMapperInterface;
-use App\Http\Requests\Admin\AdminMenuRequest;
+use App\Http\Requests\Admin\AdminPageRequest;
 use App\Repositories\Interfaces\DefaultJsonStructureRepositoryInterface;
 
-class MenusController extends Controller
+class PagesController extends Controller
 {
     /**
      * @var DataMapperInterface
@@ -24,84 +24,84 @@ class MenusController extends Controller
         $this->dataMapper = $dataMapper;
     }
 
+
     /**
-     * Admin menus menus page
+     * Admin pages pages page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('admin.menus.index');
+        return view('admin.pages.index');
     }
 
     /**
-     * Admin menus show page
+     * Admin pages show page
      *
-     * @param Menu $menu
+     * @param Page $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Menu $menu)
+    public function show(Page $page)
     {
-        return view('admin.menus.show', compact('menu'));
+        return view('admin.pages.show', compact('page'));
     }
 
     /**
-     * Admin menus create page
+     * Admin pages create page
      *
-     * @param DefaultJsonStructureRepositoryInterface $defaultJsonStructureRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(DefaultJsonStructureRepositoryInterface $defaultJsonStructureRepository)
     {
-        $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(Menu::class)
+        $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(Page::class)
             ->pluck('structure', 'field')->toArray();
 
-        return view('admin.menus.create', compact('defaultJsonFieldsData'));
+        return view('admin.pages.create', compact('defaultJsonFieldsData'));
     }
 
     /**
-     * Admin menus store action
+     * Admin pages store action
      *
-     * @param AdminMenuRequest $request
+     * @param AdminPageRequest $request
      * @param DataMapperInterface $dataMapper
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AdminMenuRequest $request)
+    public function store(AdminPageRequest $request)
     {
         $mappedData = $this->dataMapper->mapData($request->validated());
 
-        $menu = Menu::create($mappedData);
+        $page = Page::create($mappedData);
 
-        return redirect()->route('admin-menus.show', $menu->getSlug())->with(compact('menu'));
+        return redirect()->route('admin-pages.show', $page->getSlug())->with(compact('page'));
     }
 
     /**
-     * Admin menus edit page
+     * Admin pages edit page
      *
-     * @param Menu $menu
+     * @param Page $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Menu $menu)
+    public function edit(Page $page)
     {
-        $menu->loadAllMenuItems();
+        $page->getData();
 
-        return view('admin.menus.edit', compact('menu'));
+        return view('admin.pages.edit', compact('page'));
     }
 
     /**
-     * Admin menus update action
+     * Admin pages update action
      *
-     * @param Menu $menu
-     * @param AdminMenuRequest $request
+     * @param Page $page
+     * @param AdminPageRequest $request
      * @param DataMapperInterface $dataMapper
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Menu $menu, AdminMenuRequest $request)
+    public function update(Page $page, AdminPageRequest $request)
     {
         $mappedData = $this->dataMapper->mapData($request->validated());
 
-        $menu->update($mappedData);
+        $page->update($mappedData);
 
-        return redirect()->back()->with(compact('menu'));
+        return redirect()->back()->with(compact('page'));
     }
 }

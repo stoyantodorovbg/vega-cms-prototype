@@ -1,6 +1,8 @@
 <template>
     <div class="container">
-        <div :class="'row ' + pageData.outer_row_classes">
+        <div :class="'row ' + pageData.outer_row_classes"
+             :style="pageStyles ? pageStyles : false"
+        >
             <div v-if="pageData.status"
                  :style="pageStyles ? pageStyles : false"
                  :class="'col-md-' + pageData.col_width + ' ' + pageData.classes"
@@ -41,7 +43,7 @@
 
         computed: {
             pageStyles: function () {
-                return this.pageData.styles.replace('{', '').replace('}', '').split('"').join('');
+                return this.$helpers.processStyles(JSON.parse(this.pageData.styles));
             },
             metaTags: function () {
                 return JSON.parse(this.pageData.meta_tags);

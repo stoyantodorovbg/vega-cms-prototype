@@ -2,9 +2,7 @@
       action="{{ isset($menu) ? route('admin-menus.update', $menu->getSlug()) : route('admin-menus.store') }}"
 >
     @csrf
-    @if(isset($menu))
-        @method('PATCH')
-    @endif
+    @if(isset($menu)) @method('PATCH') @endif
     <div class="row">
         <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.status') }}</label>
@@ -23,7 +21,7 @@
             <input type="text"
                    name="classes"
                    value="{{ isset($menu) ? old('name', $menu->classes) : '' }}"
-                   id="admin-form-user-classes"
+                   id="admin-form-menu-classes"
                    class="form-control"
             >
         </div>
@@ -62,8 +60,6 @@
         </div>
 
     </div>
-
-
 </form>
 
 

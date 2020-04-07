@@ -419,5 +419,56 @@ class MenuTableSeeder extends Seeder
             'classes' => 'text-uppercase',
             'styles' => json_encode([]),
         ]);
+
+        factory(MenuItem::class)->create([
+            'menu_id' => $menu->id,
+            'parent_id' => null,
+            'status' => 1,
+            'url' => '/pages',
+            'title' => json_encode([
+                'text' => 'pages',
+                'status' => 1,
+                'classes' => 'text-dark',
+                'styles',
+                'structure' => [
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [],
+                    ],
+                ],
+            ]),
+            'description' => json_encode([
+                'text' => '',
+                'status' => 0,
+                'classes' => '',
+                'styles' => [],
+                'structure' => [
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [],
+                    ],
+                ],
+            ]),
+            'classes' => 'text-uppercase',
+            'styles' => json_encode([]),
+        ]);
     }
 }

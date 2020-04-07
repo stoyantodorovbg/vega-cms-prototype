@@ -15,14 +15,14 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('url');
+            $table->text('url');
             $table->tinyInteger('col_width');
             $table->boolean('status')->default(1);
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->string('outer_row_classes');
-            $table->string('inner_row_classes');
-            $table->string('classes');
+            $table->string('outer_row_classes')->nullable();
+            $table->string('inner_row_classes')->nullable();
+            $table->string('classes')->nullable();
             $table->json('styles')->nullable();
             $table->json('meta_tags')->nullable();
             $table->timestamps();

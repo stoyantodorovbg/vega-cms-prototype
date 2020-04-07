@@ -2,8 +2,9 @@
 
 namespace App\DataMappers;
 
-class MenuDataMapper extends JsonDataMapper implements DataMapperInterface
+class PageDataMapper extends JsonDataMapper implements DataMapperInterface
 {
+
     /**
      * Map data
      *
@@ -14,9 +15,8 @@ class MenuDataMapper extends JsonDataMapper implements DataMapperInterface
     {
         $emptyJsonField = json_encode([]);
         $mappedData = [
-            'title' => $emptyJsonField,
-            'description' => $emptyJsonField,
             'styles' => $emptyJsonField,
+            'meta_tags' => $emptyJsonField,
         ];
         foreach ($data as $key => $value) {
             if (is_array($value)) {
@@ -31,10 +31,9 @@ class MenuDataMapper extends JsonDataMapper implements DataMapperInterface
                     $mappedData[$key] = json_encode($processedValue, JSON_HEX_QUOT);
                 }
             } else {
-                $mappedData[$key] = $value !== null ? $value : '';
+                $mappedData[$key] = $value ?? '';
             }
 
         }
-        return $mappedData;
-    }
+        return $mappedData;    }
 }

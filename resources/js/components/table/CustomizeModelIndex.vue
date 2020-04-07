@@ -1,6 +1,6 @@
 <template>
     <div class="col-lg-12">
-        <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
+        <button @click="changeEditing" type="button" class="btn btn-main">{{ getButtonValue() }}</button>
         <div v-if="editing" class="form-group custom-grid-panel">
             <div class="form-check"
                  v-for="field in fields"

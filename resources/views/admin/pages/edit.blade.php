@@ -6,7 +6,7 @@
             <button-link :prop_data="{
                 'url': '{{ route('admin-pages.index') }}',
                 'text': '{{ phrase('buttons.all-pages') }}',
-                'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
+                'htmlClass': 'btn btn-main float-right m-1 text-capitalize'
                 }"
             ></button-link>
             <button-link :prop_data="{
@@ -23,7 +23,7 @@
     <button-link :prop_data="{
         'url': '{{ route('admin-pages.index', ['page' => $page->id, 'pageItem' => 0]) }}',
         'text': '{{ phrase('buttons.show-page-containers') }}',
-        'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
+        'htmlClass': 'btn btn-main float-right m-1 text-capitalize'
         }"
     ></button-link>
 @endsection

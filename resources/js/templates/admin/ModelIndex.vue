@@ -267,7 +267,7 @@
                         this.$pluralize(this.model_name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()) +
                         '/create',
                     text: 'Create ' + this.model_name,
-                    htmlClass: 'btn btn-secondary float-right mt-3 mb-3'
+                    htmlClass: 'btn btn-main float-right mt-3 mb-3'
                 }
             },
             getIconShowData(itemId) {

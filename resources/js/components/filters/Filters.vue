@@ -2,14 +2,14 @@
     <!-- Filter Form -->
     <div class="row">
         <div class="col-lg-12">
-            <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
+            <button @click="changeEditing" type="button" class="btn btn-main">{{ getButtonValue() }}</button>
         </div>
         <div class="col-lg-12">
             <div v-if="showFilters" class="form-group d-flex">
                 <div class="form-check"
                      v-for="filter in getFiltersData()">
                     <div v-if="filter.visibility">
-                        <component v-bind:is="getFilterDefaultType(filter.name)"
+                        <component :is="getFilterDefaultType(filter.name)"
                                    :name="filter.name">
 
                         </component>

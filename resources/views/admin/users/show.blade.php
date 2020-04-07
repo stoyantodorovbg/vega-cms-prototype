@@ -7,7 +7,7 @@
                 <button-link :prop_data="{
                     'url': '{{ route('admin-users.index') }}',
                     'text': '{{ phrase('buttons.all-users') }}',
-                    'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
+                    'htmlClass': 'btn btn-main float-right m-1 text-capitalize'
                 }"
                 ></button-link>
                 <button-link :prop_data="{

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="(value, key) in json_data">
+        <div v-for="(value, key) in json_data" :key="key">
             {{ key }}: {{ value }}
         </div>
     </div>

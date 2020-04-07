@@ -4,6 +4,7 @@
 /public/fonts/*
 /storage/*.key
 /vendor
+/public/0.js
 .idea
 .env
 .phpunit.result.cache

@@ -16,9 +16,9 @@ class MenuTableSeeder extends Seeder
         // Sidebar navigation - admin panel
         $menu = factory(Menu::class)->create([
             'title' => json_encode([
-                'text' => 'Admin side nav',
+                'text' => 'Vega CMS - Admin Panel',
                 'status' => 1,
-                'classes' => '',
+                'classes' => 'nav-title',
                 'styles' => [],
                 'structure' => [
                     'text' => [
@@ -69,9 +69,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/dashboard',
             'title' => json_encode([
-                'text' => 'dashboard',
+                'text' => 'Dashboard',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-dashboard nav-item-text--light',
                 'styles' => [],
                 'structure' => [
                     'text' => [
@@ -110,7 +110,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -120,9 +120,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/users',
             'title' => json_encode([
-                'text' => 'users',
+                'text' => 'Users',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-users nav-item-text--light',
                 'styles' => [],
                 'structure' => [
                     'text' => [
@@ -161,7 +161,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -171,9 +171,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/groups',
             'title' => json_encode([
-                'text' => 'user groups',
+                'text' => 'User groups',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-user-groups nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -212,7 +212,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'mb-2 mt-2 text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -222,9 +222,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/phrases',
             'title' => json_encode([
-                'text' => 'phrases',
+                'text' => 'Phrases',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-phrases nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -263,7 +263,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -273,9 +273,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/locales',
             'title' => json_encode([
-                'text' => 'locales',
+                'text' => 'Locales',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-locales nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -314,7 +314,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -324,9 +324,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/routes',
             'title' => json_encode([
-                'text' => 'routes',
+                'text' => 'Routes',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-routes nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -365,7 +365,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -375,9 +375,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/menus',
             'title' => json_encode([
-                'text' => 'menus',
+                'text' => 'Menu',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-menu nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -416,7 +416,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
 
@@ -426,9 +426,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/pages',
             'title' => json_encode([
-                'text' => 'pages',
+                'text' => 'Pages',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-page nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -467,7 +467,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
     }

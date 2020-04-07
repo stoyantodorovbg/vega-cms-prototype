@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuTableSeeder ::class);
         $this->call(DefaultJsonStructureTableSeeder ::class);
         $this->call(PageTestTableSeeder ::class);
+        $this->call(HomePageTableSeeder ::class);
         $this->call(ContainersTableSeeder ::class);
     }
 }

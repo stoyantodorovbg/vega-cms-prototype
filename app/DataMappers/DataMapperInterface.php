@@ -2,7 +2,7 @@
 
 namespace App\DataMappers;
 
-interface DataMapper
+interface DataMapperInterface
 {
     /**
      * Map data

@@ -65,29 +65,23 @@
 
         computed: {
             containerStyles: function () {
-                return this.processStyles(JSON.parse(this.container_data.styles));
+                return this.$helpers.processStyles(JSON.parse(this.container_data.styles));
             },
             titleStyles: function () {
-                return this.processStyles(this.title.styles);
+                return this.$helpers.processStyles(this.title.styles);
             },
 
             summaryStyles: function () {
-                return this.processStyles(this.body.styles);
+                return this.$helpers.processStyles(this.body.styles);
             },
 
             bodyStyles: function () {
-                return this.processStyles(this.summary.styles);
+                return this.$helpers.processStyles(this.summary.styles);
             },
         },
 
         methods: {
-            processStyles(stylesData) {
-                let styles = '';
-                for (let prop in stylesData) {
-                    styles += prop + ': ' + stylesData[prop] + '; ';
-                }
-                return styles;
-            }
+
         }
     }
 </script>

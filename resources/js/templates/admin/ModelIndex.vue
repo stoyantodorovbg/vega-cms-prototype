@@ -45,11 +45,11 @@
 <script>
     import CellTd from '../../components/table/CellTd'
     import CellTh from '../../components/table/CellTh'
-    import CustomizeModelIndex from "../../components/table/CustomizeModelIndex";
-    import MenageFilters from "../../components/filters/MenageFilters";
-    import ButtonLink from "../../components/links/ButtonLink";
     import IconLink from "../../components/links/IconLink";
+    import ButtonLink from "../../components/links/ButtonLink";
+    import MenageFilters from "../../components/filters/MenageFilters";
     import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
+    import CustomizeModelIndex from "../../components/table/CustomizeModelIndex";
 
     export default {
         components: {

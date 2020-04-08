@@ -20,11 +20,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-
-        @include('front.partials.nav')
-
-        <main class="admin-main py-4">
+    <div id="app" data-locale="{{ app()->getLocale() }}">
+        <main class="py-4">
             @yield('content')
         </main>
     </div>

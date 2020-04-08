@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
-                        <button @click="changeEditing" type="button" class="btn btn-success">{{ getButtonValue() }}</button>
+                        <button @click="changeEditing" type="button" class="btn btn-main">{{ getButtonValue() }}</button>
                     </div>
                     <div class="col-lg-12">
                         <div v-if="editing" class="form-group custom-filter-panel">

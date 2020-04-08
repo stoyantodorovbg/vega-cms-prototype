@@ -2,15 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\DefaultJsonStructure;
 use App\Models\Menu;
-use App\DataMappers\MenuDataMapper;
 use App\Http\Controllers\Controller;
+use App\DataMappers\DataMapperInterface;
 use App\Http\Requests\Admin\AdminMenuRequest;
 use App\Repositories\Interfaces\DefaultJsonStructureRepositoryInterface;
 
 class MenusController extends Controller
 {
+    /**
+     * @var DataMapperInterface
+     */
+    protected $dataMapper;
+
+    /**
+     * PagesController constructor.
+     * @param DataMapperInterface $dataMapper
+     */
+    public function __construct(DataMapperInterface $dataMapper)
+    {
+        $this->dataMapper = $dataMapper;
+    }
+
     /**
      * Admin menus menus page
      *
@@ -35,11 +48,11 @@ class MenusController extends Controller
     /**
      * Admin menus create page
      *
+     * @param DefaultJsonStructureRepositoryInterface $defaultJsonStructureRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(DefaultJsonStructureRepositoryInterface $defaultJsonStructureRepository)
     {
-        $defaultJsonStructureRepository = resolve(DefaultJsonStructureRepositoryInterface::class);
         $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(Menu::class)
             ->pluck('structure', 'field')->toArray();
 
@@ -50,11 +63,12 @@ class MenusController extends Controller
      * Admin menus store action
      *
      * @param AdminMenuRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param DataMapperInterface $dataMapper
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AdminMenuRequest $request)
     {
-        $mappedData = resolve(MenuDataMapper::class)->mapData($request->validated());
+        $mappedData = $this->dataMapper->mapData($request->validated());
 
         $menu = Menu::create($mappedData);
 
@@ -79,11 +93,12 @@ class MenusController extends Controller
      *
      * @param Menu $menu
      * @param AdminMenuRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param DataMapperInterface $dataMapper
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Menu $menu, AdminMenuRequest $request)
     {
-        $mappedData = resolve(MenuDataMapper::class)->mapData($request->validated());
+        $mappedData = $this->dataMapper->mapData($request->validated());
 
         $menu->update($mappedData);
 

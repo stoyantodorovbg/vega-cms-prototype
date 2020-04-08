@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Menu;
 use App\Models\MenuItem;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\MenuResource;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,6 +22,10 @@ class MenuTest extends TestCase
 
         $this->assertCount(3, $menuWithAllMenuItems->parentMenuItems);
 
+        $queriesCount = 0;
+        DB::listen(function ($query) use (&$queriesCount) {
+            $queriesCount++;
+        });
         foreach ($menuWithAllMenuItems->parentMenuItems as $menuItem) {
             $this->assertCount(2, $menuItem->childMenuItems);
 
@@ -28,6 +33,8 @@ class MenuTest extends TestCase
                 $this->assertCount(4, $childMenuItem->childMenuItems);
             }
         }
+
+        $this->assertEquals(0, $queriesCount);
     }
 
     /** @test */

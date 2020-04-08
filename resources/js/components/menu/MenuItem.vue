@@ -3,7 +3,7 @@
          :style="menuItemData.styles"
     >
         <a v-if="menuItemData.title && menuItemData.title.status"
-                :href="$helpers.adminUrlPrefix($store.state.locale) + menuItemData.url"
+                :href="$helpers.adminUrlPrefix($store.getters.locale) + menuItemData.url"
                 :class="menuItemData.title.classes"
                 :style="menuItemData.title.styles"
             >
@@ -24,13 +24,11 @@
 </template>
 
 <script>
-
-
     export default {
         name: 'menu-item',
 
         components: {
-            MenuItemsContainer: () => import('./MenuItemsContainer'),
+            MenuItemsContainer: () => import('./MenuItemsContainer.vue'),
         },
 
         props: {

@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MenuItemsContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuItemsContainer */ "./resources/js/components/menu/MenuItemsContainer.vue");
 //
 //
 //
@@ -34,12 +35,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu-item',
   components: {
-    MenuItemsContainer: function MenuItemsContainer() {
-      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./MenuItemsContainer */ "./resources/js/components/menu/MenuItemsContainer.vue"));
-    }
+    menuItemContainer: function menuItemContainer() {
+      return _MenuItemsContainer__WEBPACK_IMPORTED_MODULE_0__["default"];
+    } //MenuItemsContainer: () => import('./MenuItemsContainer'),
+
   },
   props: {
     menuItemData: {
@@ -127,7 +130,7 @@ var render = function() {
               style: _vm.menuItemData.title.styles,
               attrs: {
                 href:
-                  _vm.$helpers.adminUrlPrefix(_vm.$store.state.locale) +
+                  _vm.$helpers.adminUrlPrefix(_vm.$store.getters.locale) +
                   _vm.menuItemData.url
               }
             },

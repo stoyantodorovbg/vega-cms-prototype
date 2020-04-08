@@ -487,6 +487,66 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
+        // Admin pages index
+        $this->createRoute('/pages',
+            'get',
+            'PagesController@index',
+            'admin-pages.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages show
+        $this->createRoute('/pages/{page}',
+            'get',
+            'PagesController@show',
+            'admin-pages.show',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages create
+        $this->createRoute('/pages/create',
+            'get',
+            'PagesController@create',
+            'admin-pages.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages store
+        $this->createRoute('/pages/store',
+            'post',
+            'PagesController@store',
+            'admin-pages.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages edit
+        $this->createRoute('/pages/{page}/edit',
+            'get',
+            'PagesController@edit',
+            'admin-pages.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages update
+        $this->createRoute('/pages/{page}/update',
+            'patch',
+            'PagesController@update',
+            'admin-pages.update',
+            'admin',
+            'admin',
+            'admins'
+        );
+
         // API Models index
         $this->createRoute('/admin/index',
             'get',

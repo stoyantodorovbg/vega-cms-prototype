@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Page;
+use App\Models\MenuItem;
+use App\Models\Menu;
 use Illuminate\Database\Seeder;
 use App\Models\DefaultJsonStructure;
 
@@ -15,21 +18,21 @@ class DefaultJsonStructureTableSeeder extends Seeder
         // Menu
         factory(DefaultJsonStructure::class)
             ->create($this->getDefaultStructure(
-                'App\\Models\\Menu',
+                Menu::class,
                 'title',
                 $this->getDefaultMenuUnitStructure()
             ));
 
         factory(DefaultJsonStructure::class)
             ->create($this->getDefaultStructure(
-                'App\\Models\\Menu',
+                Menu::class,
                 'description',
                 $this->getDefaultMenuUnitStructure()
             ));
 
         factory(DefaultJsonStructure::class)
             ->create($this->getDefaultStructure(
-                'App\Models\Menu',
+                Menu::class,
                 'styles',
                 json_encode([])
             ));
@@ -37,22 +40,37 @@ class DefaultJsonStructureTableSeeder extends Seeder
         // MenuItem
         factory(DefaultJsonStructure::class)
             ->create($this->getDefaultStructure(
-                'App\\Models\\MenuItem',
+                MenuItem::class,
                 'title',
                 $this->getDefaultMenuUnitStructure()
             ));
 
         factory(DefaultJsonStructure::class)
             ->create($this->getDefaultStructure(
-                'App\\Models\\MenuItem',
+                MenuItem::class,
                 'description',
                 $this->getDefaultMenuUnitStructure()
             ));
 
         factory(DefaultJsonStructure::class)
             ->create($this->getDefaultStructure(
-                'App\Models\MenuItem',
+                MenuItem::class,
                 'styles',
+                json_encode([])
+            ));
+
+        // Page
+        factory(DefaultJsonStructure::class)
+            ->create($this->getDefaultStructure(
+                Page::class,
+                'styles',
+                json_encode([])
+            ));
+
+        factory(DefaultJsonStructure::class)
+            ->create($this->getDefaultStructure(
+                Page::class,
+                'meta_tags',
                 json_encode([])
             ));
     }

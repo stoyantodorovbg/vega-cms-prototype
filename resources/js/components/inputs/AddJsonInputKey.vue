@@ -15,7 +15,7 @@
                     <option value="json">JSON</option>
                 </select>
                 <button type="button"
-                        class="btn btn-success"
+                        class="btn btn-main"
                         @click="addKey()"
                         :disabled="isAddKeyButtonDisabled"
                 >Add key
@@ -24,7 +24,7 @@
         </div>
         <button v-else
                 type="button"
-                class="btn btn-success"
+                class="btn btn-main"
                 @click="addingKey()"
         >
             Add new key to {{ input_key }}

@@ -3,25 +3,14 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
-
-//window.Vue = require('vue');
 import Vue from 'vue';
-import Vuex from 'vuex'
+import store from './store/store.js';
+
 import VuePluralize from 'vue-pluralize'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
-Vue.use(Vuex);
-
-let store = new Vuex.Store({
-    state: {
-        locale: document.getElementById('app').getAttribute('data-locale'),
-    },
-    mutations: {}
-});
-
 Vue.use(VuePluralize);
 
 import helpers from './helpers.js';
@@ -51,6 +40,7 @@ Vue.component('json-presenter', require('./components/data/JsonPresenter.vue').d
 Vue.component('json-input', require('./components/inputs/JsonInput.vue').default);
 Vue.component('parent-select-input', require('./components/inputs/ParentSelectInput.vue').default);
 Vue.component('derived-select-input', require('./components/inputs/DerivedSelectInput.vue').default);
+Vue.component('page', require('./components/page/Page.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -60,6 +50,6 @@ Vue.component('derived-select-input', require('./components/inputs/DerivedSelect
 
 const app = new Vue({
     el: '#app',
-    store: store
+    store
 });
 

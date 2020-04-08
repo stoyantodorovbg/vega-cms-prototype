@@ -54,4 +54,10 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::post('/menu-items/store', 'Admin\MenuItemsController@store')->name('admin-menu-items.store')->middleware('admins');
     Route::get('/menu-items/{menuItem}/edit', 'Admin\MenuItemsController@edit')->name('admin-menu-items.edit')->middleware('admins');
     Route::patch('/menu-items/{menuItem}/update', 'Admin\MenuItemsController@update')->name('admin-menu-items.update')->middleware('admins');
+    Route::get('/pages', 'Admin\PagesController@index')->name('admin-pages.index')->middleware('admins');
+    Route::get('/pages/create', 'Admin\PagesController@create')->name('admin-pages.create')->middleware('admins');
+    Route::get('/pages/{page}', 'Admin\PagesController@show')->name('admin-pages.show')->middleware('admins');
+    Route::post('/pages/store', 'Admin\PagesController@store')->name('admin-pages.store')->middleware('admins');
+    Route::get('/pages/{page}/edit', 'Admin\PagesController@edit')->name('admin-pages.edit')->middleware('admins');
+    Route::patch('/pages/{page}/update', 'Admin\PagesController@update')->name('admin-pages.update')->middleware('admins');
 });

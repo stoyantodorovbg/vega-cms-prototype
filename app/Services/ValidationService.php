@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 class ValidationService implements ValidationServiceInterface
 {
     /**
+     * Validate data
+     *
      * @param array $data
      * @param array $validationTypes
      * @param string $entity
@@ -59,6 +61,43 @@ class ValidationService implements ValidationServiceInterface
     }
 
     /**
+     * Page url validation on create
+     *
+     * @return array
+     */
+    protected function pageUrlCreate(): array
+    {
+        return [
+            'url' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:pages,url',
+                'unique:routes,url',
+                'regex:/^[A-Za-z1-9-_\/]*$/',
+            ],
+        ];
+    }
+
+    /**
+     * Page url validation on access
+     *
+     * @return array
+     */
+    protected function pageUrlAccess()
+    {
+        return [
+            'url' => [
+                'required',
+                'string',
+                'max:255',
+                'exists:pages,url',
+                'regex:/^[A-Za-z1-9-_\/]*$/',
+            ],
+        ];
+    }
+
+    /**
      * Route url validation rules
      *
      * @return array
@@ -71,7 +110,8 @@ class ValidationService implements ValidationServiceInterface
                 'string',
                 'max:255',
                 'unique:routes,url',
-                'regex:/^\/[A-Za-z1-9-_\/{}]*$/',
+                'unique:pages,url',
+                'regex:/^\/[A-Za-z1-9-_\/{}\?]*$/',
             ],
         ];
     }

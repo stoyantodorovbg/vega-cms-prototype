@@ -3,3 +3,13 @@
   border-width: 0;
   transition: all .2s;
 }
+.btn-main {
+  color: white;
+  background-color: $btn-main-color;
+  border-color: $btn-main-color;
+  &:hover {
+    color: white;
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+  }
+}

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Page;
 use Tests\TestCase;
 use App\Models\Group;
 use App\Models\Route;
@@ -559,5 +560,15 @@ class RouteTest extends TestCase
             'name' => 'test.test',
             'route_type' => 'api',
         ]);
+    }
+
+    /** @test */
+    public function route_with_the_same_url_as_existing_page_can_not_be_created()
+    {
+        factory(Page::class)->create(['url' => '/test']);
+
+        $this->artisan('generate:route /test get TestController@test test.test');
+
+        $this->assertDatabaseMissing('routes', ['url' => '/test']);
     }
 }

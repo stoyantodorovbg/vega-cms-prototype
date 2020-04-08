@@ -37,8 +37,6 @@
             </div>
         </section>
 
-
-
         <!-- Modal window -->
         <delete-confirmation v-show="deleting" :request_data="deleteRequestData"></delete-confirmation>
     </div>
@@ -47,11 +45,11 @@
 <script>
     import CellTd from '../../components/table/CellTd'
     import CellTh from '../../components/table/CellTh'
-    import CustomizeModelIndex from "../../components/table/CustomizeModelIndex";
-    import MenageFilters from "../../components/filters/MenageFilters";
-    import ButtonLink from "../../components/links/ButtonLink";
     import IconLink from "../../components/links/IconLink";
+    import ButtonLink from "../../components/links/ButtonLink";
+    import MenageFilters from "../../components/filters/MenageFilters";
     import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
+    import CustomizeModelIndex from "../../components/table/CustomizeModelIndex";
 
     export default {
         components: {
@@ -154,7 +152,7 @@
 
         methods: {
             load(initial = true) {
-                axios.get('/api/' + this.$store.state.locale + '/admin/index', {
+                axios.get('/api/' + this.$store.getters.locale + '/admin/index', {
                         params: {
                             model: this.model_name,
                             filters: this.default_filters
@@ -265,17 +263,17 @@
             },
                 getButtonCreatePropData() {
                 return {
-                    url: '/admin/' + this.$store.state.locale + '/' +
+                    url: '/admin/' + this.$store.getters.locale + '/' +
                         this.$pluralize(this.model_name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()) +
                         '/create',
                     text: 'Create ' + this.model_name,
-                    htmlClass: 'btn btn-secondary float-right mt-3 mb-3'
+                    htmlClass: 'btn btn-main float-right mt-3 mb-3'
                 }
             },
             getIconShowData(itemId) {
                 return {
                     url: '/admin/' +
-                        this.$store.state.locale +
+                        this.$store.getters.locale +
                         '/' +
                         this.$pluralize(this.modelNameSlug) +
                         '/' +
@@ -286,7 +284,7 @@
             getIconEditData(itemId) {
                 return {
                     url: '/admin/' +
-                        this.$store.state.locale +
+                        this.$store.getters.locale +
                         '/' +
                         this.$pluralize(this.modelNameSlug) +
                         '/' +
@@ -306,7 +304,7 @@
                 this.deleteRequestData = {
                     'slug': itemId,
                     'modelName': this.modelNameSlug,
-                }
+                };
                 document.getElementById('deleteModelModalTrigger').click();
             }
         }

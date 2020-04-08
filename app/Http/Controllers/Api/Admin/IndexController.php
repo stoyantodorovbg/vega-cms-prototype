@@ -31,9 +31,7 @@ class IndexController extends Controller
      */
     public function data(AdminIndexRequest $request)
     {
-        $modelName = "\\App\\Models\\" . $request->model;
-
-        $builder = $this->eloquentFilterService->addFilters($request, $modelName::query());
+        $builder = $this->eloquentFilterService->addFilters($request, "\\App\\Models\\" . $request->model);
 
         return $builder->get();
     }

@@ -11,8 +11,8 @@ interface EloquentFilterServiceInterface
      * Process requested filters
      *
      * @param Request $request
-     * @param Builder $builder
+     * @param string $model
      * @return Builder
      */
-    public function addFilters(Request $request, Builder $builder): Builder;
+    public function addFilters(Request $request, string $model): Builder;
 }

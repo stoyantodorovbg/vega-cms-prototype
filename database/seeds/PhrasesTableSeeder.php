@@ -519,6 +519,20 @@ class PhrasesTableSeeder extends Seeder
             ]
         ]);
 
+        Phrase::create([
+            'system_name' => 'buttons.edit_page',
+            'text' => [
+                'en' => 'edit page'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all_pages',
+            'text' => [
+                'en' => 'all pages'
+            ]
+        ]);
+
         // Messages
         Phrase::create([
             'system_name' => 'messages.deleted',

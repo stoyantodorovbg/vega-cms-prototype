@@ -43,7 +43,7 @@ class PhrasesController extends Controller
      * Admin phrases store action
      *
      * @param AdminPhraseRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AdminPhraseRequest $request)
     {
@@ -68,7 +68,7 @@ class PhrasesController extends Controller
      *
      * @param Phrase $phrase
      * @param AdminPhraseRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Phrase $phrase, AdminPhraseRequest $request)
     {

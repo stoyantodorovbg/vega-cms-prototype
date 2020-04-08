@@ -14,6 +14,8 @@ class MenuItemsController extends Controller
     /**
      * Admin menu items menus page
      *
+     * @param Menu $menu
+     * @param int $menuItem
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Menu $menu, int $menuItem)
@@ -29,7 +31,7 @@ class MenuItemsController extends Controller
             'parent_id' => [
                 'types' => [
                     'exact' => [
-                        'value' => $menuItem ? $menuItem : null
+                        'value' => $menuItem ?: null
                     ]
                 ]
             ]

@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <th>{{ phrase('labels.id') }}</th>
+                        <th class="text-capitalize">{{ phrase('labels.id') }}</th>
                         <td>{{ $menu->id }}</td>
                     </tr>
                     <tr>

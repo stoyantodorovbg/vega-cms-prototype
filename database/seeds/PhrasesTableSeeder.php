@@ -533,6 +533,20 @@ class PhrasesTableSeeder extends Seeder
             ]
         ]);
 
+        Phrase::create([
+            'system_name' => 'buttons.show_child_containers',
+            'text' => [
+                'en' => 'show child containers'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.edit_container',
+            'text' => [
+                'en' => 'edit container'
+            ]
+        ]);
+
         // Messages
         Phrase::create([
             'system_name' => 'messages.deleted',

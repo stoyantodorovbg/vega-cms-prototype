@@ -87,7 +87,7 @@ class EloquentFilterService implements EloquentFilterServiceInterface
     }
 
     /**
-     * Search by many to many related model field
+         * Search by many to many related model field
      *
      * @param Builder $builder
      * @param string $fieldName

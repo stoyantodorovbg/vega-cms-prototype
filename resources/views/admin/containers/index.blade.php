@@ -11,13 +11,13 @@
     ></model-index>
     <button-link :prop_data="{
         'url': '{{ route('admin-pages.show', ['page' => $pageSlug]) }}',
-        'text': '{{ phrase('buttons.page_show') }}',
+        'text': '{{ phrase('buttons.show-page') }}',
         'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
         }"
     ></button-link>
     <button-link :prop_data="{
         'url': '{{ route('admin-pages.edit', ['page' => $pageSlug]) }}',
-        'text': '{{ phrase('buttons.page_edit') }}',
+        'text': '{{ phrase('buttons.edit_page') }}',
         'htmlClass': 'btn btn-success float-right m-1 text-capitalize'
         }"
     ></button-link>

@@ -548,7 +548,7 @@ class RoutesTableSeeder extends Seeder
         );
 
         // Admin containers index
-        $this->createRoute('/containers/{page}/{container}',
+        $this->createRoute('/containers',
             'get',
             'ContainersController@index',
             'admin-containers.index',

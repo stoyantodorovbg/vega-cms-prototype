@@ -5,6 +5,20 @@
     @if(isset($container)) @method('PATCH') @endif
     <div class="row">
         <div class="form-group col-6">
+            <label class="text-uppercase">{{ phrase('labels.parent_containers') }}</label>
+            <select class="form-control text-capitalize" name="parent_containers[]" id="admin-form-locale-status" multiple>
+                @foreach($activeContainers as $item)
+                    <option {{ isset($container) && in_array($item->id, $parentContainersIds) ? 'selected' : '' }}
+                            value="{{ $item->id }}"
+                    >
+                        {{ $item->id . ' - '  . $item->semantic_tag}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
             <label class="text-uppercase">{{ phrase('labels.status') }}</label>
             <select class="form-control text-capitalize" name="status" id="admin-form-locale-status">
                 <option>{{ phrase('labels.choose_status') }}</option>

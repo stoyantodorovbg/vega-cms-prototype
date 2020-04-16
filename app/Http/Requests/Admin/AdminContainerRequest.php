@@ -24,6 +24,7 @@ class AdminContainerRequest extends FormRequest
     public function rules()
     {
         return [
+            'parent_containers[]' => 'array',
             'status' => 'nullable|integer|between:0,1',
             'semantic_tag' => 'nullable|string|max:255',
             'row_position' => 'nullable|integer',

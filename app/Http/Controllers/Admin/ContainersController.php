@@ -76,7 +76,6 @@ class ContainersController extends Controller
      */
     public function show(Container $container)
     {
-
         return view('admin.containers.show', compact('container'));
     }
 
@@ -90,7 +89,9 @@ class ContainersController extends Controller
         $defaultJsonFieldsData = $defaultJsonStructureRepository->getJsonStructureFields(Container::class)
             ->pluck('structure', 'field')->toArray();
 
-        return view('admin.containers.create', compact('defaultJsonFieldsData'));
+        $activeContainers = Container::where('status', 1)->get();
+
+        return view('admin.containers.create', compact('defaultJsonFieldsData', 'activeContainers'));
     }
 
     /**
@@ -105,6 +106,7 @@ class ContainersController extends Controller
         $mappedData = $this->dataMapper->mapData($request->validated());
 
         $container = Container::create($mappedData);
+        $container->parentContainers()->attach($request->parent_containers);
 
         return redirect()->route('admin-containers.show', $container->getSlug())->with(compact('container'));
     }
@@ -118,8 +120,10 @@ class ContainersController extends Controller
     public function edit(Container $container)
     {
         $container->loadAllChildContainers();
+        $activeContainers = Container::where('status', 1)->get();
+        $parentContainersIds = $container->parentContainers->pluck('id')->toArray();
 
-        return view('admin.containers.edit', compact('container'));
+        return view('admin.containers.edit', compact('container', 'activeContainers', 'parentContainersIds'));
     }
 
     /**
@@ -127,13 +131,13 @@ class ContainersController extends Controller
      *
      * @param Container $container
      * @param AdminContainerRequest $request
-     * @param DataMapperInterface $dataMapper
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Container $container, AdminContainerRequest $request)
     {
         $mappedData = $this->dataMapper->mapData($request->validated());
         $container->update($mappedData);
+        $container->parentContainers()->sync($request->parent_containers);
 
         return redirect()->back()->with(compact('container'));
     }

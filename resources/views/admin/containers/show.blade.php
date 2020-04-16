@@ -43,7 +43,17 @@
                         <td>{{ $container->status }}</td>
                     </tr>
                     <tr>
-                        <th class="text-capitalize">{{ phrase('labels.semantig_tag') }}</th>
+                        <th class="text-capitalize">{{ phrase('labels.parent_containers') }}</th>
+                        <td>
+                            @foreach($container->parentContainers as $item)
+                                <a href="{{ route('admin-containers.edit', $item->getSlug()) }}">
+                                    {{ $item->id . ' - ' . $item->semantic_tag }} @if(!$loop->last) {{ '| ' }}@endif
+                                </a>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-capitalize">{{ phrase('labels.semantic_tag') }}</th>
                         <td>{{ $container->semantig_tag }}</td>
                     </tr>
                     <tr>

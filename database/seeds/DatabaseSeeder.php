@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(RoutesTableSeeder::class);
         $this->call(LocalesTableSeeder::class);
-        $this->call(PhrasesTableSeeder::class);
+        $this->call(PhrasesLabelsTableSeeder::class);
+        $this->call(PhrasesButtonsTableSeeder::class);
+        $this->call(PhrasesMessagesTableSeeder::class);
         $this->call(MenuTableSeeder ::class);
         $this->call(DefaultJsonStructureTableSeeder ::class);
         $this->call(PageTestTableSeeder ::class);

@@ -477,9 +477,9 @@ class MenuTableSeeder extends Seeder
             'status' => 1,
             'url' => '/containers',
             'title' => json_encode([
-                'text' => 'containers',
+                'text' => 'Containers',
                 'status' => 1,
-                'classes' => 'text-dark',
+                'classes' => 'icon i-page nav-item-text--light',
                 'styles',
                 'structure' => [
                     'text' => [
@@ -518,7 +518,7 @@ class MenuTableSeeder extends Seeder
                     ],
                 ],
             ]),
-            'classes' => 'text-uppercase',
+            'classes' => 'nav-item',
             'styles' => json_encode([]),
         ]);
     }

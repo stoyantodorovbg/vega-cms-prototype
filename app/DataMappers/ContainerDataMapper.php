@@ -2,8 +2,9 @@
 
 namespace App\DataMappers;
 
-class MenuDataMapper extends JsonDataMapper implements DataMapperInterface
+class ContainerDataMapper extends JsonDataMapper implements DataMapperInterface
 {
+
     /**
      * Map data
      *
@@ -15,9 +16,11 @@ class MenuDataMapper extends JsonDataMapper implements DataMapperInterface
         $emptyJsonField = json_encode([]);
         $mappedData = [
             'title' => $emptyJsonField,
-            'description' => $emptyJsonField,
+            'summary' => $emptyJsonField,
+            'body' => $emptyJsonField,
             'styles' => $emptyJsonField,
         ];
+
         $mappedData = $this->processJsonData($data, $mappedData);
 
         return $mappedData;

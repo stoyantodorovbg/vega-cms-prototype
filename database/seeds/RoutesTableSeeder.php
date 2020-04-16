@@ -497,21 +497,21 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
-        // Admin pages show
-        $this->createRoute('/pages/{page}',
-            'get',
-            'PagesController@show',
-            'admin-pages.show',
-            'admin',
-            'admin',
-            'admins'
-        );
-
         // Admin pages create
         $this->createRoute('/pages/create',
             'get',
             'PagesController@create',
             'admin-pages.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages show
+        $this->createRoute('/pages/{page}',
+            'get',
+            'PagesController@show',
+            'admin-pages.show',
             'admin',
             'admin',
             'admins'
@@ -542,6 +542,66 @@ class RoutesTableSeeder extends Seeder
             'patch',
             'PagesController@update',
             'admin-pages.update',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin containers index
+        $this->createRoute('/containers',
+            'get',
+            'ContainersController@index',
+            'admin-containers.index',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin containers show
+        $this->createRoute('/containers/{container}',
+            'get',
+            'ContainersController@show',
+            'admin-containers.show',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin containers create
+        $this->createRoute('/containers/create',
+            'get',
+            'ContainersController@create',
+            'admin-containers.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin containers store
+        $this->createRoute('/containers/store',
+            'post',
+            'ContainersController@store',
+            'admin-containers.store',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin containers edit
+        $this->createRoute('/containers/{container}/edit',
+            'get',
+            'ContainersController@edit',
+            'admin-containers.edit',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin containers update
+        $this->createRoute('/containers/{container}/update',
+            'patch',
+            'ContainersController@update',
+            'admin-containers.update',
             'admin',
             'admin',
             'admins'

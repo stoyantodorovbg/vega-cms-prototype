@@ -60,7 +60,7 @@ class RoutesController extends Controller
      * Admin routes store action
      *
      * @param AdminRouteRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AdminRouteRequest $request)
     {
@@ -94,7 +94,7 @@ class RoutesController extends Controller
      *
      * @param Route $route
      * @param AdminRouteRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Route $route, AdminUpdateRouteRequest $request, RouteServiceInterface $routeService)
     {

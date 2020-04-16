@@ -65,4 +65,32 @@ class JsonDataMapper
 
         return $structure;
     }
+
+    /**
+     * Process JSON data
+     *
+     * @param array $data
+     * @param array $mappedData
+     * @return array
+     */
+    protected function processJsonData(array $data, array $mappedData): array
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $processedValue = [];
+
+                if (array_key_exists('empty_json', $value)) {
+                    $processedValue['structure'] = $this->prepareJsonStructure($value);
+                    $mappedData[$key] = json_encode([], JSON_HEX_QUOT);
+                } else {
+                    $processedValue = $this->prepareNestedJsonData($value);
+                    $processedValue['structure'] = $this->prepareJsonStructure($value);
+                    $mappedData[$key] = json_encode($processedValue, JSON_HEX_QUOT);
+                }
+            } else {
+                $mappedData[$key] = $value ?? '';
+            }
+        }
+        return $mappedData;
+    }
 }

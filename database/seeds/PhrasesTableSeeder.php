@@ -519,6 +519,48 @@ class PhrasesTableSeeder extends Seeder
             ]
         ]);
 
+        Phrase::create([
+            'system_name' => 'buttons.edit_page',
+            'text' => [
+                'en' => 'edit page'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all_pages',
+            'text' => [
+                'en' => 'all pages'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.show_child_containers',
+            'text' => [
+                'en' => 'show child containers'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.edit_container',
+            'text' => [
+                'en' => 'edit container'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.all_containers',
+            'text' => [
+                'en' => 'all containers'
+            ]
+        ]);
+
+        Phrase::create([
+            'system_name' => 'buttons.show_container',
+            'text' => [
+                'en' => 'show container'
+            ]
+        ]);
+
         // Messages
         Phrase::create([
             'system_name' => 'messages.deleted',

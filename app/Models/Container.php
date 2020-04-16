@@ -39,8 +39,8 @@ class Container extends BasicModel
         return $this->belongsToMany(
             Container::class,
             'parent_container_child_container',
+            'child_container_id',
             'parent_container_id',
-            'child_container_id'
         );
     }
 
@@ -54,8 +54,8 @@ class Container extends BasicModel
         return $this->belongsToMany(
             Container::class,
             'parent_container_child_container',
+            'parent_container_id',
             'child_container_id',
-            'parent_container_id'
         );
     }
 

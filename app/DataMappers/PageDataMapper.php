@@ -4,7 +4,6 @@ namespace App\DataMappers;
 
 class PageDataMapper extends JsonDataMapper implements DataMapperInterface
 {
-
     /**
      * Map data
      *
@@ -18,22 +17,9 @@ class PageDataMapper extends JsonDataMapper implements DataMapperInterface
             'styles' => $emptyJsonField,
             'meta_tags' => $emptyJsonField,
         ];
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                $processedValue  = [];
 
-                if(array_key_exists('empty_json', $value)) {
-                    $processedValue['structure'] = $this->prepareJsonStructure($value);
-                    $mappedData[$key] = json_encode([], JSON_HEX_QUOT);
-                } else {
-                    $processedValue = $this->prepareNestedJsonData($value);
-                    $processedValue['structure'] = $this->prepareJsonStructure($value);
-                    $mappedData[$key] = json_encode($processedValue, JSON_HEX_QUOT);
-                }
-            } else {
-                $mappedData[$key] = $value ?? '';
-            }
+        $mappedData = $this->processJsonData($data, $mappedData);
 
-        }
-        return $mappedData;    }
+        return $mappedData;
+    }
 }

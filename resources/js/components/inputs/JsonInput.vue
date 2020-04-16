@@ -1,9 +1,6 @@
 <template>
     <div class="ml-5">
-        <div class="form-group m-2 border p-2"
-             v-for="(value, key) in inputsData"
-             :key="key"
-        >
+        <div class="form-group m-2 border p-2" v-for="(value, key) in inputsData" :key="key">
             <label v-if="key !== 'empty_json'">{{ key }}</label>
             <text-input
                 v-if="value.type === 'text'"
@@ -87,7 +84,7 @@
             },
             inputsData: function () {
                 let inputsData = {};
-                if(this.jsonData.structure === 0) {
+                if(this.jsonData['structure'] === 0) {
                     inputsData['empty_json'] = '';
                     inputsData['structure'] = {
                         empty_json: 'text'
@@ -111,7 +108,6 @@
                                     }
                                 } else {
                                     for (let subKey in this.jsonData[key]) {
-
                                         if (typeof this.jsonData[key][subKey] === 'object' && this.jsonData[this.jsonData.structure[key]] !== null) {
                                             inputsData[key][subKey] = {
                                                 type: 'json',

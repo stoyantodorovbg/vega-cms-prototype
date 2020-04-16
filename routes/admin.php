@@ -60,4 +60,10 @@ Route::prefix(app()->getLocale())->middleware(['locale'])->group(function () {
     Route::post('/pages/store', 'Admin\PagesController@store')->name('admin-pages.store')->middleware('admins');
     Route::get('/pages/{page}/edit', 'Admin\PagesController@edit')->name('admin-pages.edit')->middleware('admins');
     Route::patch('/pages/{page}/update', 'Admin\PagesController@update')->name('admin-pages.update')->middleware('admins');
+    Route::get('/containers', 'Admin\ContainersController@index')->name('admin-containers.index')->middleware('admins');
+    Route::get('/containers/create', 'Admin\ContainersController@create')->name('admin-containers.create')->middleware('admins');
+    Route::get('/containers/{container}', 'Admin\ContainersController@show')->name('admin-containers.show')->middleware('admins');
+    Route::post('/containers/store', 'Admin\ContainersController@store')->name('admin-containers.store')->middleware('admins');
+    Route::get('/containers/{container}/edit', 'Admin\ContainersController@edit')->name('admin-containers.edit')->middleware('admins');
+    Route::patch('/containers/{container}/update', 'Admin\ContainersController@update')->name('admin-containers.update')->middleware('admins');
 });

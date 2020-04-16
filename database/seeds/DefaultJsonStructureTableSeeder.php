@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\Page;
-use App\Models\MenuItem;
 use App\Models\Menu;
+use App\Models\MenuItem;
+use App\Models\Container;
 use Illuminate\Database\Seeder;
 use App\Models\DefaultJsonStructure;
 
@@ -71,6 +72,35 @@ class DefaultJsonStructureTableSeeder extends Seeder
             ->create($this->getDefaultStructure(
                 Page::class,
                 'meta_tags',
+                json_encode([])
+            ));
+
+        // Container
+        factory(DefaultJsonStructure::class)
+            ->create($this->getDefaultStructure(
+                Container::class,
+                'title',
+                json_encode([])
+            ));
+
+        factory(DefaultJsonStructure::class)
+            ->create($this->getDefaultStructure(
+                Container::class,
+                'summary',
+                json_encode([])
+            ));
+
+        factory(DefaultJsonStructure::class)
+            ->create($this->getDefaultStructure(
+                Container::class,
+                'body',
+                json_encode([])
+            ));
+
+        factory(DefaultJsonStructure::class)
+            ->create($this->getDefaultStructure(
+                Container::class,
+                'styles',
                 json_encode([])
             ));
     }

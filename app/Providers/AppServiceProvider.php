@@ -19,6 +19,7 @@ use App\Repositories\RouteRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\EloquentFilterService;
+use App\DataMappers\ContainerDataMapper;
 use App\DataMappers\DataMapperInterface;
 use App\Http\Controllers\Admin\MenusController;
 use App\Http\Controllers\Admin\PagesController;
@@ -26,6 +27,7 @@ use App\Services\Interfaces\GroupServiceInterface;
 use App\Services\Interfaces\RouteServiceInterface;
 use App\Services\Interfaces\PhraseServiceInterface;
 use App\Services\Interfaces\LocaleServiceInterface;
+use App\Http\Controllers\Admin\ContainersController;
 use App\Repositories\DefaultJsonStructureRepository;
 use App\Services\Interfaces\MessageServiceInterface;
 use App\Services\Interfaces\FileCreateServiceInterface;
@@ -67,6 +69,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(PagesController::class)
             ->needs(DataMapperInterface::class)
             ->give(PageDataMapper::class);
+        $this->app->when(ContainersController::class)
+            ->needs(DataMapperInterface::class)
+            ->give(ContainerDataMapper::class);
         $this->app->when(MenusController::class)
             ->needs(DataMapperInterface::class)
             ->give(MenuDataMapper::class);

@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\AdminContainerIndexRequest;
 use App\Models\Page;
 use App\Models\Container;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Query\Builder;
 use App\DataMappers\DataMapperInterface;
 use App\Http\Requests\Admin\AdminContainerRequest;
+use App\Http\Requests\Admin\AdminContainerIndexRequest;
 use App\Repositories\Interfaces\DefaultJsonStructureRepositoryInterface;
 
 class ContainersController extends Controller
 {
+    /**
+     * @var DataMapperInterface
+     */
+    protected $dataMapper;
+
+    /**
+     * PagesController constructor.
+     * @param DataMapperInterface $dataMapper
+     */
+    public function __construct(DataMapperInterface $dataMapper)
+    {
+        $this->dataMapper = $dataMapper;
+    }
+
     /**
      * Admin dashboard page
      *
@@ -104,7 +117,7 @@ class ContainersController extends Controller
      */
     public function edit(Container $container)
     {
-        $container->getData();
+        $container->loadAllChildContainers();
 
         return view('admin.containers.edit', compact('container'));
     }
@@ -120,7 +133,6 @@ class ContainersController extends Controller
     public function update(Container $container, AdminContainerRequest $request)
     {
         $mappedData = $this->dataMapper->mapData($request->validated());
-
         $container->update($mappedData);
 
         return redirect()->back()->with(compact('container'));

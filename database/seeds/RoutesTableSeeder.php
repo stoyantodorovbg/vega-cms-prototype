@@ -497,21 +497,21 @@ class RoutesTableSeeder extends Seeder
             'admins'
         );
 
-        // Admin pages show
-        $this->createRoute('/pages/{page}',
-            'get',
-            'PagesController@show',
-            'admin-pages.show',
-            'admin',
-            'admin',
-            'admins'
-        );
-
         // Admin pages create
         $this->createRoute('/pages/create',
             'get',
             'PagesController@create',
             'admin-pages.create',
+            'admin',
+            'admin',
+            'admins'
+        );
+
+        // Admin pages show
+        $this->createRoute('/pages/{page}',
+            'get',
+            'PagesController@show',
+            'admin-pages.show',
             'admin',
             'admin',
             'admins'

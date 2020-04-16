@@ -64,13 +64,35 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 20
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'summary' => json_encode([
@@ -85,13 +107,35 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 10
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'body' => json_encode([
@@ -103,17 +147,33 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => []
+                    ]
                 ]
             ]),
             'styles' => json_encode([
-                'structure' => []
+                'background' => 'white',
+                'border' => '1px solid black'
             ]),
         ]);
 
@@ -137,13 +197,35 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 20
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'summary' => json_encode([
@@ -158,13 +240,35 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 14
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'body' => json_encode([
@@ -176,15 +280,34 @@ class PageTestTableSeeder extends Seeder
                 'classes' => 'text-center text-capitalize',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => [
-                        'color' => 'black',
-                        'font-size' => 12
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
                     ]
                 ]
             ]),
@@ -210,13 +333,28 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => []
+                    ]
                 ]
             ]),
             'summary' => json_encode([
@@ -227,12 +365,24 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => []
                 ]
             ]),
@@ -244,12 +394,24 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => []
                 ]
             ]),
@@ -277,12 +439,24 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => []
                 ]
             ]),
@@ -294,12 +468,24 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => []
                 ]
             ]),
@@ -311,13 +497,28 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => []
+                    ]
                 ]
             ]),
             'styles' => json_encode([
@@ -341,12 +542,24 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => []
                 ]
             ]),
@@ -358,13 +571,28 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => []
+                    ]
                 ]
             ]),
             'body' => json_encode([
@@ -375,13 +603,28 @@ class PageTestTableSeeder extends Seeder
                 'classes' => '',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => []
+                    ]
                 ]
             ]),
             'styles' => json_encode([
@@ -412,13 +655,35 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 16
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'summary' => json_encode([
@@ -434,13 +699,38 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 14
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-weight' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'body' => json_encode([
@@ -458,8 +748,8 @@ class PageTestTableSeeder extends Seeder
                         'content' => 'Google'
                     ],
                     [
-                    'tag' => 'span',
-                    'content' => $faker->text(100)
+                        'tag' => 'span',
+                        'content' => $faker->text(100)
                     ]
                 ],
                 'status' => 1,
@@ -467,15 +757,68 @@ class PageTestTableSeeder extends Seeder
                 'classes' => 'text-capitalize m-1',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'json',
+                        'nested' => [
+                            [
+                                'type' => 'json',
+                                'nested' => [
+                                    'tag' => [
+                                        'type' => 'text'
+                                    ],
+                                    'content' => [
+                                        'type' => 'text'
+                                    ]
+                                ]
+                            ],
+                            [
+                                'type' => 'json',
+                                'nested' => [
+                                    'tag' => [
+                                        'type' => 'text'
+                                    ],
+                                    'href' => [
+                                        'type' => 'text'
+                                    ],
+                                    'target' => [
+                                        'type' => 'text'
+                                    ],
+                                    'content' => [
+                                        'type' => 'text'
+                                    ]
+                                ]
+                            ],
+                            [
+                                'type' => 'json',
+                                'nested' => [
+                                    'tag' => [
+                                        'type' => 'text'
+                                    ],
+                                    'content' => [
+                                        'type' => 'text'
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
                     'styles' => [
-                        'color' => 'black',
-                        'font-size' => 12
+                        'type' => 'json',
+                        'nested' => [],
                     ]
                 ]
             ]),
@@ -508,13 +851,35 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 16
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'summary' => json_encode([
@@ -530,20 +895,45 @@ class PageTestTableSeeder extends Seeder
                     'font-size' => 14
                 ],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => []
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'text'
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => [
+                        'type' => 'json',
+                        'nested' => [
+                            'color' => [
+                                'type' => 'text'
+                            ],
+                            'font-weight' => [
+                                'type' => 'text'
+                            ],
+                            'font-size' => [
+                                'type' => 'text'
+                            ],
+                        ],
+                    ]
                 ]
             ]),
             'body' => json_encode([
                 'semantic_tag' => 'div',
                 'col_width' => 12,
                 'text' => [
-                    [
+                    0 => [
                         'tag' => 'a',
                         'href' => 'https://google.com',
                         'target' => '_blank',
@@ -560,11 +950,11 @@ class PageTestTableSeeder extends Seeder
                             ]
                         ],
                     ],
-                    [
+                    1 => [
                         'tag' => 'span',
                         'content' => $faker->text(100)
                     ],
-                    [
+                    2 => [
                         'tag' => 'img',
                         'src' => '/storage/images/Essential-images.jpg',
                         'alt' => 'example-image',
@@ -574,7 +964,7 @@ class PageTestTableSeeder extends Seeder
                             'height' => '30px',
                         ]
                     ],
-                    [
+                    3 => [
                         'tag' => 'span',
                         'content' => $faker->text(100)
                     ]
@@ -584,16 +974,113 @@ class PageTestTableSeeder extends Seeder
                 'classes' => 'text-capitalize m-1',
                 'styles' => [],
                 'structure' => [
-                    'semantic_tag' => 'div',
-                    'col_width' => 12,
-                    'text' => '',
-                    'status' => 0,
-                    'row_classes' => '',
-                    'classes' => '',
-                    'styles' => [
-                        'color' => 'black',
-                        'font-size' => 12
-                    ]
+                    'semantic_tag' => [
+                        'type' => 'text'
+                    ],
+                    'col_width' => [
+                        'type' => 'text'
+                    ],
+                    'text' => [
+                        'type' => 'json',
+                        'nested' => [
+                            [
+                                'type' => 'json',
+                                'nested' => [
+                                    'tag' => [
+                                        'type' => 'text'
+                                    ],
+                                    'href' => [
+                                        'type' => 'text'
+                                    ],
+                                    'target' => [
+                                        'type' => 'text'
+                                    ],
+                                    'content' => [
+                                        'type' => 'json',
+                                        'nested' => [
+                                            [
+                                                'type' => 'json',
+                                                'nested' => [
+                                                    'tag' => [
+                                                        'type' => 'text'
+                                                    ],
+                                                    'src' => [
+                                                        'type' => 'text'
+                                                    ],
+                                                    'alt' => [
+                                                        'type' => 'text'
+                                                    ],
+                                                    'class' => [
+                                                        'type' => 'text'
+                                                    ],
+                                                    'style' => [
+                                                        'type' => 'json',
+                                                        'nested' => [
+                                                            'width' => [
+                                                                'type' => 'text'
+                                                            ],
+                                                            'height' => [
+                                                                'type' => 'text'
+                                                            ],
+                                                        ]
+                                                    ],
+                                                ]
+                                            ]
+                                        ],
+                                    ]
+                                ],
+                            ],
+                            [
+                                'type' => 'json',
+                                'nested' => [
+                                    'tag' => [
+                                        'type' => 'text'
+                                    ],
+                                    'content' => [
+                                        'type' => 'text'
+                                    ]
+                                ]
+                            ],
+                            [
+                                'type' => 'json',
+                                'nested' => [
+                                    'tag' => [
+                                        'type' => 'text'
+                                    ],
+                                    'src' => [
+                                        'type' => 'text'
+                                    ],
+                                    'alt' => [
+                                        'type' => 'text'
+                                    ],
+                                    'class' => [
+                                        'type' => 'text'
+                                    ],
+                                    'style' => [
+                                        'type' => 'json',
+                                        'nested' => [
+                                            'width' => [
+                                                'type' => 'text'
+                                            ],
+                                            'height' => [
+                                                'type' => 'text'
+                                            ],
+                                        ]
+                                    ],
+                                ]
+                            ],
+                        ]
+                    ],
+                    'status' => [
+                        'type' => 'text'
+                    ],
+                    'row_classes' => [
+                        'type' => 'text'
+                    ],
+                    'classes' => [
+                        'type' => 'text'
+                    ],
+                    'styles' => []
                 ]
             ]),
             'styles' => json_encode([

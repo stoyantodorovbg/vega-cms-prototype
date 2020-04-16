@@ -14,16 +14,19 @@ class LocalesTableSeeder extends Seeder
     {
         factory(Locale::class)->create([
             'language' => 'Bulgarian',
+            'status' => 1,
             'code' => 'bg',
         ]);
 
         factory(Locale::class)->create([
             'language' => 'English',
+            'status' => 1,
             'code' => 'en',
         ]);
 
         factory(Locale::class)->create([
             'language' => 'Italian',
+            'status' => 1,
             'code' => 'i',
         ]);
     }

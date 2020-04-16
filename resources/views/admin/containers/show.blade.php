@@ -47,7 +47,7 @@
                         <td>
                             @foreach($container->parentContainers as $item)
                                 <a href="{{ route('admin-containers.edit', $item->getSlug()) }}">
-                                    {{ $item->id . ' - ' . $item->semantic_tag }} @if(!$loop->last) {{ '| ' }}@endif
+                                    {{ $item->id . ' - ' . $item->semantic_tag }} @if(!$loop->last){{ '| ' }}@endif
                                 </a>
                             @endforeach
                         </td>

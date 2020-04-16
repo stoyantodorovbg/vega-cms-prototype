@@ -11,10 +11,7 @@ class Phrase extends BasicModel
     /**
      * @var array $translatable
      */
-    public $translatable = [
-        'text',
-
-    ];
+    public $translatable = ['text'];
 
     /**
      * @var array

@@ -27,7 +27,7 @@ class AdminPhraseRequest extends FormRequest
 
         return [
             'system_name' => 'required|string|max:50|unique:phrases,system_name,' . $key,
-            'text.*' => 'required|string|max:20000000',
+            'text' => 'required|array',
         ];
     }
 }

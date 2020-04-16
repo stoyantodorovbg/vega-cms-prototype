@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Locale;
 use App\Models\Phrase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminPhraseRequest;
@@ -26,7 +27,9 @@ class PhrasesController extends Controller
      */
     public function show(Phrase $phrase)
     {
-        return view('admin.phrases.show', compact('phrase'));
+        $phraseTranslations = $phrase->getTranslations('text');
+
+        return view('admin.phrases.show', compact('phrase', 'phraseTranslations'));
     }
 
     /**
@@ -36,7 +39,9 @@ class PhrasesController extends Controller
      */
     public function create()
     {
-        return view('admin.phrases.create');
+        $activeLocales = Locale::where('status', 1)->get();
+
+        return view('admin.phrases.create', compact('activeLocales'));
     }
 
     /**
@@ -60,7 +65,10 @@ class PhrasesController extends Controller
      */
     public function edit(Phrase $phrase)
     {
-        return view('admin.phrases.edit', compact('phrase'));
+        $activeLocales = Locale::where('status', 1)->get();
+        $phraseTranslations = $phrase->getTranslations('text');
+
+        return view('admin.phrases.edit', compact('phrase', 'activeLocales', 'phraseTranslations'));
     }
 
     /**

@@ -6,7 +6,7 @@
         @method('PATCH')
     @endif
     <div class="row">
-        <div class="form-group col-6">
+        <div class="form-group col-12">
             <label class="text-capitalize">{{ phrase('labels.system_name') }}</label>
             <input type="text"
                    name="system_name"
@@ -15,16 +15,22 @@
                    class="form-control"
             >
         </div>
-        <div class="form-group col-6">
-            <label class="text-capitalize">{{ phrase('labels.text') }}</label>
-            <input type="text"
-                   name="text"
-                   value="{{ isset($phrase) ? old('text', $phrase->text) : '' }}"
-                   id="admin-form-phrase-text"
-                   class="form-control"
-            >
-        </div>
     </div>
+    @foreach($activeLocales as $locale)
+        <div class="row mb-5">
+            <div class="input-group flex-nowrap col-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ $locale->code }}</span>
+                </div>
+                <input type="text"
+                       name="{{ 'text[' . $locale->code . ']' }}"
+                       value="{{ isset($phrase, $phraseTranslations[$locale->code]) ?  $phraseTranslations[$locale->code] : '' }}"
+                       id="admin-form-phrase-text"
+                       class="form-control"
+                >
+            </div>
+        </div>
+    @endforeach
     <div class="row">
         <div class="form-group col-12">
             <button type="submit" class="btn btn-primary float-right text-uppercase pl-5 pr-5">

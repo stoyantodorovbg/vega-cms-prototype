@@ -36,7 +36,13 @@
                     </tr>
                     <tr>
                         <th class="text-capitalize">{{ phrase('labels.text') }}</th>
-                        <td>{{ $phrase->text }}</td>
+                        <td>
+                            @foreach($phraseTranslations as $locale => $translation)
+                                <span>
+                                    {{ $locale . ' : ' . $translation }}@if(!$loop->last) {{ '| ' }}@endif
+                                </span>
+                            @endforeach
+                        </td>
                     </tr>
                     <tr>
                         <th class="text-capitalize">{{ phrase('labels.created_at') }}</th>

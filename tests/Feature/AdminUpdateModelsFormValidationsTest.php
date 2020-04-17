@@ -88,17 +88,16 @@ class AdminUpdateModelsFormValidationsTest extends TestCase
 
         $this->patch(route('admin-phrases.update', $phrase->getSlug()), [
             'system_name' => '',
-            'text' => ['en' => '']
         ])->assertSessionHasErrors([
             'system_name' => 'The system name field is required.',
-            'text.en' => 'The text.en field is required.'
+            'text' => 'The text field is required.'
         ]);
 
         $this->patch(route('admin-phrases.update', $phrase->getSlug()), [
             'system_name' => 'test',
-            'text' => ['bg' => '']
+            'text' => 'www'
         ])->assertSessionHasErrors([
-            'text.bg' => 'The text.bg field is required.'
+            'text' => 'The text must be an array.'
         ]);
 
         $this->patch(route('admin-phrases.update', $phrase->getSlug()), [

@@ -28,6 +28,7 @@ class PhrasesController extends Controller
     public function show(Phrase $phrase)
     {
         $phraseTranslations = $phrase->getTranslations('text');
+        unset($phraseTranslations['structure']);
 
         return view('admin.phrases.show', compact('phrase', 'phraseTranslations'));
     }

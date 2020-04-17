@@ -79,17 +79,16 @@ class AdminStoreModelsFormValidationsTest extends TestCase
 
         $this->post(route('admin-phrases.store'), [
             'system_name' => '',
-            'text' => ['en' => '']
         ])->assertSessionHasErrors([
             'system_name' => 'The system name field is required.',
-            'text.en' => 'The text.en field is required.'
+            'text' => 'The text field is required.'
         ]);
 
         $this->post(route('admin-phrases.store'), [
             'system_name' => 'test',
-            'text' => ['bg' => '']
+            'text' => '123'
         ])->assertSessionHasErrors([
-            'text.bg' => 'The text.bg field is required.'
+            'text' => 'The text must be an array.'
         ]);
 
         factory(Phrase::class)->create([

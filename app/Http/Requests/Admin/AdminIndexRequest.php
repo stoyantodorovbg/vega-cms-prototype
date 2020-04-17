@@ -25,7 +25,8 @@ class AdminIndexRequest extends FormRequest
     {
         return [
             'model' => 'string',
-            'filters' => 'json'
+            'filters' => 'json',
+            'items_per_page' => 'required|integer|between:1,100',
         ];
     }
 }

@@ -9,8 +9,7 @@
             <div class="row">
                 <!-- Settings -->
                 <customize-model-index :fields="fieldsGridSettings"></customize-model-index>
-
-                <!-- User Info -->
+                <!-- Models -->
                 <div class="col-lg-12">
                     <table class="table">
                         <thead>
@@ -20,7 +19,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="model in models" :key="model.id">
+                        <tr v-for="(model, key) in models.data" :key="key">
                             <cell-td v-for="field in displayedFields" :key="field.name" :content="model[field.name]"></cell-td>
                             <td>
                                 <icon-link v-if="actions.show" :prop_data="getIconShowData(model.id)"></icon-link>
@@ -37,12 +36,19 @@
             </div>
         </section>
 
+        <!-- Pagination -->
+        <pagination :data="models"
+                    @pagination-change-page="load"
+                    :limit="100"
+        ></pagination>
+
         <!-- Modal window -->
         <delete-confirmation v-show="deleting" :request_data="deleteRequestData"></delete-confirmation>
     </div>
 </template>
 
 <script>
+    import Pagination from "laravel-vue-pagination";
     import CellTd from '../../components/table/CellTd'
     import CellTh from '../../components/table/CellTh'
     import IconLink from "../../components/links/IconLink";
@@ -53,6 +59,7 @@
 
     export default {
         components: {
+            Pagination,
             CellTd,
             CellTh,
             CustomizeModelIndex,
@@ -83,6 +90,10 @@
                 type: String,
                 default: 'User',
             },
+            items_per_page: {
+                type: Number,
+                default: 20,
+            }
         },
 
         data() {
@@ -93,6 +104,8 @@
                 defaultFieldsCount: 10,
                 deleting: false,
                 deleteRequestData: {},
+                initial: true,
+                page: 1,
             }
         },
 
@@ -151,17 +164,23 @@
         },
 
         methods: {
-            load(initial = true) {
+            load(page) {
+                if(page) {
+                    this.page = page;
+                }
                 axios.get('/api/' + this.$store.getters.locale + '/admin/index', {
                         params: {
                             model: this.model_name,
-                            filters: this.default_filters
+                            filters: this.default_filters,
+                            items_per_page: this.items_per_page,
+                            page: this.page,
                         }
                     }
                 ).then((response) => {
                     this.models = response.data;
-                    if(initial) {
-                        this.setFields(this.models, this.defaultFieldsCount);
+                    if(this.initial) {
+                        this.setFields(this.models.data, this.defaultFieldsCount);
+                        this.initial = false;
                     }
                 });
             },
@@ -176,13 +195,13 @@
                         }
                     });
                 } else {
-                    displayedFields =  Object.keys(this.models[0]);
+                    displayedFields =  Object.keys(this.models.data[0]);
                     if(defaultFieldsCount > this.modelFields.length) {
                         defaultFieldsCount = this.modelFields.length;
                         displayedFields = this.modelFields.slice(0, defaultFieldsCount);
                     }
                 }
-                this.modelFields = Object.keys(this.models[0]);
+                this.modelFields = Object.keys(this.models.data[0]);
 
                 let counter = 0;
                 for(let field of displayedFields) {

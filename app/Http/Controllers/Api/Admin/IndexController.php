@@ -33,6 +33,6 @@ class IndexController extends Controller
     {
         $builder = $this->eloquentFilterService->addFilters($request, "\\App\\Models\\" . $request->model);
 
-        return $builder->get();
+        return $builder->paginate($request->items_per_page, ['*'], 'page', $request->page);
     }
 }

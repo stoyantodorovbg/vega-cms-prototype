@@ -22,7 +22,7 @@ class DestroyGroup extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Destroy a route';
 
     /**
      * @var GroupServiceInterface

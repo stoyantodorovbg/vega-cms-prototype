@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BoolInput Component should mount without crashing 1`] = `
+VueWrapper {
+  "_emitted": Object {},
+  "_emittedByOrder": Array [],
+  "isFunctionalComponent": undefined,
+}
+`;
+
 exports[`should mount without crashing 1`] = `
 VueWrapper {
   "_emitted": Object {},

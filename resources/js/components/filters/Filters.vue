@@ -28,7 +28,7 @@
     import BoolInput from "./BoolInput";
     import DateInput from "./DateInput";
     import TextInput from "./TextInput";
-    import NumberInput from "./NumberInput";
+    import NumberInput from "./NumberFilterInput";
 
     export default {
         components: { BoolInput, DateInput, TextInput, NumberInput },

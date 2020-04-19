@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberInput Component should mount without crashing 1`] = `
+Object {
+  "$_vueTestUtils_original": [Circular],
+  "_Ctor": Object {},
+  "data": [Function],
+  "methods": Object {
+    "changeInput": [Function],
+  },
+  "name": "NumberInput",
+  "props": Object {
+    "name": Object {
+      "default": "id",
+      "type": [Function],
+    },
+  },
+  "render": [Function],
+  "staticRenderFns": Array [],
+}
+`;

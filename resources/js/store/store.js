@@ -11,10 +11,8 @@ export default new Vuex.Store({
         return state.locale;
       }
     },
-    mutations: {
 
-    },
-    actions: {
+    mutations: {},
 
-    }
+    actions: {}
 });

@@ -1,10 +1,12 @@
 {
-    "name": "laravel/laravel",
+    "name": "stoyantodorovbg/vega-cms",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Laravel CMS",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "laravel7",
+        "CMS"
     ],
     "license": "MIT",
     "require": {

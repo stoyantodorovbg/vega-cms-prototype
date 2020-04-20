@@ -6,22 +6,6 @@
   z-index: 2;
 }
 
-.navbar-main {
-  background-color: $secondary-color;
-  a {
-    color: white;
-  }
-  .dropdown-menu {
-    background-color: $main-color;
-
-    .dropdown-item {
-      &:hover {
-        color: white;
-        background-color: $main-color-hover;
-      }
-    }
-  }
-}
 
 /***** Sidebar *****/
 .admin-side-nav {

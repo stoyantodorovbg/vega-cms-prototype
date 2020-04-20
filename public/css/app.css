@@ -19962,10 +19962,6 @@ a:hover {
   background-color: #41b883;
 }
 
-.sidebar-main {
-  background-image: linear-gradient(to top, #0ba360 0%, #41b883 100%) !important;
-}
-
 .card,
 .section-filters,
 .section-grid,
@@ -19985,6 +19981,37 @@ a:hover {
   color: white;
   background-color: #34495e;
   border-color: #34495e;
+}
+
+.dropdown {
+  font-size: 1.4rem;
+}
+
+.dropdown-login {
+  margin-right: 10px;
+}
+
+.dropdown-login .dropdown-menu .dropdown-item {
+  color: black;
+}
+
+.dropdown-login .dropdown-menu .dropdown-item:hover {
+  color: white;
+}
+
+.dropdown-title {
+  font-size: 1.2rem;
+  margin: 3px 0;
+}
+
+.dropdown-themes .dropdown-menu.show {
+  padding: 10px;
+  width: 200px;
+}
+
+.dropdown-themes .dropdown-menu.show .options-wrapper {
+  display: flex !important;
+  flex-wrap: wrap !important;
 }
 
 .table tbody tr:nth-of-type(odd) {
@@ -20047,23 +20074,6 @@ a:hover {
   height: 45px;
   position: fixed;
   z-index: 2;
-}
-
-.navbar-main {
-  background-color: #34495e;
-}
-
-.navbar-main a {
-  color: white;
-}
-
-.navbar-main .dropdown-menu {
-  background-color: #41b883;
-}
-
-.navbar-main .dropdown-menu .dropdown-item:hover {
-  color: white;
-  background-color: rgba(69, 199, 143, 0.9);
 }
 
 /***** Sidebar *****/
@@ -20196,5 +20206,117 @@ section {
   margin: 15px 0;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+/**** Themes ****/
+
+.btn-themes {
+  margin: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.2s;
+}
+
+.btn-themes:hover {
+  border: 1px solid white;
+}
+
+.theme-default .navbar-main {
+  background-color: #34495e;
+}
+
+.theme-default .navbar-main a {
+  color: white;
+}
+
+.theme-default .navbar-main .dropdown-menu {
+  color: black;
+}
+
+.theme-default .navbar-main .dropdown-menu .dropdown-item:hover {
+  background-color: rgba(69, 199, 143, 0.9);
+}
+
+.theme-default .sidebar-main {
+  background-color: #41b883;
+}
+
+.theme-default .btn-themes {
+  background-color: #41b883;
+}
+
+.theme-green .navbar-main {
+  background-color: #29323c;
+}
+
+.theme-green .navbar-main a {
+  color: white;
+}
+
+.theme-green .navbar-main .dropdown-menu {
+  color: black;
+}
+
+.theme-green .navbar-main .dropdown-menu .dropdown-item:hover {
+  background-color: #0ba360;
+}
+
+.theme-green .sidebar-main {
+  background-image: linear-gradient(to right, #0ba360, #3cba92);
+}
+
+.theme-green .btn-themes {
+  background-color: #3cba92;
+}
+
+.theme-royal .navbar-main {
+  background-color: #495057;
+}
+
+.theme-royal .navbar-main a {
+  color: white;
+}
+
+.theme-royal .navbar-main .dropdown-menu {
+  color: black;
+}
+
+.theme-royal .navbar-main .dropdown-menu .dropdown-item:hover {
+  background-color: #141e30;
+}
+
+.theme-royal .sidebar-main {
+  background-image: linear-gradient(to right, #141e30, #243b55);
+}
+
+.theme-royal .btn-themes {
+  background-color: #243b55;
+}
+
+.theme-purple-dark .navbar-main {
+  background-color: #495057;
+}
+
+.theme-purple-dark .navbar-main a {
+  color: white;
+}
+
+.theme-purple-dark .navbar-main .dropdown-menu {
+  color: black;
+}
+
+.theme-purple-dark .navbar-main .dropdown-menu .dropdown-item:hover {
+  color: white;
+  background-color: #2b5876;
+}
+
+.theme-purple-dark .sidebar-main {
+  background-image: linear-gradient(to right, #2b5876, #4e4376);
+}
+
+.theme-purple-dark .btn-themes {
+  background-color: #4e4376;
 }
 

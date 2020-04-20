@@ -1,0 +1,133 @@
+/**** Themes ****/
+
+.btn-themes {
+  margin: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.2s;
+  &:hover {
+    border: 1px solid white;
+  }
+}
+
+//***** Theme Default *****//
+.theme-default {
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main {
+    background-color: $main-color;
+  }
+
+
+  .btn-themes {
+    background-color: $main-color;
+  }
+}
+
+//***** Theme Green *****//
+.theme-green {
+
+  $main-color: #3cba92;
+  $main-color-hover: #0ba360;
+  $secondary-color: #29323c;
+
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main {
+    background-image: linear-gradient(to right, $main-color-hover, $main-color);
+  }
+
+  .btn-themes {
+    background-color: $main-color;
+  }
+
+
+}
+
+
+//***** Theme Royal *****//
+.theme-royal {
+  $main-color: #243b55;
+  $main-color-hover: #141e30;
+  $secondary-color: #495057;
+
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+  .sidebar-main {
+    background-image: linear-gradient(to right, $main-color-hover, $main-color);
+  }
+
+  .btn-themes {
+    background-color: $main-color;
+  }
+}
+
+//***** Theme Blue *****//
+.theme-purple-dark {
+  $main-color: #4e4376;
+  $main-color-hover: #2b5876;
+  $secondary-color: #495057;
+
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          color: white;
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+  .sidebar-main {
+    background-image: linear-gradient(to right, $main-color-hover, $main-color);
+  }
+
+  .btn-themes {
+    background-color: $main-color;
+  }
+}

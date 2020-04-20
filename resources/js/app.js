@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 require('./bootstrap');
 import Vue from 'vue';
 import store from './store/store.js';
@@ -41,6 +42,7 @@ Vue.component('json-input', require('./components/inputs/JsonInput.vue').default
 Vue.component('parent-select-input', require('./components/inputs/ParentSelectInput.vue').default);
 Vue.component('derived-select-input', require('./components/inputs/DerivedSelectInput.vue').default);
 Vue.component('page', require('./components/page/Page.vue').default);
+Vue.component('theme-manager', require('./components/themeManager/themeManager.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -48,8 +50,19 @@ Vue.component('page', require('./components/page/Page.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import EventBus from "./eventBus";
 const app = new Vue({
     el: '#app',
-    store
+    store,
+    props: {
+        currentTheme: {
+          type: String
+        }
+    },
+    created() {
+      EventBus.$on('changeTheme', (data) => {
+          this.currentTheme = data;
+      })
+    }
 });
 

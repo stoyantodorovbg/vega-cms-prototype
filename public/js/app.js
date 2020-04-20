@@ -1827,6 +1827,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DateInput',
   props: {
@@ -1970,16 +1977,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Filters */ "./resources/js/components/filters/Filters.vue");
-var _components$name$prop;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 //
 //
 //
@@ -2018,7 +2015,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = (_components$name$prop = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Filters: _Filters__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2036,58 +2033,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
-      filters: []
+      editing: false
     };
   },
   computed: {
     filters: {
       get: function get() {
         var filters = [];
-
-        var _iterator = _createForOfIteratorHelper(this.fields),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var field = _step.value;
-            filters.push({
-              name: field.name,
-              visibility: true
-            });
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-
+        this.fields.forEach(function (field) {
+          filters.push({
+            name: field.name,
+            visibility: true
+          });
+        });
         return filters;
       }
     }
+  },
+  methods: {
+    checkVisibility: function checkVisibility(fieldName, fieldVisibility) {
+      fieldVisibility = !fieldVisibility;
+      this.changeFilterVisibility(fieldName, fieldVisibility);
+    },
+    getButtonValue: function getButtonValue() {
+      return this.editing ? 'Menage filters - hide menu' : 'Menage filters - show menu';
+    },
+    changeEditing: function changeEditing() {
+      this.editing = !this.editing;
+    },
+    changeFilterVisibility: function changeFilterVisibility(fieldName, fieldVisibility) {
+      this.filters.map(function (obj) {
+        if (obj.name === fieldName) {
+          obj.visibility = fieldVisibility;
+        }
+      });
+    }
   }
-}, _defineProperty(_components$name$prop, "data", function data() {
-  return {
-    editing: false
-  };
-}), _defineProperty(_components$name$prop, "methods", {
-  checkVisibility: function checkVisibility(fieldName, fieldVisibility) {
-    fieldVisibility = !fieldVisibility;
-    this.changeFilterVisibility(fieldName, fieldVisibility);
-  },
-  getButtonValue: function getButtonValue() {
-    return this.editing ? 'Menage filters - hide menu' : 'Menage filters - show menu';
-  },
-  changeEditing: function changeEditing() {
-    this.editing = !this.editing;
-  },
-  changeFilterVisibility: function changeFilterVisibility(fieldName, fieldVisibility) {
-    this.filters.map(function (obj) {
-      if (obj.name === fieldName) {
-        obj.visibility = fieldVisibility;
-      }
-    });
-  }
-}), _components$name$prop);
+});
 
 /***/ }),
 
@@ -80737,65 +80719,69 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("label", [_vm._v(_vm._s(_vm.name) + " from")]),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.greaterThenInputValue,
-          expression: "greaterThenInputValue"
-        }
-      ],
-      staticClass: "form-control",
-      attrs: { type: "date" },
-      domProps: { value: _vm.greaterThenInputValue },
-      on: {
-        change: function($event) {
-          return _vm.changeInput(
-            _vm.name,
-            "greaterThen",
-            "greaterThenInputValue"
-          )
-        },
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.greaterThenInputValue = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("label", [_vm._v(_vm._s(_vm.name) + " to")]),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.lessThenInputValue,
-          expression: "lessThenInputValue"
-        }
-      ],
-      staticClass: "form-control",
-      attrs: { type: "date" },
-      domProps: { value: _vm.lessThenInputValue },
-      on: {
-        change: function($event) {
-          return _vm.changeInput(_vm.name, "lessThen", "lessThenInputValue")
-        },
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.lessThenInputValue = $event.target.value
-        }
-      }
-    })
-  ])
+  return _c(
+    "div",
+    [
+      _c("label", [_vm._v(_vm._s(_vm.name))]),
+      _vm._v(" "),
+      _c(
+        "b-input-group",
+        { attrs: { size: "lg" } },
+        [
+          _c("b-form-input", {
+            attrs: { type: "date" },
+            on: {
+              change: function($event) {
+                return _vm.changeInput(
+                  _vm.name,
+                  "greaterThen",
+                  "greaterThenInputValue"
+                )
+              }
+            },
+            model: {
+              value: _vm.greaterThenInputValue,
+              callback: function($$v) {
+                _vm.greaterThenInputValue = $$v
+              },
+              expression: "greaterThenInputValue"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("label", [_vm._v(_vm._s(_vm.name))]),
+      _vm._v(" "),
+      _c(
+        "b-input-group",
+        { attrs: { size: "lg" } },
+        [
+          _c("b-form-input", {
+            attrs: { type: "date" },
+            on: {
+              change: function($event) {
+                return _vm.changeInput(
+                  _vm.name,
+                  "lessThen",
+                  "lessThenInputValue"
+                )
+              }
+            },
+            model: {
+              value: _vm.lessThenInputValue,
+              callback: function($$v) {
+                _vm.lessThenInputValue = $$v
+              },
+              expression: "lessThenInputValue"
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -56,35 +56,27 @@
                 },
             },
         },
-
-        data() {
-            return {
-                filters: []
-            }
-        },
-
-        computed: {
+       data() {
+         return {
+           editing: false,
+         }
+       },
+      computed: {
             filters: {
                 get: function() {
-                    let filters = [];
-                    for(let field of this.fields) {
-                        filters.push({
-                            name: field.name,
-                            visibility: true
-                        });
-                    }
+                     let filters = [];
+
+                      this.fields.forEach((field) => {
+                            filters.push({
+                              name: field.name,
+                              visibility: true
+                            });
+                      });
 
                     return filters;
                 },
             },
         },
-
-        data() {
-            return {
-                editing: false,
-            }
-        },
-
         methods: {
             checkVisibility(fieldName, fieldVisibility) {
                 fieldVisibility = !fieldVisibility;

@@ -19962,6 +19962,10 @@ a:hover {
   background-color: #41b883;
 }
 
+.sidebar-main {
+  background-image: linear-gradient(to top, #0ba360 0%, #41b883 100%) !important;
+}
+
 .card,
 .section-filters,
 .section-grid,
@@ -19981,6 +19985,10 @@ a:hover {
   color: white;
   background-color: #34495e;
   border-color: #34495e;
+}
+
+.table tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 .icon:before {
@@ -20062,7 +20070,6 @@ a:hover {
 
 .admin-side-nav {
   padding: 15px;
-  background: #41b883;
   height: auto;
 }
 
@@ -20089,7 +20096,7 @@ a:hover {
 }
 
 .admin-side-nav .nav-item:hover {
-  background-color: #34495e;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .admin-side-nav .nav-item a {

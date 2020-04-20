@@ -25,7 +25,7 @@
     <main class="container-fluid admin-content-wrapper">
         <div class="row">
 
-            <div class="col-md-12 col-lg-2 bg-color-main">
+            <div class="col-md-12 col-lg-2 sidebar-main">
                 <dynamic-menu :menu_id="1"></dynamic-menu>
             </div>
 

@@ -21,18 +21,20 @@
 </head>
 <body>
 <div id="app" data-locale="{{ app()->getLocale() }}">
-    @include('front.partials.nav')
-    <main class="container-fluid admin-content-wrapper">
-        <div class="row">
+    <main :class="currentTheme ? currentTheme : 'theme-default'">
+        @include('front.partials.nav')
+        <div class="container-fluid admin-content-wrapper">
+            <div class="row">
 
-            <div class="col-md-12 col-lg-2 bg-color-main">
-                <dynamic-menu :menu_id="1"></dynamic-menu>
-            </div>
+                <div class="col-md-12 col-lg-2 sidebar-main">
+                    <dynamic-menu :menu_id="1"></dynamic-menu>
+                </div>
 
 
-            <div class="col-md-12 col-lg-10">
-                <div class="admin-panel">
-                    @yield('content')
+                <div class="col-md-12 col-lg-10">
+                    <div class="admin-panel">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
         </div>

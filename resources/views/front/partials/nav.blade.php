@@ -26,16 +26,19 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown dropdown-login">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            <i class="fas fa-user mr-2"></i>
+                            {{ Auth::user()->name }}
+                            <span class="caret"></span>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                               document.getElementById('logout-form').submit();">
+
+                                <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -43,6 +46,10 @@
                             </form>
                         </div>
                     </li>
+                    <template>
+                        <theme-manager></theme-manager>
+                    </template>
+
                 @endguest
             </ul>
         </div>

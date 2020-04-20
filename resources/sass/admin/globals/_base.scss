@@ -10,14 +10,3 @@ h1 {
   font-size: 2.4rem;
 }
 
-a {
-  color: $secondary-color;
-  transition: all .3s;
-  &:hover {
-    color: $main-color;
-  }
-}
-
-.bg-color-main {
-  background-color: $main-color;
-}

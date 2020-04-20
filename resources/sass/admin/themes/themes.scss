@@ -1,0 +1,389 @@
+/**** Themes ****/
+
+.btn-themes {
+  margin: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.2s;
+  &:hover {
+    border: 1px solid white;
+  }
+}
+
+//***** Theme Default *****//
+.theme-default {
+
+  $main-color: #41b883;
+  $main-color-hover: rgba(69, 199, 143, 0.9);
+  $secondary-color: #34495e;
+
+  // **** Base **** //
+
+  a {
+    color: $secondary-color;
+    transition: all .3s;
+    &:hover { color: $main-color; }
+  }
+
+
+  // **** Navigation
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main { background-color: $main-color; }
+
+  .bg-color-main {
+    background-color: $main-color;
+  }
+
+  // **** Buttons
+  .btn-themes { background-color: $main-color; }
+
+  .btn-main {
+    color: white;
+    background-color: $main-color;
+    border-color: $main-color;
+    &:hover {
+      color: white;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+
+  // **** Checkboxes
+  .custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: white;
+      border-color: $main-color;
+      background-color: $main-color;
+    }
+    .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+      border-color: $main-color;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before {
+      box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+    }
+
+    .custom-control-label {
+      &:before,
+      &:after {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}
+
+//***** Theme Green *****//
+.theme-green {
+
+  $main-color: #3cba92;
+  $main-color-hover: #0ba360;
+  $secondary-color: #3b4a5a;
+
+  // **** Base
+  a {
+    color: $secondary-color;
+    transition: all .3s;
+    &:hover { color: $main-color; }
+  }
+
+
+  // **** Navigation
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main { background-image: linear-gradient(to top, $main-color-hover 0%, $main-color 100%) }
+
+  .bg-color-main {
+    background-color: $main-color;
+  }
+
+  // **** Buttons
+  .btn-themes { background-color: $main-color; }
+
+  .btn-main {
+    color: white;
+    background-color: $main-color;
+    border-color: $main-color;
+    &:hover {
+      color: white;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+
+  // **** Checkboxes
+  .custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: white;
+      border-color: $main-color;
+      background-color: $main-color;
+    }
+    .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+      border-color: $main-color;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before {
+      box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+    }
+
+    .custom-control-label {
+      &:before,
+      &:after {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}
+
+
+//***** Theme Royal *****//
+.theme-royal {
+  $main-color: #243b55;
+  $main-color-hover: #141e30;
+  $secondary-color: #495057;
+
+  // **** Base
+  a {
+    color: $secondary-color;
+    transition: all .3s;
+    &:hover { color: $main-color; }
+  }
+
+
+  // **** Navigation
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main { background-image: linear-gradient(to top, $main-color-hover 0%, $main-color 100%) }
+
+  .bg-color-main {
+    background-color: $main-color;
+  }
+
+  // **** Buttons
+  .btn-themes { background-color: $main-color; }
+
+  .btn-main {
+    color: white;
+    background-color: $main-color;
+    border-color: $main-color;
+    &:hover {
+      color: white;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+
+  // **** Checkboxes
+  .custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: white;
+      border-color: $main-color;
+      background-color: $main-color;
+    }
+    .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+      border-color: $main-color;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before {
+      box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+    }
+
+    .custom-control-label {
+      &:before,
+      &:after {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}
+
+//***** Theme Blue *****//
+.theme-purple-dark {
+  $main-color: #4e4376;
+  $main-color-hover: #2b5876;
+  $secondary-color: #495057;
+
+  // **** Base
+  a {
+    color: $secondary-color;
+    transition: all .3s;
+    &:hover { color: $main-color; }
+  }
+
+
+  // **** Navigation
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main { background-image: linear-gradient(to top, $main-color-hover 0%, $main-color 100%) }
+
+  .bg-color-main {
+    background-color: $main-color;
+  }
+
+  // **** Buttons
+  .btn-themes { background-color: $main-color; }
+
+  .btn-main {
+    color: white;
+    background-color: $main-color;
+    border-color: $main-color;
+    &:hover {
+      color: white;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+
+  // **** Checkboxes
+  .custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: white;
+      border-color: $main-color;
+      background-color: $main-color;
+    }
+    .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+      border-color: $main-color;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before {
+      box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+    }
+
+    .custom-control-label {
+      &:before,
+      &:after {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}
+
+
+//***** Theme Pink *****//
+.theme-pink {
+  $main-color: #c471f5;
+  $main-color-hover: #fa71cd;
+
+  $secondary-color: #8a56b1;
+
+  // **** Base
+  a {
+    color: $secondary-color;
+    transition: all .3s;
+    &:hover { color: $main-color; }
+  }
+
+
+  // **** Navigation
+  .navbar-main {
+    background-color: $secondary-color;
+    a {
+      color: white;
+    }
+    .dropdown-menu {
+      color: black;
+      .dropdown-item {
+        &:hover {
+          background-color: $main-color-hover;
+        }
+      }
+    }
+  }
+
+  .sidebar-main { background-image: linear-gradient(to top, $main-color-hover 0%, $main-color 100%) }
+
+  .bg-color-main {
+    background-color: $main-color;
+  }
+
+  // **** Buttons
+  .btn-themes { background-color: $main-color; }
+
+  .btn-main {
+    color: white;
+    background-color: $main-color;
+    border-color: $main-color;
+    &:hover {
+      color: white;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+
+  // **** Checkboxes
+  .custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: white;
+      border-color: $main-color;
+      background-color: $main-color;
+    }
+    .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+      border-color: $main-color;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before {
+      box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+    }
+
+    .custom-control-label {
+      &:before,
+      &:after {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}

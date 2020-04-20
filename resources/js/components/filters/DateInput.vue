@@ -1,17 +1,24 @@
 <template>
     <div>
-        <label>{{ name }} from</label>
-        <input @change="changeInput(name, 'greaterThen', 'greaterThenInputValue')"
-               v-model="greaterThenInputValue"
-               type="date"
-               class="form-control"
-        >
-        <label>{{ name }} to</label>
-        <input @change="changeInput(name, 'lessThen', 'lessThenInputValue')"
-               v-model="lessThenInputValue"
-               type="date"
-               class="form-control">
+        <label>{{ name }}</label>
+        <b-input-group size="lg">
+            <b-form-input
+                    @change="changeInput(name, 'greaterThen', 'greaterThenInputValue')"
+                    v-model="greaterThenInputValue"
+                    type="date"
+            ></b-form-input>
+        </b-input-group>
+
+        <label>{{ name }}</label>
+        <b-input-group size="lg">
+            <b-form-input
+                    @change="changeInput(name, 'lessThen', 'lessThenInputValue')"
+                    v-model="lessThenInputValue"
+                    type="date"
+            ></b-form-input>
+        </b-input-group>
     </div>
+
 </template>
 
 <script>

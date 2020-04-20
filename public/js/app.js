@@ -3607,6 +3607,11 @@ __webpack_require__.r(__webpack_exports__);
         slug: 'theme-purple-dark',
         name: 'Purple Dark',
         color: '#4e4376'
+      }, {
+        id: 2,
+        slug: 'theme-pink',
+        name: 'Pink',
+        color: '#c471f5'
       }]
     };
   },
@@ -96270,7 +96275,11 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
     _eventBus__WEBPACK_IMPORTED_MODULE_5__["default"].$on('changeTheme', function (data) {
       _this.currentTheme = data;
+      localStorage.setItem('Theme', _this.currentTheme);
     });
+  },
+  mounted: function mounted() {
+    this.currentTheme = localStorage.getItem('Theme');
   }
 });
 

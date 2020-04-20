@@ -49,6 +49,12 @@
             name: 'Purple Dark',
             color: '#4e4376'
           },
+          {
+            id: 2,
+            slug: 'theme-pink',
+            name: 'Pink',
+            color: '#c471f5'
+          },
         ]
       }
     },

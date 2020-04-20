@@ -9,6 +9,8 @@
 .btn {
   font-size: 1.4rem;
   margin: 10px 0;
+  padding: 5px 15px;
+  border-radius: 15px;
 }
 
 
@@ -27,27 +29,6 @@
 .form-check {
   display: flex;
   flex-direction: column;
-}
-.custom-checkbox {
-  .custom-control-input:checked ~ .custom-control-label::before {
-    color: white;
-    border-color: $main-color;
-    background-color: $main-color;
-  }
-  .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-    border-color: $main-color;
-  }
-  .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
-  }
-
-  .custom-control-label {
-    &:before,
-    &:after {
-      width: 2rem;
-      height: 2rem;
-    }
-  }
 }
 
 /******** Custom Forms ********/

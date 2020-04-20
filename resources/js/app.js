@@ -62,7 +62,11 @@ const app = new Vue({
     created() {
       EventBus.$on('changeTheme', (data) => {
           this.currentTheme = data;
+          localStorage.setItem('Theme', this.currentTheme);
       })
+    },
+    mounted() {
+        this.currentTheme = localStorage.getItem('Theme');
     }
 });
 

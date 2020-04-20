@@ -19949,19 +19949,6 @@ h1 {
   font-size: 2.4rem;
 }
 
-a {
-  color: #34495e;
-  transition: all 0.3s;
-}
-
-a:hover {
-  color: #41b883;
-}
-
-.bg-color-main {
-  background-color: #41b883;
-}
-
 .card,
 .section-filters,
 .section-grid,
@@ -19969,26 +19956,25 @@ a:hover {
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
   border-width: 0;
   transition: all 0.2s;
-}
-
-.btn-main {
-  color: white;
-  background-color: #41b883;
-  border-color: #41b883;
-}
-
-.btn-main:hover {
-  color: white;
-  background-color: #34495e;
-  border-color: #34495e;
+  border-radius: 15px;
 }
 
 .dropdown {
   font-size: 1.4rem;
 }
 
+.dropdown .dropdown-menu {
+  border-radius: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 .dropdown-login {
   margin-right: 10px;
+}
+
+.dropdown-login .dropdown-menu {
+  font-size: 1.4rem;
 }
 
 .dropdown-login .dropdown-menu .dropdown-item {
@@ -20144,6 +20130,8 @@ a:hover {
 .btn {
   font-size: 1.4rem;
   margin: 10px 0;
+  padding: 5px 15px;
+  border-radius: 15px;
 }
 
 /***** Checkboxes ******/
@@ -20164,26 +20152,6 @@ a:hover {
 .form-check {
   display: flex;
   flex-direction: column;
-}
-
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  color: white;
-  border-color: #41b883;
-  background-color: #41b883;
-}
-
-.custom-checkbox .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-  border-color: #41b883;
-}
-
-.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
-}
-
-.custom-checkbox .custom-control-label:before,
-.custom-checkbox .custom-control-label:after {
-  width: 2rem;
-  height: 2rem;
 }
 
 /******** Custom Forms ********/
@@ -20223,6 +20191,15 @@ section {
   border: 1px solid white;
 }
 
+.theme-default a {
+  color: #34495e;
+  transition: all 0.3s;
+}
+
+.theme-default a:hover {
+  color: #41b883;
+}
+
 .theme-default .navbar-main {
   background-color: #34495e;
 }
@@ -20243,12 +20220,57 @@ section {
   background-color: #41b883;
 }
 
+.theme-default .bg-color-main {
+  background-color: #41b883;
+}
+
 .theme-default .btn-themes {
   background-color: #41b883;
 }
 
+.theme-default .btn-main {
+  color: white;
+  background-color: #41b883;
+  border-color: #41b883;
+}
+
+.theme-default .btn-main:hover {
+  color: white;
+  background-color: #34495e;
+  border-color: #34495e;
+}
+
+.theme-default .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  color: white;
+  border-color: #41b883;
+  background-color: #41b883;
+}
+
+.theme-default .custom-checkbox .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #41b883;
+}
+
+.theme-default .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+}
+
+.theme-default .custom-checkbox .custom-control-label:before,
+.theme-default .custom-checkbox .custom-control-label:after {
+  width: 2rem;
+  height: 2rem;
+}
+
+.theme-green a {
+  color: #3b4a5a;
+  transition: all 0.3s;
+}
+
+.theme-green a:hover {
+  color: #3cba92;
+}
+
 .theme-green .navbar-main {
-  background-color: #29323c;
+  background-color: #3b4a5a;
 }
 
 .theme-green .navbar-main a {
@@ -20264,11 +20286,56 @@ section {
 }
 
 .theme-green .sidebar-main {
-  background-image: linear-gradient(to right, #0ba360, #3cba92);
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+}
+
+.theme-green .bg-color-main {
+  background-color: #3cba92;
 }
 
 .theme-green .btn-themes {
   background-color: #3cba92;
+}
+
+.theme-green .btn-main {
+  color: white;
+  background-color: #3cba92;
+  border-color: #3cba92;
+}
+
+.theme-green .btn-main:hover {
+  color: white;
+  background-color: #3b4a5a;
+  border-color: #3b4a5a;
+}
+
+.theme-green .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  color: white;
+  border-color: #3cba92;
+  background-color: #3cba92;
+}
+
+.theme-green .custom-checkbox .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #3cba92;
+}
+
+.theme-green .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+}
+
+.theme-green .custom-checkbox .custom-control-label:before,
+.theme-green .custom-checkbox .custom-control-label:after {
+  width: 2rem;
+  height: 2rem;
+}
+
+.theme-royal a {
+  color: #495057;
+  transition: all 0.3s;
+}
+
+.theme-royal a:hover {
+  color: #243b55;
 }
 
 .theme-royal .navbar-main {
@@ -20288,11 +20355,56 @@ section {
 }
 
 .theme-royal .sidebar-main {
-  background-image: linear-gradient(to right, #141e30, #243b55);
+  background-image: linear-gradient(to top, #141e30 0%, #243b55 100%);
+}
+
+.theme-royal .bg-color-main {
+  background-color: #243b55;
 }
 
 .theme-royal .btn-themes {
   background-color: #243b55;
+}
+
+.theme-royal .btn-main {
+  color: white;
+  background-color: #243b55;
+  border-color: #243b55;
+}
+
+.theme-royal .btn-main:hover {
+  color: white;
+  background-color: #495057;
+  border-color: #495057;
+}
+
+.theme-royal .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  color: white;
+  border-color: #243b55;
+  background-color: #243b55;
+}
+
+.theme-royal .custom-checkbox .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #243b55;
+}
+
+.theme-royal .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+}
+
+.theme-royal .custom-checkbox .custom-control-label:before,
+.theme-royal .custom-checkbox .custom-control-label:after {
+  width: 2rem;
+  height: 2rem;
+}
+
+.theme-purple-dark a {
+  color: #495057;
+  transition: all 0.3s;
+}
+
+.theme-purple-dark a:hover {
+  color: #4e4376;
 }
 
 .theme-purple-dark .navbar-main {
@@ -20308,15 +20420,119 @@ section {
 }
 
 .theme-purple-dark .navbar-main .dropdown-menu .dropdown-item:hover {
-  color: white;
   background-color: #2b5876;
 }
 
 .theme-purple-dark .sidebar-main {
-  background-image: linear-gradient(to right, #2b5876, #4e4376);
+  background-image: linear-gradient(to top, #2b5876 0%, #4e4376 100%);
+}
+
+.theme-purple-dark .bg-color-main {
+  background-color: #4e4376;
 }
 
 .theme-purple-dark .btn-themes {
   background-color: #4e4376;
+}
+
+.theme-purple-dark .btn-main {
+  color: white;
+  background-color: #4e4376;
+  border-color: #4e4376;
+}
+
+.theme-purple-dark .btn-main:hover {
+  color: white;
+  background-color: #495057;
+  border-color: #495057;
+}
+
+.theme-purple-dark .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  color: white;
+  border-color: #4e4376;
+  background-color: #4e4376;
+}
+
+.theme-purple-dark .custom-checkbox .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #4e4376;
+}
+
+.theme-purple-dark .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+}
+
+.theme-purple-dark .custom-checkbox .custom-control-label:before,
+.theme-purple-dark .custom-checkbox .custom-control-label:after {
+  width: 2rem;
+  height: 2rem;
+}
+
+.theme-pink a {
+  color: #8a56b1;
+  transition: all 0.3s;
+}
+
+.theme-pink a:hover {
+  color: #c471f5;
+}
+
+.theme-pink .navbar-main {
+  background-color: #8a56b1;
+}
+
+.theme-pink .navbar-main a {
+  color: white;
+}
+
+.theme-pink .navbar-main .dropdown-menu {
+  color: black;
+}
+
+.theme-pink .navbar-main .dropdown-menu .dropdown-item:hover {
+  background-color: #fa71cd;
+}
+
+.theme-pink .sidebar-main {
+  background-image: linear-gradient(to top, #fa71cd 0%, #c471f5 100%);
+}
+
+.theme-pink .bg-color-main {
+  background-color: #c471f5;
+}
+
+.theme-pink .btn-themes {
+  background-color: #c471f5;
+}
+
+.theme-pink .btn-main {
+  color: white;
+  background-color: #c471f5;
+  border-color: #c471f5;
+}
+
+.theme-pink .btn-main:hover {
+  color: white;
+  background-color: #8a56b1;
+  border-color: #8a56b1;
+}
+
+.theme-pink .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  color: white;
+  border-color: #c471f5;
+  background-color: #c471f5;
+}
+
+.theme-pink .custom-checkbox .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #c471f5;
+}
+
+.theme-pink .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(77, 192, 181, 0.25);
+}
+
+.theme-pink .custom-checkbox .custom-control-label:before,
+.theme-pink .custom-checkbox .custom-control-label:after {
+  width: 2rem;
+  height: 2rem;
 }
 

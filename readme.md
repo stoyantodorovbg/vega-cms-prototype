@@ -1,4 +1,4 @@
-Vega CMS 
+<a href="https://vegacms.com/">VEGA CMS PHP Package</a>
 
 This project is build on top of Laravel. 
 It provides usable these functionalities:
@@ -33,4 +33,4 @@ Commands:
     php artisan attach:route-to-group {name} {title}
     
  - Remove route accessibility for the group members:
-    php artisan detach:route-from-group {name} {title}      
+    php artisan detach:route-from-group {name} {title} 
